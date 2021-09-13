@@ -2,20 +2,21 @@ import React from 'react';
 import { StyleSheet, Text, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { colors, gradient } from '../constants/styles';
+import { gradient } from '../constants/styles';
 
 import ContainerInput from '../components/ContainerInput.component';
+import PrimaryButton from '../components/PrimaryButton.component';
 
-const LoginScreen = () => {
+export default () => {
   return (
     <LinearGradient
       style={styles.container}
-      colors={[gradient.get('fade-green').start, gradient.get('fade-green').end]}
+      colors={[gradient.get('fade-bg').start, gradient.get('fade-bg').end]}
       end={{ x: 0, y: 0.3 }}
     >
       <Image style={styles.art} source={require('../assets/images/login-art.png')} />
       <ContainerInput height="70%">
-        <Text style={styles.text}>Tela de login</Text>
+        <PrimaryButton title={'Entrar'} btnFunction={teste} />
       </ContainerInput>
     </LinearGradient>
   );
@@ -27,9 +28,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  text: {
-    color: colors.get('black-dark'),
-  },
   art: {
     width: 200,
     height: 200,
@@ -38,4 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+//--------------------------------------------------------------------------------------------
+function teste() {
+  console.warn('teste');
+}

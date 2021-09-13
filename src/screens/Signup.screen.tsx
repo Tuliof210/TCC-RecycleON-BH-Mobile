@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 
 import { colors } from '../constants/styles';
 
-const SignupScreen = () => {
+export default () => {
   return (
     <Fragment>
       <Text style={styles.text}>Tela de signup</Text>
@@ -16,5 +16,3 @@ const styles = StyleSheet.create({
     color: colors.get('black-light'),
   },
 });
-
-export default SignupScreen;

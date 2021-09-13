@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { colors } from '../constants/styles';
 
-const ContainerInput = ({ height, children }: { height: string; children: React.ReactNode }) => {
+export default ({ height, children }: { height: string; children: React.ReactNode }) => {
   return <View style={{ ...styles.container, ...styles.containerShadow, height: height }}>{children}</View>;
 };
 
@@ -28,5 +28,3 @@ const styles = StyleSheet.create({
     elevation: 24,
   },
 });
-
-export default ContainerInput;
