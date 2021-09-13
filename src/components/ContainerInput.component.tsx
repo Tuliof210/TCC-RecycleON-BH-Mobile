@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '../constants/styles';
 
 const ContainerInput = ({ height, children }: { height: string; children: React.ReactNode }) => {
-  return <View style={{ ...styles.container, height: height }}>{children}</View>;
+  return <View style={{ ...styles.container, ...styles.containerShadow, height: height }}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -16,6 +16,16 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: colors.get('white'),
+  },
+  containerShadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
   },
 });
 
