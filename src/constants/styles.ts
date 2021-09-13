@@ -5,6 +5,4 @@ export const colors = new Map<string, string>([
   ['white', '#fff'],
 ]);
 
-export const gradient = new Map<string, any>([
-  ['fade-green', { start: '#E6FFD7', end: '#87D459' }],
-]);
+export const gradient = new Map<string, any>([['fade-green', { start: '#E6FFD7', end: '#87D459' }]]);

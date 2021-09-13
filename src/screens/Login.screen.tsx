@@ -16,7 +16,10 @@ const LoginScreen = () => {
       ]}
       end={{ x: 0, y: 0.3 }}
     >
-      <Image style={styles.art} source={require('../assets/images/bro.png')} />
+      <Image
+        style={styles.art}
+        source={require('../assets/images/login-art.png')}
+      />
       <ContainerInput height="70%">
         <Text style={styles.text}>Tela de login</Text>
       </ContainerInput>

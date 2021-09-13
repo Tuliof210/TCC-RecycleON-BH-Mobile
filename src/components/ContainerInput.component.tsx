@@ -17,13 +17,13 @@ const ContainerInput = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.get('white'),
+    width: '100%',
     justifyContent: 'center',
     position: 'relative',
     bottom: 0,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    width: '100%',
+    backgroundColor: colors.get('white'),
   },
 });
 
