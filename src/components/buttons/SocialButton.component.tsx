@@ -17,10 +17,10 @@ export default ({
   return (
     <LinearGradient
       style={[styles.btnContainer, styles.containerShadow]}
-      colors={[gradient.get('fade-green-btn').start, gradient.get('fade-green-btn').end]}
+      colors={[gradient.get('fade-gray-btn').start, gradient.get('fade-gray-btn').end]}
       end={{ x: 0.8, y: 0 }}
     >
-      <Text style={[{ width: size.width, height: size.height }, styles.textStyle]} onPress={btnFunction}>
+      <Text style={[styles.textStyle, { width: size.width, height: size.height }]} onPress={btnFunction}>
         {children}
       </Text>
     </LinearGradient>
@@ -33,13 +33,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 7,
+
+    borderRadius: 10,
   },
   textStyle: {
+    width: '100%',
     textAlign: 'center',
     textAlignVertical: 'center',
     fontFamily: 'Ubuntu-Bold',
-    color: colors.get('white-font'),
+    color: colors.get('gray-font-dark'),
   },
   containerShadow: {
     shadowColor: '#000',

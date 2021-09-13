@@ -1,14 +1,16 @@
 export const colors = new Map<string, string>([
-  ['gray-line', '#CCCCCC'],
-  ['gray-font', '#606060'],
   ['black-medium', '#263238'],
+  ['gray-font', '#606060'],
+  ['gray-font-dark', '#2E3A59'],
+  ['gray-line', '#CCCCCC'],
   ['green-dark', '#489C17'],
   ['green-light', '#87D459'],
-  ['font-white', '#FEFEFE'],
   ['white', '#FFFFFF'],
+  ['white-font', '#FEFEFE'],
 ]);
 
 export const gradient = new Map<string, any>([
-  ['fade-bg', { start: '#E6FFD7', end: colors.get('green-light') }],
-  ['fade-btn', { start: colors.get('green-dark'), end: colors.get('green-light') }],
+  ['fade-green-bg', { start: '#E6FFD7', end: colors.get('green-light') }],
+  ['fade-green-btn', { start: colors.get('green-dark'), end: colors.get('green-light') }],
+  ['fade-gray-btn', { start: '#F2F2F2', end: colors.get('white') }],
 ]);
