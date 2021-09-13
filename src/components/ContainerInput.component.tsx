@@ -3,16 +3,8 @@ import { StyleSheet, View } from 'react-native';
 
 import { colors } from '../constants/styles';
 
-const ContainerInput = ({
-  height,
-  children,
-}: {
-  height: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <View style={{ ...styles.container, height: height }}>{children}</View>
-  );
+const ContainerInput = ({ height, children }: { height: string; children: React.ReactNode }) => {
+  return <View style={{ ...styles.container, height: height }}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
