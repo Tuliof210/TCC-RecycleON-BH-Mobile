@@ -1,18 +1,18 @@
 import React from 'react';
 
-import { StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { colors, gradient } from '../constants/styles';
+import { colors, gradient } from '../../constants/styles';
 
 export default ({
-  title,
-  size,
   btnFunction,
+  size,
+  children,
 }: {
-  title: string;
-  size: { width: number | string; height: number | string };
   btnFunction: () => void;
+  size: { width: number | string; height: number | string };
+  children: React.ReactNode;
 }) => {
   return (
     <LinearGradient
@@ -21,7 +21,7 @@ export default ({
       end={{ x: 0.8, y: 0 }}
     >
       <Text style={styles.textStyle} onPress={btnFunction}>
-        {title}
+        {children}
       </Text>
     </LinearGradient>
   );

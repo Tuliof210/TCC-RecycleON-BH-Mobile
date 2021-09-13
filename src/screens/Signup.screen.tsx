@@ -13,6 +13,6 @@ export default () => {
 
 const styles = StyleSheet.create({
   text: {
-    color: colors.get('black-light'),
+    color: colors.get('black-medium'),
   },
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { colors } from '../constants/styles';
+import { colors } from '../../constants/styles';
 
 export default ({ height, children }: { height: string; children: React.ReactNode }) => {
   return <View style={{ ...styles.container, ...styles.containerShadow, height: height }}>{children}</View>;
@@ -10,8 +10,8 @@ export default ({ height, children }: { height: string; children: React.ReactNod
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    justifyContent: 'center',
-    paddingHorizontal: 40,
+    justifyContent: 'flex-start',
+    padding: 40,
     position: 'relative',
     bottom: 0,
     borderTopLeftRadius: 25,

@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { gradient } from '../constants/styles';
 
-import ContainerInput from '../components/ContainerInput.component';
-import PrimaryButton from '../components/PrimaryButton.component';
+import ContainerInput from '../components/layouts/ContainerInput.component';
+import PrimaryButton from '../components/buttons/PrimaryButton.component';
+import LineBreakComponent from '../components/common/LineBreak.component';
 
 export default () => {
   return (
@@ -16,9 +17,10 @@ export default () => {
     >
       <Image style={styles.art} source={require('../assets/images/login-art.png')} />
       <ContainerInput height="70%">
-        <View style={styles.loginRow}>
-          <PrimaryButton title={'Entrar'} size={{ width: '100%', height: 50 }} btnFunction={teste} />
-        </View>
+        <PrimaryButton size={{ width: '100%', height: 50 }} btnFunction={() => console.log('oi')}>
+          Entrar
+        </PrimaryButton>
+        <LineBreakComponent>Ou</LineBreakComponent>
       </ContainerInput>
     </LinearGradient>
   );
@@ -36,13 +38,4 @@ const styles = StyleSheet.create({
     position: 'relative',
     bottom: -18,
   },
-  loginRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
 });
-
-//--------------------------------------------------------------------------------------------
-function teste() {
-  console.warn('teste');
-}
