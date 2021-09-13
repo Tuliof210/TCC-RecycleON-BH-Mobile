@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Image } from 'react-native';
+import { StyleSheet, Text, Image, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { gradient } from '../constants/styles';
@@ -16,7 +16,9 @@ export default () => {
     >
       <Image style={styles.art} source={require('../assets/images/login-art.png')} />
       <ContainerInput height="70%">
-        <PrimaryButton title={'Entrar'} btnFunction={teste} />
+        <View style={styles.loginRow}>
+          <PrimaryButton title={'Entrar'} size={{ width: '100%', height: 50 }} btnFunction={teste} />
+        </View>
       </ContainerInput>
     </LinearGradient>
   );
@@ -33,6 +35,10 @@ const styles = StyleSheet.create({
     height: 200,
     position: 'relative',
     bottom: -18,
+  },
+  loginRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 
