@@ -6,22 +6,22 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { colors, gradient } from '../../constants/styles';
 
 export default ({
+  size,
   icon,
   btnFunction,
-  size,
 }: {
+  size: { width: number | string; marginVertical: number | string };
   icon: ImageProps;
   btnFunction: () => void;
-  size: { width: number | string; height: number | string };
 }) => {
   return (
-    <TouchableHighlight onPress={btnFunction}>
+    <TouchableHighlight onPress={btnFunction} style={{ width: size.width }}>
       <LinearGradient
-        style={[styles.btnContainer, styles.containerShadow]}
+        style={[styles.btnContainer, styles.btnBorder]}
         colors={[gradient.get('fade-gray-btn').start, gradient.get('fade-gray-btn').end]}
         end={{ x: 0.8, y: 0 }}
       >
-        <Image style={{ width: size.width, height: size.height }} source={icon} />
+        <Image style={[styles.iconSize, { marginVertical: size.marginVertical }]} source={icon} />
       </LinearGradient>
     </TouchableHighlight>
   );
@@ -33,18 +33,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-
-    borderRadius: 10,
   },
-  containerShadow: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
+  btnBorder: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.get('gray-border'),
+  },
+  iconSize: {
+    width: 35,
+    height: 35,
   },
 });

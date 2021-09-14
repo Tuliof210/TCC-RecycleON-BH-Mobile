@@ -24,13 +24,13 @@ export default () => {
         <LineBreak>Ou</LineBreak>
         <View style={styles.socialLogin}>
           <SocialButton
+            size={{ width: '44%', marginVertical: 10 }}
             icon={require('../assets/images/facebook.png')}
-            size={{ width: '43%', height: 60 }}
             btnFunction={() => console.log('facebook')}
           />
           <SocialButton
-            icon={require('../assets/images/facebook.png')}
-            size={{ width: '43%', height: 60 }}
+            size={{ width: '44%', marginVertical: 10 }}
+            icon={require('../assets/images/google.png')}
             btnFunction={() => console.log('google')}
           />
         </View>

@@ -7,6 +7,10 @@ import { useFonts } from '@use-expo/font';
 import LoginScreen from './src/screens/Login.screen';
 
 export default function App() {
+  if (__DEV__) {
+    require('react-devtools');
+  }
+
   const [isLoaded] = useFonts({
     'Ubuntu-Bold': require('./src/assets/fonts/Ubuntu-Bold.ttf'),
     'Ubuntu-BoldItalic': require('./src/assets/fonts/Ubuntu-BoldItalic.ttf'),
