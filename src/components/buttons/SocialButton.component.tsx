@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, Image, TouchableHighlight, ImageProps } from 'react-native';
+import { StyleSheet, Image, TouchableWithoutFeedback, ImageProps } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../../constants/styles';
@@ -10,20 +10,20 @@ export default ({
   icon,
   btnFunction,
 }: {
-  size: { width: number | string; marginVertical: number | string };
+  size: { width: number | string; height: number | string };
   icon: ImageProps;
   btnFunction: () => void;
 }) => {
   return (
-    <TouchableHighlight onPress={btnFunction} style={{ width: size.width }}>
+    <TouchableWithoutFeedback onPress={btnFunction}>
       <LinearGradient
-        style={[styles.btnContainer, styles.btnBorder]}
+        style={[styles.btnContainer, styles.btnBorder, { width: size.width, height: size.height }]}
         colors={[gradient.get('fade-gray-btn').start, gradient.get('fade-gray-btn').end]}
         end={{ x: 0.8, y: 0 }}
       >
-        <Image style={[styles.iconSize, { marginVertical: size.marginVertical }]} source={icon} />
+        <Image style={styles.iconSize} source={icon} />
       </LinearGradient>
-    </TouchableHighlight>
+    </TouchableWithoutFeedback>
   );
 };
 

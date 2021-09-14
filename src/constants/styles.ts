@@ -3,6 +3,7 @@ export const colors = new Map<string, string>([
   ['gray-border', '#E1E1E1'],
   ['gray-font', '#606060'],
   ['gray-font-dark', '#2E3A59'],
+  ['gray-font-light', '#999999'],
   ['gray-line', '#CCCCCC'],
   ['green-dark', '#489C17'],
   ['green-light', '#87D459'],
