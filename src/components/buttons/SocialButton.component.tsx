@@ -1,29 +1,29 @@
 import React from 'react';
 
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Image, TouchableHighlight, ImageProps } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../../constants/styles';
 
 export default ({
+  icon,
   btnFunction,
   size,
-  children,
 }: {
+  icon: ImageProps;
   btnFunction: () => void;
   size: { width: number | string; height: number | string };
-  children: React.ReactNode;
 }) => {
   return (
-    <LinearGradient
-      style={[styles.btnContainer, styles.containerShadow]}
-      colors={[gradient.get('fade-gray-btn').start, gradient.get('fade-gray-btn').end]}
-      end={{ x: 0.8, y: 0 }}
-    >
-      <Text style={[styles.textStyle, { width: size.width, height: size.height }]} onPress={btnFunction}>
-        {children}
-      </Text>
-    </LinearGradient>
+    <TouchableHighlight onPress={btnFunction}>
+      <LinearGradient
+        style={[styles.btnContainer, styles.containerShadow]}
+        colors={[gradient.get('fade-gray-btn').start, gradient.get('fade-gray-btn').end]}
+        end={{ x: 0.8, y: 0 }}
+      >
+        <Image style={{ width: size.width, height: size.height }} source={icon} />
+      </LinearGradient>
+    </TouchableHighlight>
   );
 };
 
@@ -35,13 +35,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     borderRadius: 10,
-  },
-  textStyle: {
-    width: '100%',
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontFamily: 'Ubuntu-Bold',
-    color: colors.get('gray-font-dark'),
   },
   containerShadow: {
     shadowColor: '#000',

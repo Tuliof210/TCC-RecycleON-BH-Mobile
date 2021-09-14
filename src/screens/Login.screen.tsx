@@ -23,12 +23,16 @@ export default () => {
         </PrimaryButton>
         <LineBreak>Ou</LineBreak>
         <View style={styles.socialLogin}>
-          <SocialButton size={{ width: '43%', height: 60 }} btnFunction={() => console.log('facebook')}>
-            <Image style={{ width: 50, height: 50 }} source={require('../assets/images/facebook.png')} />
-          </SocialButton>
-          <SocialButton size={{ width: '43%', height: 60 }} btnFunction={() => console.log('google')}>
-            google
-          </SocialButton>
+          <SocialButton
+            icon={require('../assets/images/facebook.png')}
+            size={{ width: '43%', height: 60 }}
+            btnFunction={() => console.log('facebook')}
+          />
+          <SocialButton
+            icon={require('../assets/images/facebook.png')}
+            size={{ width: '43%', height: 60 }}
+            btnFunction={() => console.log('google')}
+          />
         </View>
       </ContainerInput>
     </LinearGradient>
