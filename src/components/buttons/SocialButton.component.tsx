@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   btnBorder: {
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: colors.get('gray-border'),
   },
   iconSize: {
