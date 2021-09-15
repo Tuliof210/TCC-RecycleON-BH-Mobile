@@ -1,14 +1,15 @@
 import React from 'react';
 import { Alert, StyleSheet, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../constants/styles';
 
 import ContainerInputComponent from '../components/layouts/ContainerInput.component';
 import InputTextComponent from '../components/inputs/InputText.component';
+import LineBreakComponent from '../components/common/LineBreak.component';
 import PrimaryButtonComponent from '../components/buttons/PrimaryButton.component';
 import SocialButtonComponent from '../components/buttons/SocialButton.component';
-import LineBreakComponent from '../components/common/LineBreak.component';
 
 export default class LoginScreen extends React.Component {
   state: { email: string; password: string; hidePassword: boolean };
@@ -202,49 +203,83 @@ export default class LoginScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  redirectToSignup: {
+  containerLineBreak: {
     marginVertical: 30,
-    textAlign: 'center',
-    fontFamily: 'Ubuntu-Medium',
-    fontSize: 16,
-    color: colors.get('gray-font-light'),
   },
-  redirectToSignupHighlight: { fontFamily: 'Ubuntu-Bold', color: colors.get('green-dark') },
-  socialLoginButtons: { flexDirection: 'row', justifyContent: 'space-between' },
-  loginButton: { width: '100%', height: 50 },
-  toggleHidenPassword: { right: 10, bottom: 40, position: 'absolute' },
-  toggleHidenPasswordIcon: { width: 30, height: 30 },
-  forgotPassword: { flexDirection: 'row', justifyContent: 'flex-end', width: '100%' },
-  inputBoxesContainer: { marginBottom: 20 },
-  inputText: { width: '100%', height: 40 },
-
-  screen: { flex: 1, alignItems: 'center', justifyContent: 'flex-end' },
-  screenMainIcon: { width: 180, height: 200, resizeMode: 'contain', position: 'relative', bottom: -25 },
-
-  containerLineBreak: { marginVertical: 30 },
-
+  forgotPassword: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: '100%',
+  },
   forgotPasswordTxt: {
-    marginTop: 15,
-    marginRight: 5,
     fontSize: 13,
-    width: 200,
+    marginRight: 5,
+    marginTop: 15,
     textAlign: 'right',
+    width: 200,
   },
   inputBox: {
-    position: 'relative',
     marginBottom: 15,
+    position: 'relative',
+  },
+  inputBoxesContainer: {
+    marginBottom: 20,
   },
   inputLabel: {
-    fontSize: 12,
-    fontFamily: 'Ubuntu-Medium',
     color: colors.get('green-dark'),
-    marginLeft: 5,
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 12,
     marginBottom: 5,
+    marginLeft: 5,
+  },
+  inputText: {
+    height: 40,
+    width: '100%',
+  },
+  loginButton: {
+    height: 50,
+    width: '100%',
   },
   mainLabel: {
-    marginBottom: 30,
+    color: colors.get('green-dark'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 25,
+    marginBottom: 30,
+  },
+  redirectToSignup: {
+    color: colors.get('gray-font-light'),
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 16,
+    marginVertical: 30,
+    textAlign: 'center',
+  },
+  redirectToSignupHighlight: {
     color: colors.get('green-dark'),
+    fontFamily: 'Ubuntu-Bold',
+  },
+  screen: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  screenMainIcon: {
+    bottom: -25,
+    height: 200,
+    position: 'relative',
+    resizeMode: 'contain',
+    width: 180,
+  },
+  socialLoginButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  toggleHidenPassword: {
+    bottom: 40,
+    position: 'absolute',
+    right: 10,
+  },
+  toggleHidenPasswordIcon: {
+    height: 30,
+    width: 30,
   },
 });
