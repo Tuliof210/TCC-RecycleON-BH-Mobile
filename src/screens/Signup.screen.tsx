@@ -4,11 +4,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../constants/styles';
 
-import ContainerInputComponent from '../components/layouts/ContainerInputComponent.component';
-import InputTextComponent from '../components/inputs/InputTextComponent.component';
-import PrimaryButtonComponent from '../components/buttons/PrimaryButtonComponent.component';
-import SocialButtonComponent from '../components/buttons/SocialButtonComponent.component';
-import LineBreakComponent from '../components/common/LineBreakComponent.component';
+import ContainerInputComponent from '../components/layouts/ContainerInput.component';
+import InputTextComponent from '../components/inputs/InputText.component';
+import PrimaryButtonComponent from '../components/buttons/PrimaryButton.component';
+import SocialButtonComponent from '../components/buttons/SocialButton.component';
+import LineBreakComponent from '../components/common/LineBreak.component';
 
 export default class SignupScreen extends React.Component {
   state: { name: string; email: string; password: string; confirmPassword: string; hidePassword: boolean };
@@ -158,10 +158,7 @@ export default class SignupScreen extends React.Component {
                 />
               </View>
             </View>
-            <PrimaryButtonComponent size={{ width: '100%', height: 50 }} btnFunction={this.signup}>
-              Criar
-            </PrimaryButtonComponent>
-
+            <PrimaryButtonComponent size={{ width: '100%', height: 50 }} label="Criar" btnFunction={this.signup} />
             <Text style={styles.footerText}>
               Já possui uma conta?{' '}
               <Text onPress={this.login} style={styles.footerTextHighlight}>
