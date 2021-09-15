@@ -29,21 +29,18 @@ export default class LoginScreen extends React.Component {
     return (
       <ScrollView>
         <LinearGradient
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}
+          style={styles.screen}
           colors={[gradient.get('fade-green-bg').start, gradient.get('fade-green-bg').end]}
           end={{ x: 0, y: 0.3 }}
         >
-          <Image
-            style={{ width: 180, height: 200, resizeMode: 'contain', position: 'relative', bottom: -25 }}
-            source={require('../assets/images/login-art.png')}
-          />
+          <Image style={styles.screenMainIcon} source={require('../assets/images/login-art.png')} />
           <ContainerInputComponent height="75%">
             <Text style={styles.mainLabel}>Login</Text>
 
-            {this.renderInputBox()}
+            {this.renderInputBoxes()}
             {this.renderLoginButton()}
 
-            <View style={{ marginVertical: 30 }}>
+            <View style={styles.containerLineBreak}>
               <LineBreakComponent>Ou</LineBreakComponent>
             </View>
 
@@ -57,9 +54,9 @@ export default class LoginScreen extends React.Component {
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderInputBox(): JSX.Element {
+  renderInputBoxes(): JSX.Element {
     return (
-      <View style={{ marginBottom: 20 }}>
+      <View style={styles.inputBoxesContainer}>
         <View style={styles.inputBox}>
           <Text style={styles.inputLabel}>E-mail</Text>
           {this.renderInputEmail()}
@@ -78,7 +75,7 @@ export default class LoginScreen extends React.Component {
   renderInputEmail(): JSX.Element {
     return (
       <InputTextComponent
-        size={{ width: '100%', height: 40 }}
+        size={styles.inputText}
         placeholder={'Insira seu e-mail'}
         text={this.state.email}
         secureText={this.state.hidePassword}
@@ -92,7 +89,7 @@ export default class LoginScreen extends React.Component {
   renderInputPassword(): JSX.Element {
     return (
       <InputTextComponent
-        size={{ width: '100%', height: 40 }}
+        size={styles.inputText}
         placeholder={'Insira sua senha'}
         text={this.state.password}
         secureText={this.state.hidePassword}
@@ -105,7 +102,7 @@ export default class LoginScreen extends React.Component {
 
   renderForgotPassword(): JSX.Element {
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%' }}>
+      <View style={styles.forgotPassword}>
         <Text
           style={[styles.inputLabel, styles.forgotPasswordTxt]}
           onPress={() => {
@@ -121,14 +118,14 @@ export default class LoginScreen extends React.Component {
   renderToggleHidenPassword(): JSX.Element {
     return (
       <TouchableHighlight
-        style={{ right: 10, bottom: 40, position: 'absolute' }}
+        style={styles.toggleHidenPassword}
         activeOpacity={1}
         underlayColor="transparent"
         onPress={() => {
           this.setState({ hidePassword: !this.state.hidePassword });
         }}
       >
-        <Image style={{ width: 30, height: 30 }} source={this.getHidePasswordIcon()} />
+        <Image style={styles.toggleHidenPasswordIcon} source={this.getHidePasswordIcon()} />
       </TouchableHighlight>
     );
   }
@@ -138,7 +135,7 @@ export default class LoginScreen extends React.Component {
   renderLoginButton(): JSX.Element {
     return (
       <PrimaryButtonComponent
-        size={{ width: '100%', height: 50 }}
+        size={styles.loginButton}
         label="Entrar"
         btnFunction={() => {
           this.setState({ email: '', password: '' });
@@ -155,17 +152,17 @@ export default class LoginScreen extends React.Component {
 
   renderSocialLoginButtons(): JSX.Element {
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        {this.renderFacebookLoginButton()}
-        {this.renderGoogleLoginButton()}
+      <View style={styles.socialLoginButtons}>
+        {this.renderFacebookLoginButton({ width: '44%', height: 55 })}
+        {this.renderGoogleLoginButton({ width: '44%', height: 55 })}
       </View>
     );
   }
 
-  renderFacebookLoginButton(): JSX.Element {
+  renderFacebookLoginButton(size: { width: number | string; height: number | string }): JSX.Element {
     return (
       <SocialButtonComponent
-        size={{ width: '44%', height: 55 }}
+        size={size}
         icon={require('../assets/images/facebook.png')}
         btnFunction={() => {
           Alert.alert('Login Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
@@ -173,10 +170,10 @@ export default class LoginScreen extends React.Component {
       />
     );
   }
-  renderGoogleLoginButton(): JSX.Element {
+  renderGoogleLoginButton(size: { width: number | string; height: number | string }): JSX.Element {
     return (
       <SocialButtonComponent
-        size={{ width: '44%', height: 55 }}
+        size={size}
         icon={require('../assets/images/google.png')}
         btnFunction={() => {
           Alert.alert('Login Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
@@ -189,18 +186,10 @@ export default class LoginScreen extends React.Component {
 
   renderRedirectToSignup(): JSX.Element {
     return (
-      <Text
-        style={{
-          marginVertical: 30,
-          textAlign: 'center',
-          fontFamily: 'Ubuntu-Medium',
-          fontSize: 16,
-          color: colors.get('gray-font-light'),
-        }}
-      >
+      <Text style={styles.redirectToSignup}>
         É novo por aqui?{' '}
         <Text
-          style={{ fontFamily: 'Ubuntu-Bold', color: colors.get('green-dark') }}
+          style={styles.redirectToSignupHighlight}
           onPress={() => {
             Alert.alert('Create Account', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
           }}
@@ -213,6 +202,27 @@ export default class LoginScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  redirectToSignup: {
+    marginVertical: 30,
+    textAlign: 'center',
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 16,
+    color: colors.get('gray-font-light'),
+  },
+  redirectToSignupHighlight: { fontFamily: 'Ubuntu-Bold', color: colors.get('green-dark') },
+  socialLoginButtons: { flexDirection: 'row', justifyContent: 'space-between' },
+  loginButton: { width: '100%', height: 50 },
+  toggleHidenPassword: { right: 10, bottom: 40, position: 'absolute' },
+  toggleHidenPasswordIcon: { width: 30, height: 30 },
+  forgotPassword: { flexDirection: 'row', justifyContent: 'flex-end', width: '100%' },
+  inputBoxesContainer: { marginBottom: 20 },
+  inputText: { width: '100%', height: 40 },
+
+  screen: { flex: 1, alignItems: 'center', justifyContent: 'flex-end' },
+  screenMainIcon: { width: 180, height: 200, resizeMode: 'contain', position: 'relative', bottom: -25 },
+
+  containerLineBreak: { marginVertical: 30 },
+
   forgotPasswordTxt: {
     marginTop: 15,
     marginRight: 5,
