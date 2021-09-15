@@ -5,6 +5,7 @@ import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 import LoginScreen from './src/screens/Login.screen';
+import SignupScreen from './src/screens/Signup.screen';
 
 export default function App() {
   if (__DEV__) {

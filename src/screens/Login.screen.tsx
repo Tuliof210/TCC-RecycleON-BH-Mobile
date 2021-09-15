@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
+import { Alert, StyleSheet, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../constants/styles';
@@ -14,6 +14,13 @@ export default class LoginScreen extends React.Component {
   state: { email: string; password: string; hidePassword: boolean };
   passwordRules = 'Min. 6 caracteres, c/ 1 letra e 1 número';
 
+  constructor(props: Record<string, any>) {
+    super(props);
+    this.bindFunctions();
+
+    this.state = { email: '', password: '', hidePassword: true };
+  }
+
   bindFunctions() {
     this.getEmail = this.getEmail.bind(this);
     this.getPassword = this.getPassword.bind(this);
@@ -24,13 +31,6 @@ export default class LoginScreen extends React.Component {
 
     this.toggleHidePassword = this.toggleHidePassword.bind(this);
     this.getHidePasswordIcon = this.getHidePasswordIcon.bind(this);
-  }
-
-  constructor(props: Record<string, any>) {
-    super(props);
-    this.bindFunctions();
-
-    this.state = { email: '', password: '', hidePassword: true };
   }
 
   toggleHidePassword() {
@@ -72,73 +72,83 @@ export default class LoginScreen extends React.Component {
 
   render() {
     return (
-      <LinearGradient
-        style={styles.container}
-        colors={[gradient.get('fade-green-bg').start, gradient.get('fade-green-bg').end]}
-        end={{ x: 0, y: 0.3 }}
-      >
-        <Image style={styles.screenArt} source={require('../assets/images/login-art.png')} />
-        <ContainerInput height="75%">
-          <Text style={styles.pageTitle}>Login</Text>
-          <View style={styles.loginTextInputsBox}>
-            <View style={styles.inputBox}>
-              <Text style={styles.inputLabel}>E-mail</Text>
-              <InputText
-                size={{ width: '100%', height: 50 }}
-                placeholder={'Insira seu e-mail'}
-                text={this.state.email}
-                secureText={this.state.hidePassword}
-                inputFunction={this.getEmail}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.inputLabel}>Senha</Text>
-              <InputText
-                size={{ width: '100%', height: 50 }}
-                placeholder={'Insira sua senha'}
-                text={this.state.password}
-                secureText={this.state.hidePassword}
-                inputFunction={this.getPassword}
-              />
-              <View style={styles.forgotPasswordBox}>
-                <Text onPress={this.forgotPassword} style={[styles.inputLabel, styles.forgotPassword]}>
-                  esqueci minha senha
-                </Text>
+      <ScrollView>
+        <LinearGradient
+          style={styles.container}
+          colors={[gradient.get('fade-green-bg').start, gradient.get('fade-green-bg').end]}
+          end={{ x: 0, y: 0.3 }}
+        >
+          <Image style={styles.screenArt} source={require('../assets/images/login-art.png')} />
+
+          <ContainerInput height="75%">
+            <Text style={styles.pageTitle}>Login</Text>
+
+            <View style={styles.textInputsBox}>
+              <View style={styles.inputBox}>
+                <Text style={styles.inputLabel}>E-mail</Text>
+                <InputText
+                  size={{ width: '100%', height: 40 }}
+                  placeholder={'Insira seu e-mail'}
+                  text={this.state.email}
+                  secureText={this.state.hidePassword}
+                  inputFunction={this.getEmail}
+                />
               </View>
-              <TouchableHighlight
-                activeOpacity={1}
-                underlayColor="transparent"
-                style={styles.hidePassword}
-                onPress={this.toggleHidePassword}
-              >
-                <Image style={styles.hidePasswordIcon} source={this.getHidePasswordIcon()} />
-              </TouchableHighlight>
+              <View style={styles.inputBox}>
+                <Text style={styles.inputLabel}>Senha</Text>
+                <InputText
+                  size={{ width: '100%', height: 40 }}
+                  placeholder={'Insira sua senha'}
+                  text={this.state.password}
+                  secureText={this.state.hidePassword}
+                  inputFunction={this.getPassword}
+                />
+                <View style={styles.forgotPasswordBox}>
+                  <Text onPress={this.forgotPassword} style={[styles.inputLabel, styles.forgotPassword]}>
+                    esqueci minha senha
+                  </Text>
+                </View>
+                <TouchableHighlight
+                  activeOpacity={1}
+                  underlayColor="transparent"
+                  style={styles.hidePassword}
+                  onPress={this.toggleHidePassword}
+                >
+                  <Image style={styles.hidePasswordIcon} source={this.getHidePasswordIcon()} />
+                </TouchableHighlight>
+              </View>
             </View>
-          </View>
-          <PrimaryButton size={{ width: '100%', height: 50 }} btnFunction={this.logon}>
-            Entrar
-          </PrimaryButton>
-          <LineBreak>Ou</LineBreak>
-          <View style={styles.socialLogin}>
-            <SocialButton
-              size={{ width: '44%', height: 55 }}
-              icon={require('../assets/images/facebook.png')}
-              btnFunction={this.logonFacebook}
-            />
-            <SocialButton
-              size={{ width: '44%', height: 55 }}
-              icon={require('../assets/images/google.png')}
-              btnFunction={this.logonGoogle}
-            />
-          </View>
-          <Text style={styles.footerText}>
-            É novo por aqui?{' '}
-            <Text onPress={this.createAccount} style={styles.footerTextHighlight}>
-              Crie sua conta
+
+            <PrimaryButton size={{ width: '100%', height: 50 }} btnFunction={this.logon}>
+              Entrar
+            </PrimaryButton>
+
+            <View style={{ marginVertical: 30 }}>
+              <LineBreak>Ou</LineBreak>
+            </View>
+
+            <View style={styles.socialLogin}>
+              <SocialButton
+                size={{ width: '44%', height: 55 }}
+                icon={require('../assets/images/facebook.png')}
+                btnFunction={this.logonFacebook}
+              />
+              <SocialButton
+                size={{ width: '44%', height: 55 }}
+                icon={require('../assets/images/google.png')}
+                btnFunction={this.logonGoogle}
+              />
+            </View>
+
+            <Text style={styles.footerText}>
+              É novo por aqui?{' '}
+              <Text onPress={this.createAccount} style={styles.footerTextHighlight}>
+                Crie sua conta
+              </Text>
             </Text>
-          </Text>
-        </ContainerInput>
-      </LinearGradient>
+          </ContainerInput>
+        </LinearGradient>
+      </ScrollView>
     );
   }
 }
@@ -150,10 +160,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   forgotPassword: {
-    marginTop: 10,
+    marginTop: 15,
     marginRight: 5,
     fontSize: 13,
-    width: 130,
+    width: 200,
     textAlign: 'right',
   },
   forgotPasswordBox: {
@@ -192,9 +202,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 5,
   },
-  loginTextInputsBox: {
-    marginBottom: 20,
-  },
   pageTitle: {
     marginBottom: 30,
     fontFamily: 'Ubuntu-Medium',
@@ -202,13 +209,17 @@ const styles = StyleSheet.create({
     color: colors.get('green-dark'),
   },
   screenArt: {
-    width: 200,
+    width: 180,
     height: 200,
+    resizeMode: 'contain',
     position: 'relative',
-    bottom: -18,
+    bottom: -25,
   },
   socialLogin: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  textInputsBox: {
+    marginBottom: 20,
   },
 });

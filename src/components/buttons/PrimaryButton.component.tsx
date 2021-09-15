@@ -29,7 +29,6 @@ export default ({
 
 const styles = StyleSheet.create({
   btnContainer: {
-    margin: 'auto',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
