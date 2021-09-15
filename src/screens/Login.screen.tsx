@@ -79,7 +79,7 @@ export default class LoginScreen extends React.Component {
         size={styles.inputText}
         placeholder={'Insira seu e-mail'}
         text={this.state.email}
-        secureText={this.state.hidePassword}
+        secureText={false}
         inputFunction={(text: string) => {
           this.setState({ email: text });
         }}
