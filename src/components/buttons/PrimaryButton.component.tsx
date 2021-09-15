@@ -13,7 +13,10 @@ export default (props: {
   return (
     <TouchableWithoutFeedback onPress={props.btnFunction}>
       <LinearGradient
-        style={[styles.btnContainer, styles.containerShadow]}
+        style={[
+          { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 7 },
+          styles.containerShadow,
+        ]}
         colors={[gradient.get('fade-green-btn').start, gradient.get('fade-green-btn').end]}
         end={{ x: 0.8, y: 0 }}
       >
@@ -24,12 +27,6 @@ export default (props: {
 };
 
 const styles = StyleSheet.create({
-  btnContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 7,
-  },
   textStyle: {
     textAlign: 'center',
     textAlignVertical: 'center',
@@ -38,14 +35,10 @@ const styles = StyleSheet.create({
     color: colors.get('white-font'),
   },
   containerShadow: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
+    shadowColor: colors.get('black'),
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-
     elevation: 6,
   },
 });

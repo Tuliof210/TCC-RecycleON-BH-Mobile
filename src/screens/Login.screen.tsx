@@ -38,16 +38,7 @@ export default class LoginScreen extends React.Component {
             source={require('../assets/images/login-art.png')}
           />
           <ContainerInputComponent height="75%">
-            <Text
-              style={{
-                marginBottom: 30,
-                fontFamily: 'Ubuntu-Medium',
-                fontSize: 25,
-                color: colors.get('green-dark'),
-              }}
-            >
-              Login
-            </Text>
+            <Text style={styles.mainLabel}>Login</Text>
 
             {this.renderInputBox()}
             {this.renderLoginButton()}
@@ -112,22 +103,11 @@ export default class LoginScreen extends React.Component {
     );
   }
 
-  //------------------------------------------------------------------------------------------------------------------
-
   renderForgotPassword(): JSX.Element {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%' }}>
         <Text
-          style={[
-            styles.inputLabel,
-            {
-              marginTop: 15,
-              marginRight: 5,
-              fontSize: 13,
-              width: 200,
-              textAlign: 'right',
-            },
-          ]}
+          style={[styles.inputLabel, styles.forgotPasswordTxt]}
           onPress={() => {
             Alert.alert('Forgot Password', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
           }}
@@ -233,6 +213,14 @@ export default class LoginScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  forgotPasswordTxt: {
+    marginTop: 15,
+    marginRight: 5,
+    fontSize: 13,
+    width: 200,
+    textAlign: 'right',
+  },
+
   inputBox: {
     position: 'relative',
     marginBottom: 15,
@@ -243,5 +231,12 @@ const styles = StyleSheet.create({
     color: colors.get('green-dark'),
     marginLeft: 5,
     marginBottom: 5,
+  },
+
+  mainLabel: {
+    marginBottom: 30,
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 25,
+    color: colors.get('green-dark'),
   },
 });
