@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, Image, View, Text } from 'react-native';
+import { Alert, StyleSheet, Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../constants/styles';
@@ -11,8 +11,7 @@ import SocialButton from '../components/buttons/SocialButton.component';
 import LineBreak from '../components/common/LineBreak.component';
 
 export default class LoginScreen extends React.Component {
-  initialState: { email: string; password: string };
-  state: { email: string; password: string };
+  state: { email: string; password: string; hidePassword: boolean };
 
   bindFunctions() {
     this.getEmail = this.getEmail.bind(this);
@@ -21,15 +20,25 @@ export default class LoginScreen extends React.Component {
     this.logonFacebook = this.logonFacebook.bind(this);
     this.logonGoogle = this.logonGoogle.bind(this);
     this.createAccount = this.createAccount.bind(this);
+
+    this.toggleHidePassword = this.toggleHidePassword.bind(this);
+    this.getHidePasswordIcon = this.getHidePasswordIcon.bind(this);
   }
 
   constructor(props: Record<string, any>) {
     super(props);
-
-    this.initialState = { email: '', password: '' };
-    this.state = this.initialState;
-
     this.bindFunctions();
+
+    this.state = { email: '', password: '', hidePassword: true };
+  }
+
+  toggleHidePassword() {
+    this.setState({ hidePassword: !this.state.hidePassword });
+  }
+  getHidePasswordIcon(): ImageProps {
+    return this.state.hidePassword
+      ? require('../assets/images/eye-closed.png')
+      : require('../assets/images/eye-open.png');
   }
 
   getEmail(text: string) {
@@ -40,17 +49,15 @@ export default class LoginScreen extends React.Component {
   }
 
   logon() {
-    this.setState(this.initialState);
+    this.setState({ email: '', password: '' });
     Alert.alert('Login', `email: ${this.state.email}\npassword: ${this.state.password}`, [
       { text: 'Cancel' },
       { text: 'OK' },
     ]);
   }
-
   logonFacebook() {
     Alert.alert('Login Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
   }
-
   logonGoogle() {
     Alert.alert('Login Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
   }
@@ -79,7 +86,7 @@ export default class LoginScreen extends React.Component {
                 size={{ width: '100%', height: 50 }}
                 placeholder={'Insira seu e-mail'}
                 text={this.state.email}
-                secureText={false}
+                secureText={this.state.hidePassword}
                 inputFunction={this.getEmail}
               />
             </View>
@@ -89,12 +96,20 @@ export default class LoginScreen extends React.Component {
                 size={{ width: '100%', height: 50 }}
                 placeholder={'Insira sua senha'}
                 text={this.state.password}
-                secureText={true}
+                secureText={this.state.hidePassword}
                 inputFunction={this.getPassword}
               />
               <Text onPress={this.forgotPassword} style={[styles.inputLabel, styles.forgotPassword]}>
                 esqueci minha senha
               </Text>
+              <TouchableHighlight
+                activeOpacity={1}
+                underlayColor="transparent"
+                style={styles.hidePassword}
+                onPress={this.toggleHidePassword}
+              >
+                <Image style={styles.hidePasswordIcon} source={this.getHidePasswordIcon()} />
+              </TouchableHighlight>
             </View>
           </View>
           <PrimaryButton size={{ width: '100%', height: 50 }} btnFunction={this.logon}>
@@ -141,6 +156,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputBox: {
+    position: 'relative',
     marginBottom: 15,
   },
   inputLabel: {
@@ -155,6 +171,15 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 13,
     textAlign: 'right',
+  },
+  hidePassword: {
+    right: 10,
+    bottom: 40,
+    position: 'absolute',
+  },
+  hidePasswordIcon: {
+    width: 30,
+    height: 30,
   },
   screenArt: {
     width: 200,

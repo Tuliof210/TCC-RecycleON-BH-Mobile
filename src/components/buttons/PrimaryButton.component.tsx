@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../../constants/styles';
@@ -15,15 +15,15 @@ export default ({
   children: React.ReactNode;
 }) => {
   return (
-    <LinearGradient
-      style={[styles.btnContainer, styles.containerShadow]}
-      colors={[gradient.get('fade-green-btn').start, gradient.get('fade-green-btn').end]}
-      end={{ x: 0.8, y: 0 }}
-    >
-      <Text style={[{ width: size.width, height: size.height }, styles.textStyle]} onPress={btnFunction}>
-        {children}
-      </Text>
-    </LinearGradient>
+    <TouchableWithoutFeedback onPress={btnFunction}>
+      <LinearGradient
+        style={[styles.btnContainer, styles.containerShadow]}
+        colors={[gradient.get('fade-green-btn').start, gradient.get('fade-green-btn').end]}
+        end={{ x: 0.8, y: 0 }}
+      >
+        <Text style={[{ width: size.width, height: size.height }, styles.textStyle]}>{children}</Text>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
   );
 };
 
