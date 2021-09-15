@@ -4,11 +4,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../constants/styles';
 
-import ContainerInput from '../components/layouts/ContainerInput.component';
-import InputText from '../components/inputs/InputText.component';
-import PrimaryButton from '../components/buttons/PrimaryButton.component';
-import SocialButton from '../components/buttons/SocialButton.component';
-import LineBreak from '../components/common/LineBreak.component';
+import ContainerInputComponent from '../components/layouts/ContainerInputComponent.component';
+import InputTextComponent from '../components/inputs/InputTextComponent.component';
+import PrimaryButtonComponent from '../components/buttons/PrimaryButtonComponent.component';
+import SocialButtonComponent from '../components/buttons/SocialButtonComponent.component';
+import LineBreakComponent from '../components/common/LineBreakComponent.component';
 
 export default class SignupScreen extends React.Component {
   state: { name: string; email: string; password: string; confirmPassword: string; hidePassword: boolean };
@@ -58,11 +58,14 @@ export default class SignupScreen extends React.Component {
   }
 
   signup() {
-    this.setState({ email: '', password: '' });
-    Alert.alert('Signup', `name: ${this.state.name}\nemail: ${this.state.email}\npassword: ${this.state.password}`, [
-      { text: 'Cancel' },
-      { text: 'OK' },
-    ]);
+    this.setState({ name: '', email: '', password: '', confirmPassword: '', hidePassword: true });
+    Alert.alert(
+      'Signup',
+      `name: ${this.state.name}\nemail: ${this.state.email}\npassword: ${this.state.password}\nmatchPassword: ${
+        this.state.password === this.state.confirmPassword
+      }`,
+      [{ text: 'Cancel' }, { text: 'OK' }],
+    );
   }
   signupFacebook() {
     Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
@@ -84,16 +87,16 @@ export default class SignupScreen extends React.Component {
           end={{ x: 0, y: 0.3 }}
         >
           <Image style={styles.screenArt} source={require('../assets/images/signup-art.png')} />
-          <ContainerInput height="90%">
+          <ContainerInputComponent height="90%">
             <Text style={styles.pageTitle}>Signup</Text>
 
             <View style={styles.socialLogin}>
-              <SocialButton
+              <SocialButtonComponent
                 size={{ width: '44%', height: 55 }}
                 icon={require('../assets/images/facebook.png')}
                 btnFunction={this.signupFacebook}
               />
-              <SocialButton
+              <SocialButtonComponent
                 size={{ width: '44%', height: 55 }}
                 icon={require('../assets/images/google.png')}
                 btnFunction={this.signupGoogle}
@@ -101,13 +104,13 @@ export default class SignupScreen extends React.Component {
             </View>
 
             <View style={{ marginVertical: 30 }}>
-              <LineBreak>Ou</LineBreak>
+              <LineBreakComponent>Ou</LineBreakComponent>
             </View>
 
             <View style={styles.textInputsBox}>
               <View style={styles.inputBox}>
                 <Text style={styles.inputLabel}>Nome</Text>
-                <InputText
+                <InputTextComponent
                   size={{ width: '100%', height: 40 }}
                   placeholder={'Insira seu nome'}
                   text={this.state.name}
@@ -117,7 +120,7 @@ export default class SignupScreen extends React.Component {
               </View>
               <View style={styles.inputBox}>
                 <Text style={styles.inputLabel}>E-mail</Text>
-                <InputText
+                <InputTextComponent
                   size={{ width: '100%', height: 40 }}
                   placeholder={'Insira seu e-mail'}
                   text={this.state.email}
@@ -127,7 +130,7 @@ export default class SignupScreen extends React.Component {
               </View>
               <View style={styles.inputBox}>
                 <Text style={styles.inputLabel}>Senha</Text>
-                <InputText
+                <InputTextComponent
                   size={{ width: '100%', height: 40 }}
                   placeholder={'Insira sua senha'}
                   text={this.state.password}
@@ -146,7 +149,7 @@ export default class SignupScreen extends React.Component {
 
               <View style={styles.inputBox}>
                 <Text style={styles.inputLabel}>Confirmar Senha</Text>
-                <InputText
+                <InputTextComponent
                   size={{ width: '100%', height: 40 }}
                   placeholder={'Confirme sua senha'}
                   text={this.state.confirmPassword}
@@ -155,9 +158,9 @@ export default class SignupScreen extends React.Component {
                 />
               </View>
             </View>
-            <PrimaryButton size={{ width: '100%', height: 50 }} btnFunction={this.signup}>
+            <PrimaryButtonComponent size={{ width: '100%', height: 50 }} btnFunction={this.signup}>
               Criar
-            </PrimaryButton>
+            </PrimaryButtonComponent>
 
             <Text style={styles.footerText}>
               Já possui uma conta?{' '}
@@ -165,7 +168,7 @@ export default class SignupScreen extends React.Component {
                 Faça login
               </Text>
             </Text>
-          </ContainerInput>
+          </ContainerInputComponent>
         </LinearGradient>
       </ScrollView>
     );

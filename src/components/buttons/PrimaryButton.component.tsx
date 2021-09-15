@@ -5,23 +5,19 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../../constants/styles';
 
-export default ({
-  btnFunction,
-  size,
-  children,
-}: {
+export default (props: {
   btnFunction: () => void;
   size: { width: number | string; height: number | string };
-  children: React.ReactNode;
+  label: string;
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={btnFunction}>
+    <TouchableWithoutFeedback onPress={props.btnFunction}>
       <LinearGradient
         style={[styles.btnContainer, styles.containerShadow]}
         colors={[gradient.get('fade-green-btn').start, gradient.get('fade-green-btn').end]}
         end={{ x: 0.8, y: 0 }}
       >
-        <Text style={[{ width: size.width, height: size.height }, styles.textStyle]}>{children}</Text>
+        <Text style={[{ width: props.size.width, height: props.size.height }, styles.textStyle]}>{props.label}</Text>
       </LinearGradient>
     </TouchableWithoutFeedback>
   );
