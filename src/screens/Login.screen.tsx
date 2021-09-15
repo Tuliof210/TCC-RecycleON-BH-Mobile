@@ -220,7 +220,6 @@ const styles = StyleSheet.create({
     width: 200,
     textAlign: 'right',
   },
-
   inputBox: {
     position: 'relative',
     marginBottom: 15,
@@ -232,7 +231,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 5,
   },
-
   mainLabel: {
     marginBottom: 30,
     fontFamily: 'Ubuntu-Medium',
