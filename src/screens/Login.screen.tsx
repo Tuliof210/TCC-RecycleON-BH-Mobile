@@ -78,6 +78,7 @@ export default class LoginScreen extends React.Component {
               <InputText
                 size={{ width: '100%', height: 50 }}
                 placeholder={'Insira seu e-mail'}
+                text={this.state.email}
                 secureText={false}
                 inputFunction={this.getEmail}
               />
@@ -87,6 +88,7 @@ export default class LoginScreen extends React.Component {
               <InputText
                 size={{ width: '100%', height: 50 }}
                 placeholder={'Insira sua senha'}
+                text={this.state.password}
                 secureText={true}
                 inputFunction={this.getPassword}
               />

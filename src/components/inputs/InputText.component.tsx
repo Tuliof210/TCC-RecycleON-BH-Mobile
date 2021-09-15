@@ -7,6 +7,7 @@ import { colors } from '../../constants/styles';
 export default (props: {
   size: { width: number | string; height: number | string };
   placeholder: string;
+  text: string;
   secureText: boolean;
   inputFunction: (text: string) => void;
 }) => {
@@ -17,7 +18,8 @@ export default (props: {
       placeholderTextColor={colors.get('black') + '4D'}
       placeholder={props.placeholder}
       onChangeText={props.inputFunction}
-    ></TextInput>
+      value={props.text}
+    />
   );
 };
 
