@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   lineBreak: {
     height: 1,
     width: '45%',
-    marginVertical: 50,
+    marginVertical: 45,
     backgroundColor: colors.get('gray-line'),
   },
   textLineBreak: {

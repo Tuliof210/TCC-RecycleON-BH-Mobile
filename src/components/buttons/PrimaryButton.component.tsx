@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
     fontFamily: 'Ubuntu-Bold',
+    fontSize: 17,
     color: colors.get('white-font'),
   },
   containerShadow: {

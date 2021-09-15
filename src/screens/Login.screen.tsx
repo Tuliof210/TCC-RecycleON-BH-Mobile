@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
   forgotPassword: {
     marginTop: 10,
     marginRight: 5,
+    fontSize: 13,
     textAlign: 'right',
   },
   screenArt: {
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     textAlign: 'center',
     fontFamily: 'Ubuntu-Medium',
-    fontSize: 14,
+    fontSize: 16,
     color: colors.get('gray-font-light'),
   },
   footerTextHighlight: {
