@@ -12,6 +12,7 @@ import LineBreak from '../components/common/LineBreak.component';
 
 export default class LoginScreen extends React.Component {
   state: { email: string; password: string; hidePassword: boolean };
+  passwordRules = 'Min. 6 caracteres, c/ 1 letra e 1 número';
 
   bindFunctions() {
     this.getEmail = this.getEmail.bind(this);
@@ -99,9 +100,11 @@ export default class LoginScreen extends React.Component {
                 secureText={this.state.hidePassword}
                 inputFunction={this.getPassword}
               />
-              <Text onPress={this.forgotPassword} style={[styles.inputLabel, styles.forgotPassword]}>
-                esqueci minha senha
-              </Text>
+              <View style={styles.forgotPasswordBox}>
+                <Text onPress={this.forgotPassword} style={[styles.inputLabel, styles.forgotPassword]}>
+                  esqueci minha senha
+                </Text>
+              </View>
               <TouchableHighlight
                 activeOpacity={1}
                 underlayColor="transparent"
@@ -146,14 +149,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  pageTitle: {
-    marginBottom: 30,
+  forgotPassword: {
+    marginTop: 10,
+    marginRight: 5,
+    fontSize: 13,
+    width: 130,
+    textAlign: 'right',
+  },
+  forgotPasswordBox: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: '100%',
+  },
+  footerText: {
+    marginVertical: 30,
+    textAlign: 'center',
     fontFamily: 'Ubuntu-Medium',
-    fontSize: 25,
+    fontSize: 16,
+    color: colors.get('gray-font-light'),
+  },
+  footerTextHighlight: {
+    fontFamily: 'Ubuntu-Bold',
     color: colors.get('green-dark'),
   },
-  loginTextInputsBox: {
-    marginBottom: 20,
+  hidePassword: {
+    right: 10,
+    bottom: 40,
+    position: 'absolute',
+  },
+  hidePasswordIcon: {
+    width: 30,
+    height: 30,
   },
   inputBox: {
     position: 'relative',
@@ -166,20 +192,14 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 5,
   },
-  forgotPassword: {
-    marginTop: 10,
-    marginRight: 5,
-    fontSize: 13,
-    textAlign: 'right',
+  loginTextInputsBox: {
+    marginBottom: 20,
   },
-  hidePassword: {
-    right: 10,
-    bottom: 40,
-    position: 'absolute',
-  },
-  hidePasswordIcon: {
-    width: 30,
-    height: 30,
+  pageTitle: {
+    marginBottom: 30,
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 25,
+    color: colors.get('green-dark'),
   },
   screenArt: {
     width: 200,
@@ -190,16 +210,5 @@ const styles = StyleSheet.create({
   socialLogin: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  footerText: {
-    marginVertical: 30,
-    textAlign: 'center',
-    fontFamily: 'Ubuntu-Medium',
-    fontSize: 16,
-    color: colors.get('gray-font-light'),
-  },
-  footerTextHighlight: {
-    fontFamily: 'Ubuntu-Bold',
-    color: colors.get('green-dark'),
   },
 });
