@@ -219,6 +219,7 @@ export default class SignupScreen extends React.Component {
         <Text
           style={styles.redirectToLoginHighlight}
           onPress={() => {
+            console.log('go back');
             this.router.goBack();
           }}
         >
