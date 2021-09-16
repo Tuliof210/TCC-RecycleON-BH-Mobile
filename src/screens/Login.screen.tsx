@@ -14,11 +14,13 @@ import SocialButtonComponent from '../components/buttons/SocialButton.component'
 
 export default class LoginScreen extends React.Component {
   state: { email: string; password: string; hidePassword: boolean };
-  passwordRules = 'Min. 6 caracteres, c/ 1 letra e 1 número';
+  router: NavigationProp<any, any>;
 
   constructor(readonly props: { navigation: NavigationProp<any, any> }) {
     super(props);
+
     this.state = { email: '', password: '', hidePassword: true };
+    this.router = this.props.navigation;
   }
 
   getHidePasswordIcon(): ImageProps {
@@ -192,7 +194,7 @@ export default class LoginScreen extends React.Component {
         <Text
           style={styles.redirectToSignupHighlight}
           onPress={() => {
-            this.props.navigation.navigate('signup');
+            this.router.navigate('signup');
           }}
         >
           Crie sua conta

@@ -14,11 +14,15 @@ import LineBreakComponent from '../components/common/LineBreak.component';
 
 export default class SignupScreen extends React.Component {
   state: { name: string; email: string; password: string; confirmPassword: string; hidePassword: boolean };
+  router: NavigationProp<any, any>;
+
   passwordRules = 'Min. 6 caracteres, c/ 1 letra e 1 número';
 
   constructor(readonly props: { navigation: NavigationProp<any, any> }) {
     super(props);
+
     this.state = { name: '', email: '', password: '', confirmPassword: '', hidePassword: true };
+    this.router = this.props.navigation;
   }
 
   getHidePasswordIcon(): ImageProps {
@@ -215,7 +219,7 @@ export default class SignupScreen extends React.Component {
         <Text
           style={styles.redirectToLoginHighlight}
           onPress={() => {
-            this.props.navigation.navigate('login');
+            this.router.goBack();
           }}
         >
           Faça login

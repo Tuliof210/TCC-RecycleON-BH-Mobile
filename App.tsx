@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import { LogBox } from 'react-native';
+
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 
@@ -11,12 +13,15 @@ import LoginScreen from './src/screens/Login.screen';
 import SignupScreen from './src/screens/Signup.screen';
 
 export default function App() {
-  if (__DEV__) {
-    require('react-devtools');
-  }
+  // habilita a possibilidade de executar com "react-devtools" em ambiente de Dev
+  if (__DEV__) require('react-devtools');
+
+  // react sempre avisa como "erro" o fato de estarmos executando com remote debugger
+  LogBox.ignoreLogs(['Remote debugger']); // log box permite ignorarmos esse erro
 
   const Stack = createNativeStackNavigator();
 
+  // carrega fonts custom para serem usadas no "StyleSheet.create({})"
   const [isLoaded] = useFonts({
     'Ubuntu-Bold': require('./src/assets/fonts/Ubuntu-Bold.ttf'),
     'Ubuntu-BoldItalic': require('./src/assets/fonts/Ubuntu-BoldItalic.ttf'),
@@ -28,6 +33,7 @@ export default function App() {
     'Ubuntu-Regular': require('./src/assets/fonts/Ubuntu-Regular.ttf'),
   });
 
+  // so carregará o app caso carregue as fonts
   return isLoaded ? (
     <Fragment>
       <StatusBar style="auto" />
