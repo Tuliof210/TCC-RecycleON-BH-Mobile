@@ -2,6 +2,9 @@ import React, { Fragment } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { useFonts } from '@use-expo/font';
 
 import LoginScreen from './src/screens/Login.screen';
@@ -11,6 +14,8 @@ export default function App() {
   if (__DEV__) {
     require('react-devtools');
   }
+
+  const Stack = createNativeStackNavigator();
 
   const [isLoaded] = useFonts({
     'Ubuntu-Bold': require('./src/assets/fonts/Ubuntu-Bold.ttf'),
@@ -26,7 +31,12 @@ export default function App() {
   return isLoaded ? (
     <Fragment>
       <StatusBar style="auto" />
-      <LoginScreen />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="login" component={LoginScreen} options={{ title: 'Login' }} />
+          <Stack.Screen name="signup" component={SignupScreen} options={{ title: 'Signup' }} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Fragment>
   ) : (
     <AppLoading></AppLoading>

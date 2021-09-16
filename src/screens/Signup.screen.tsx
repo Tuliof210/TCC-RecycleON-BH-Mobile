@@ -1,5 +1,7 @@
 import React from 'react';
+import { NavigationProp } from '@react-navigation/native';
 import { Alert, StyleSheet, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from '../constants/styles';
@@ -14,9 +16,8 @@ export default class SignupScreen extends React.Component {
   state: { name: string; email: string; password: string; confirmPassword: string; hidePassword: boolean };
   passwordRules = 'Min. 6 caracteres, c/ 1 letra e 1 número';
 
-  constructor(props: Record<string, any>) {
+  constructor(readonly props: { navigation: NavigationProp<any, any> }) {
     super(props);
-
     this.state = { name: '', email: '', password: '', confirmPassword: '', hidePassword: true };
   }
 
@@ -38,7 +39,7 @@ export default class SignupScreen extends React.Component {
           <ContainerInputComponent height="90%">
             <Text style={styles.mainLabel}>Signup</Text>
 
-            {this.renderSocialSignupButtons}
+            {this.renderSocialSignupButtons()}
 
             <View style={styles.containerLineBreak}>
               <LineBreakComponent>Ou</LineBreakComponent>
@@ -214,7 +215,7 @@ export default class SignupScreen extends React.Component {
         <Text
           style={styles.redirectToLoginHighlight}
           onPress={() => {
-            Alert.alert('Logon Account', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+            this.props.navigation.navigate('login');
           }}
         >
           Faça login
@@ -280,7 +281,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   toggleHidenPassword: {
-    bottom: 40,
+    bottom: 5,
     position: 'absolute',
     right: 10,
   },
