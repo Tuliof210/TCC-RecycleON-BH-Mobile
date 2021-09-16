@@ -4,11 +4,11 @@ import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import MainContainerComponent from '../../components/layouts/main-container.component';
-import InputTextComponent from '../../components/inputs/input-text.component';
-import LineBreakComponent from '../../components/common/line-break.component';
-import PrimaryButtonComponent from '../../components/buttons/primary-button.component';
-import SocialButtonComponent from '../../components/buttons/social-button.component';
+import MainContainerComponent from 'components/layouts/main-container.component';
+import InputTextComponent from 'components/inputs/input-text.component';
+import LineBreakComponent from 'components/common/line-break.component';
+import PrimaryButtonComponent from 'components/buttons/primary-button.component';
+import SocialButtonComponent from 'components/buttons/social-button.component';
 
 import styles, { backgroundGradient } from './login.style';
 
@@ -24,16 +24,14 @@ export default class LoginScreen extends React.Component {
   }
 
   getHidePasswordIcon(): ImageProps {
-    return this.state.hidePassword
-      ? require('../../assets/images/eye-closed.png')
-      : require('../../assets/images/eye-open.png');
+    return this.state.hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
   }
 
   render() {
     return (
       <ScrollView>
         <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
-          <Image style={styles.screenMainIcon} source={require('../../assets/images/login-art.png')} />
+          <Image style={styles.screenMainIcon} source={require('assets/images/login-art.png')} />
           <MainContainerComponent height="75%">
             <Text style={styles.mainLabel}>Login</Text>
 
@@ -162,7 +160,7 @@ export default class LoginScreen extends React.Component {
     return (
       <SocialButtonComponent
         size={size}
-        icon={require('../../assets/images/facebook.png')}
+        icon={require('assets/images/facebook.png')}
         btnFunction={() => {
           Alert.alert('Login Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
         }}
@@ -173,7 +171,7 @@ export default class LoginScreen extends React.Component {
     return (
       <SocialButtonComponent
         size={size}
-        icon={require('../../assets/images/google.png')}
+        icon={require('assets/images/google.png')}
         btnFunction={() => {
           Alert.alert('Login Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
         }}

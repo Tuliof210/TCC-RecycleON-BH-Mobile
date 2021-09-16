@@ -2,10 +2,10 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { colors } from '../constants/styles';
+import { colors } from 'styles/colors';
 
-import LoginScreen from '../screens/login/login.screen';
-import SignupScreen from '../screens/signup/signup.screen';
+import LoginScreen from 'screens/login/login.screen';
+import SignupScreen from 'screens/signup/signup.screen';
 
 export default () => {
   const Stack = createNativeStackNavigator();

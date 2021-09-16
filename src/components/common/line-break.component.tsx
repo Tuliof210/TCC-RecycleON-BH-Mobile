@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 
-import { colors } from '../../constants/styles';
+import { colors } from 'styles/colors';
 
 export default (props: { children: React.ReactNode }) => (
   <View style={styles.container}>
