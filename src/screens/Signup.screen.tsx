@@ -16,23 +16,8 @@ export default class SignupScreen extends React.Component {
 
   constructor(props: Record<string, any>) {
     super(props);
-    this.bindFunctions();
 
     this.state = { name: '', email: '', password: '', confirmPassword: '', hidePassword: true };
-  }
-
-  bindFunctions() {
-    this.getName = this.getName.bind(this);
-    this.getEmail = this.getEmail.bind(this);
-    this.getPassword = this.getPassword.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
-    this.signup = this.signup.bind(this);
-    this.signupFacebook = this.signupFacebook.bind(this);
-    this.signupGoogle = this.signupGoogle.bind(this);
-    this.login = this.login.bind(this);
-
-    this.toggleHidePassword = this.toggleHidePassword.bind(this);
-    this.getHidePasswordIcon = this.getHidePasswordIcon.bind(this);
   }
 
   getHidePasswordIcon(): ImageProps {
@@ -41,192 +26,266 @@ export default class SignupScreen extends React.Component {
       : require('../assets/images/eye-open.png');
   }
 
-  getName(text: string) {
-    this.setState({ name: text });
-  }
-  getEmail(text: string) {
-    this.setState({ email: text });
-  }
-  getPassword(text: string) {
-    this.setState({ password: text });
-  }
-  checkPassword(text: string) {
-    this.setState({ confirmPassword: text });
-  }
-  toggleHidePassword() {
-    this.setState({ hidePassword: !this.state.hidePassword });
-  }
-
-  signup() {
-    this.setState({ name: '', email: '', password: '', confirmPassword: '', hidePassword: true });
-    Alert.alert(
-      'Signup',
-      `name: ${this.state.name}\nemail: ${this.state.email}\npassword: ${this.state.password}\nmatchPassword: ${
-        this.state.password === this.state.confirmPassword
-      }`,
-      [{ text: 'Cancel' }, { text: 'OK' }],
-    );
-  }
-  signupFacebook() {
-    Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-  }
-  signupGoogle() {
-    Alert.alert('Signup Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-  }
-
-  login() {
-    Alert.alert('Go To Login', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-  }
-
   render() {
     return (
       <ScrollView>
         <LinearGradient
-          style={styles.container}
+          style={styles.screen}
           colors={[gradient.get('fade-green-bg').start, gradient.get('fade-green-bg').end]}
           end={{ x: 0, y: 0.3 }}
         >
-          <Image style={styles.screenArt} source={require('../assets/images/signup-art.png')} />
+          <Image style={styles.screenMainIcon} source={require('../assets/images/signup-art.png')} />
           <ContainerInputComponent height="90%">
-            <Text style={styles.pageTitle}>Signup</Text>
+            <Text style={styles.mainLabel}>Signup</Text>
 
-            <View style={styles.socialLogin}>
-              <SocialButtonComponent
-                size={{ width: '44%', height: 55 }}
-                icon={require('../assets/images/facebook.png')}
-                btnFunction={this.signupFacebook}
-              />
-              <SocialButtonComponent
-                size={{ width: '44%', height: 55 }}
-                icon={require('../assets/images/google.png')}
-                btnFunction={this.signupGoogle}
-              />
-            </View>
+            {this.renderSocialSignupButtons}
 
-            <View style={{ marginVertical: 30 }}>
+            <View style={styles.containerLineBreak}>
               <LineBreakComponent>Ou</LineBreakComponent>
             </View>
 
-            <View style={styles.textInputsBox}>
-              <View style={styles.inputBox}>
-                <Text style={styles.inputLabel}>Nome</Text>
-                <InputTextComponent
-                  size={{ width: '100%', height: 40 }}
-                  placeholder={'Insira seu nome'}
-                  text={this.state.name}
-                  secureText={false}
-                  inputFunction={this.getName}
-                />
-              </View>
-              <View style={styles.inputBox}>
-                <Text style={styles.inputLabel}>E-mail</Text>
-                <InputTextComponent
-                  size={{ width: '100%', height: 40 }}
-                  placeholder={'Insira seu e-mail'}
-                  text={this.state.email}
-                  secureText={false}
-                  inputFunction={this.getEmail}
-                />
-              </View>
-              <View style={styles.inputBox}>
-                <Text style={styles.inputLabel}>Senha</Text>
-                <InputTextComponent
-                  size={{ width: '100%', height: 40 }}
-                  placeholder={'Insira sua senha'}
-                  text={this.state.password}
-                  secureText={this.state.hidePassword}
-                  inputFunction={this.getPassword}
-                />
-                <TouchableHighlight
-                  activeOpacity={1}
-                  underlayColor="transparent"
-                  style={styles.hidePassword}
-                  onPress={this.toggleHidePassword}
-                >
-                  <Image style={styles.hidePasswordIcon} source={this.getHidePasswordIcon()} />
-                </TouchableHighlight>
-              </View>
-
-              <View style={styles.inputBox}>
-                <Text style={styles.inputLabel}>Confirmar Senha</Text>
-                <InputTextComponent
-                  size={{ width: '100%', height: 40 }}
-                  placeholder={'Confirme sua senha'}
-                  text={this.state.confirmPassword}
-                  secureText={this.state.hidePassword}
-                  inputFunction={this.checkPassword}
-                />
-              </View>
-            </View>
-            <PrimaryButtonComponent size={{ width: '100%', height: 50 }} label="Criar" btnFunction={this.signup} />
-            <Text style={styles.footerText}>
-              Já possui uma conta?{' '}
-              <Text onPress={this.login} style={styles.footerTextHighlight}>
-                Faça login
-              </Text>
-            </Text>
+            {this.renderInputBoxes()}
+            {this.renderSignupButton()}
+            {this.renderRedirectToLogin()}
           </ContainerInputComponent>
         </LinearGradient>
       </ScrollView>
     );
   }
+
+  //------------------------------------------------------------------------------------------------------------------
+
+  renderSocialSignupButtons(): JSX.Element {
+    return (
+      <View style={styles.socialSignupButtons}>
+        {this.renderFacebookSignupButton({ width: '44%', height: 55 })}
+        {this.renderGoogleSignupButton({ width: '44%', height: 55 })}
+      </View>
+    );
+  }
+
+  renderFacebookSignupButton(size: { width: number | string; height: number | string }): JSX.Element {
+    return (
+      <SocialButtonComponent
+        size={size}
+        icon={require('../assets/images/facebook.png')}
+        btnFunction={() => {
+          Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+        }}
+      />
+    );
+  }
+  renderGoogleSignupButton(size: { width: number | string; height: number | string }): JSX.Element {
+    return (
+      <SocialButtonComponent
+        size={size}
+        icon={require('../assets/images/google.png')}
+        btnFunction={() => {
+          Alert.alert('Signup Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+        }}
+      />
+    );
+  }
+
+  //------------------------------------------------------------------------------------------------------------------
+
+  renderInputBoxes(): JSX.Element {
+    return (
+      <View style={styles.inputBoxesContainer}>
+        {this.renderInputName()}
+        {this.renderInputEmail()}
+        {this.renderInputPassword()}
+        {this.renderConfirmPassword()}
+      </View>
+    );
+  }
+
+  renderInputName(): JSX.Element {
+    return (
+      <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>Nome</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Insira seu nome'}
+          text={this.state.name}
+          secureText={false}
+          inputFunction={(text: string) => {
+            this.setState({ name: text });
+          }}
+        />
+      </View>
+    );
+  }
+
+  renderInputEmail(): JSX.Element {
+    return (
+      <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>E-mail</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Insira seu e-mail'}
+          text={this.state.email}
+          secureText={false}
+          inputFunction={(text: string) => {
+            this.setState({ email: text });
+          }}
+        />
+      </View>
+    );
+  }
+
+  renderInputPassword(): JSX.Element {
+    return (
+      <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>Senha</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Insira sua senha'}
+          text={this.state.password}
+          secureText={this.state.hidePassword}
+          inputFunction={(text: string) => {
+            this.setState({ password: text });
+          }}
+        />
+        {this.renderToggleHidenPassword()}
+      </View>
+    );
+  }
+
+  renderConfirmPassword(): JSX.Element {
+    return (
+      <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>Confirmar Senha</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Confirme sua senha'}
+          text={this.state.confirmPassword}
+          secureText={this.state.hidePassword}
+          inputFunction={(text: string) => {
+            this.setState({ confirmPassword: text });
+          }}
+        />
+      </View>
+    );
+  }
+
+  renderToggleHidenPassword(): JSX.Element {
+    return (
+      <TouchableHighlight
+        style={styles.toggleHidenPassword}
+        activeOpacity={1}
+        underlayColor="transparent"
+        onPress={() => {
+          this.setState({ hidePassword: !this.state.hidePassword });
+        }}
+      >
+        <Image style={styles.toggleHidenPasswordIcon} source={this.getHidePasswordIcon()} />
+      </TouchableHighlight>
+    );
+  }
+
+  //------------------------------------------------------------------------------------------------------------------
+
+  renderSignupButton(): JSX.Element {
+    return (
+      <PrimaryButtonComponent
+        size={{ height: 50, width: '100%' }}
+        label="Criar"
+        btnFunction={() => {
+          this.setState({ name: '', email: '', password: '', confirmPassword: '', hidePassword: true });
+          Alert.alert(
+            'Signup',
+            `name: ${this.state.name}\nemail: ${this.state.email}\npassword: ${this.state.password}\nmatchPassword: ${
+              this.state.password === this.state.confirmPassword
+            }`,
+            [{ text: 'Cancel' }, { text: 'OK' }],
+          );
+        }}
+      />
+    );
+  }
+
+  //------------------------------------------------------------------------------------------------------------------
+
+  renderRedirectToLogin(): JSX.Element {
+    return (
+      <Text style={styles.redirectToLogin}>
+        Já possui uma conta?{' '}
+        <Text
+          style={styles.redirectToLoginHighlight}
+          onPress={() => {
+            Alert.alert('Logon Account', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+          }}
+        >
+          Faça login
+        </Text>
+      </Text>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  footerText: {
+  containerLineBreak: {
     marginVertical: 30,
-    textAlign: 'center',
-    fontFamily: 'Ubuntu-Medium',
-    fontSize: 16,
-    color: colors.get('gray-font-light'),
-  },
-  footerTextHighlight: {
-    fontFamily: 'Ubuntu-Bold',
-    color: colors.get('green-dark'),
-  },
-  hidePassword: {
-    right: 10,
-    bottom: 5,
-    position: 'absolute',
-  },
-  hidePasswordIcon: {
-    width: 30,
-    height: 30,
   },
   inputBox: {
-    position: 'relative',
     marginBottom: 15,
+    position: 'relative',
+  },
+  inputBoxesContainer: {
+    marginBottom: 40,
   },
   inputLabel: {
-    fontSize: 12,
-    fontFamily: 'Ubuntu-Medium',
     color: colors.get('green-dark'),
-    marginLeft: 5,
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 12,
     marginBottom: 5,
+    marginLeft: 5,
   },
-  pageTitle: {
-    marginBottom: 40,
+  inputText: {
+    height: 40,
+    width: '100%',
+  },
+  mainLabel: {
+    color: colors.get('green-dark'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 25,
+    marginBottom: 40,
+  },
+  redirectToLogin: {
+    color: colors.get('gray-font-light'),
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 16,
+    marginVertical: 30,
+    textAlign: 'center',
+  },
+  redirectToLoginHighlight: {
     color: colors.get('green-dark'),
+    fontFamily: 'Ubuntu-Bold',
   },
-  screenArt: {
-    width: 70,
-    height: 70,
-    resizeMode: 'contain',
-    position: 'relative',
+  screen: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  screenMainIcon: {
     bottom: -5,
+    height: 70,
+    position: 'relative',
+    resizeMode: 'contain',
+    width: 70,
   },
-  socialLogin: {
+  socialSignupButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  textInputsBox: {
-    marginBottom: 40,
+  toggleHidenPassword: {
+    bottom: 40,
+    position: 'absolute',
+    right: 10,
+  },
+  toggleHidenPasswordIcon: {
+    height: 30,
+    width: 30,
   },
 });

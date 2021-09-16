@@ -58,46 +58,45 @@ export default class LoginScreen extends React.Component {
   renderInputBoxes(): JSX.Element {
     return (
       <View style={styles.inputBoxesContainer}>
-        <View style={styles.inputBox}>
-          <Text style={styles.inputLabel}>E-mail</Text>
-          {this.renderInputEmail()}
-        </View>
-
-        <View style={styles.inputBox}>
-          <Text style={styles.inputLabel}>Senha</Text>
-          {this.renderInputPassword()}
-          {this.renderForgotPassword()}
-          {this.renderToggleHidenPassword()}
-        </View>
+        {this.renderInputEmail()}
+        {this.renderInputPassword()}
       </View>
     );
   }
 
   renderInputEmail(): JSX.Element {
     return (
-      <InputTextComponent
-        size={styles.inputText}
-        placeholder={'Insira seu e-mail'}
-        text={this.state.email}
-        secureText={false}
-        inputFunction={(text: string) => {
-          this.setState({ email: text });
-        }}
-      />
+      <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>E-mail</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Insira seu e-mail'}
+          text={this.state.email}
+          secureText={false}
+          inputFunction={(text: string) => {
+            this.setState({ email: text });
+          }}
+        />
+      </View>
     );
   }
 
   renderInputPassword(): JSX.Element {
     return (
-      <InputTextComponent
-        size={styles.inputText}
-        placeholder={'Insira sua senha'}
-        text={this.state.password}
-        secureText={this.state.hidePassword}
-        inputFunction={(text: string) => {
-          this.setState({ password: text });
-        }}
-      />
+      <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>Senha</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Insira sua senha'}
+          text={this.state.password}
+          secureText={this.state.hidePassword}
+          inputFunction={(text: string) => {
+            this.setState({ password: text });
+          }}
+        />
+        {this.renderForgotPassword()}
+        {this.renderToggleHidenPassword()}
+      </View>
     );
   }
 
@@ -136,7 +135,7 @@ export default class LoginScreen extends React.Component {
   renderLoginButton(): JSX.Element {
     return (
       <PrimaryButtonComponent
-        size={styles.loginButton}
+        size={{ height: 50, width: '100%' }}
         label="Entrar"
         btnFunction={() => {
           this.setState({ email: '', password: '' });
@@ -234,10 +233,6 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 40,
-    width: '100%',
-  },
-  loginButton: {
-    height: 50,
     width: '100%',
   },
   mainLabel: {
