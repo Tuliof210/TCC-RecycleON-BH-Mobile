@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Alert, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
@@ -12,17 +12,23 @@ import LineBreakComponent from 'components/common/line-break.component';
 
 import styles, { backgroundGradient } from './signup.style';
 
+import { signIn } from 'services/auth';
+import AuthContext from 'context/auth';
+
 export default class SignupScreen extends React.Component {
   state: { name: string; email: string; password: string; confirmPassword: string; hidePassword: boolean };
   router: NavigationProp<any, any>;
 
   passwordRules = 'Min. 6 caracteres, c/ 1 letra e 1 número';
+  signed: boolean;
 
   constructor(readonly props: { navigation: NavigationProp<any, any> }) {
     super(props);
 
     this.state = { name: '', email: '', password: '', confirmPassword: '', hidePassword: true };
     this.router = this.props.navigation;
+
+    this.signed = useContext(AuthContext).signed;
   }
 
   getHidePasswordIcon(): ImageProps {
@@ -190,15 +196,10 @@ export default class SignupScreen extends React.Component {
       <PrimaryButtonComponent
         size={{ height: 50, width: '100%' }}
         label="Criar"
-        btnFunction={() => {
+        btnFunction={async () => {
           this.setState({ name: '', email: '', password: '', confirmPassword: '', hidePassword: true });
-          Alert.alert(
-            'Signup',
-            `name: ${this.state.name}\nemail: ${this.state.email}\npassword: ${this.state.password}\nmatchPassword: ${
-              this.state.password === this.state.confirmPassword
-            }`,
-            [{ text: 'Cancel' }, { text: 'OK' }],
-          );
+          const response = await signIn();
+          console.log(response);
         }}
       />
     );

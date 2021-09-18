@@ -8,6 +8,9 @@ import AppLoading from 'expo-app-loading';
 import { useFonts } from '@use-expo/font';
 
 import AppRoutes from './src/navigation';
+import Routes from './src/routes';
+
+import AuthContext from 'context/auth';
 
 export default function App() {
   // habilita a possibilidade de executar com "react-devtools" em ambiente de Dev
@@ -33,7 +36,9 @@ export default function App() {
     <Fragment>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <AppRoutes />
+        <AuthContext.Provider value={{ signed: true }}>
+          <Routes />
+        </AuthContext.Provider>
       </NavigationContainer>
     </Fragment>
   ) : (

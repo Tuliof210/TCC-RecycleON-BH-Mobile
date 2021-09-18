@@ -9,8 +9,12 @@ module.exports = function (api) {
           root: ['./src'],
           alias: {
             assets: './src/assets',
-            constants: './src/constants',
+            components: './src/components',
+            context: './src/context',
+            helpers: './src/helpers',
+            routes: './src/routes',
             screens: './src/screens',
+            services: './src/services',
             styles: './src/styles',
           },
         },
