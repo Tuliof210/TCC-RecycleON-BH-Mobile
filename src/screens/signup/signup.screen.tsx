@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Alert, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
@@ -15,61 +15,33 @@ import styles, { backgroundGradient } from './signup.style';
 import { signIn } from 'services/auth';
 import AuthContext from 'context/auth';
 
-export default class SignupScreen extends React.Component {
-  state: { name: string; email: string; password: string; confirmPassword: string; hidePassword: boolean };
-  router: NavigationProp<any, any>;
+export default (props: { navigation: NavigationProp<any, any> }) => {
+  const { signed, token, user } = useContext(AuthContext);
 
-  passwordRules = 'Min. 6 caracteres, c/ 1 letra e 1 número';
-  signed: boolean;
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
 
-  constructor(readonly props: { navigation: NavigationProp<any, any> }) {
-    super(props);
+  const router = props.navigation;
 
-    this.state = { name: '', email: '', password: '', confirmPassword: '', hidePassword: true };
-    this.router = this.props.navigation;
-
-    this.signed = useContext(AuthContext).signed;
-  }
-
-  getHidePasswordIcon(): ImageProps {
-    return this.state.hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
-  }
-
-  render() {
-    return (
-      <ScrollView>
-        <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
-          <Image style={styles.screenMainIcon} source={require('assets/images/signup-art.png')} />
-          <MainContainerComponent height="90%">
-            <Text style={styles.mainLabel}>Signup</Text>
-
-            {this.renderSocialSignupButtons()}
-
-            <View style={styles.containerLineBreak}>
-              <LineBreakComponent>Ou</LineBreakComponent>
-            </View>
-
-            {this.renderInputBoxes()}
-            {this.renderSignupButton()}
-            {this.renderRedirectToLogin()}
-          </MainContainerComponent>
-        </LinearGradient>
-      </ScrollView>
-    );
+  function getHidePasswordIcon(): ImageProps {
+    return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
   }
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderSocialSignupButtons(): JSX.Element {
+  function renderSocialSignupButtons(): JSX.Element {
     return (
       <View style={styles.socialSignupButtons}>
-        {this.renderFacebookSignupButton({ width: '44%', height: 55 })}
-        {this.renderGoogleSignupButton({ width: '44%', height: 55 })}
+        {renderFacebookSignupButton({ width: '44%', height: 55 })}
+        {renderGoogleSignupButton({ width: '44%', height: 55 })}
       </View>
     );
   }
 
-  renderFacebookSignupButton(size: { width: number | string; height: number | string }): JSX.Element {
+  function renderFacebookSignupButton(size: { width: number | string; height: number | string }): JSX.Element {
     return (
       <SocialButtonComponent
         size={size}
@@ -80,7 +52,7 @@ export default class SignupScreen extends React.Component {
       />
     );
   }
-  renderGoogleSignupButton(size: { width: number | string; height: number | string }): JSX.Element {
+  function renderGoogleSignupButton(size: { width: number | string; height: number | string }): JSX.Element {
     return (
       <SocialButtonComponent
         size={size}
@@ -94,112 +66,112 @@ export default class SignupScreen extends React.Component {
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderInputBoxes(): JSX.Element {
+  function renderInputBoxes(): JSX.Element {
     return (
       <View style={styles.inputBoxesContainer}>
-        {this.renderInputName()}
-        {this.renderInputEmail()}
-        {this.renderInputPassword()}
-        {this.renderConfirmPassword()}
+        {renderInputName()}
+        {renderInputEmail()}
+        {renderInputPassword()}
+        {renderConfirmPassword()}
       </View>
     );
   }
 
-  renderInputName(): JSX.Element {
+  function renderInputName(): JSX.Element {
     return (
       <View style={styles.inputBox}>
         <Text style={styles.inputLabel}>Nome</Text>
         <InputTextComponent
           size={styles.inputText}
           placeholder={'Insira seu nome'}
-          text={this.state.name}
+          text={name}
           secureText={false}
           inputFunction={(text: string) => {
-            this.setState({ name: text });
+            setName(text);
           }}
         />
       </View>
     );
   }
 
-  renderInputEmail(): JSX.Element {
+  function renderInputEmail(): JSX.Element {
     return (
       <View style={styles.inputBox}>
         <Text style={styles.inputLabel}>E-mail</Text>
         <InputTextComponent
           size={styles.inputText}
           placeholder={'Insira seu e-mail'}
-          text={this.state.email}
+          text={email}
           secureText={false}
           inputFunction={(text: string) => {
-            this.setState({ email: text });
+            setEmail(text);
           }}
         />
       </View>
     );
   }
 
-  renderInputPassword(): JSX.Element {
+  function renderInputPassword(): JSX.Element {
     return (
       <View style={styles.inputBox}>
         <Text style={styles.inputLabel}>Senha</Text>
         <InputTextComponent
           size={styles.inputText}
           placeholder={'Insira sua senha'}
-          text={this.state.password}
-          secureText={this.state.hidePassword}
+          text={password}
+          secureText={hidePassword}
           inputFunction={(text: string) => {
-            this.setState({ password: text });
+            setPassword(text);
           }}
         />
-        {this.renderToggleHidenPassword()}
+        {renderToggleHidenPassword()}
       </View>
     );
   }
 
-  renderConfirmPassword(): JSX.Element {
+  function renderConfirmPassword(): JSX.Element {
     return (
       <View style={styles.inputBox}>
         <Text style={styles.inputLabel}>Confirmar Senha</Text>
         <InputTextComponent
           size={styles.inputText}
           placeholder={'Confirme sua senha'}
-          text={this.state.confirmPassword}
-          secureText={this.state.hidePassword}
+          text={confirmPassword}
+          secureText={hidePassword}
           inputFunction={(text: string) => {
-            this.setState({ confirmPassword: text });
+            setConfirmPassword(text);
           }}
         />
       </View>
     );
   }
 
-  renderToggleHidenPassword(): JSX.Element {
+  function renderToggleHidenPassword(): JSX.Element {
     return (
       <TouchableHighlight
         style={styles.toggleHidenPassword}
         activeOpacity={1}
         underlayColor="transparent"
         onPress={() => {
-          this.setState({ hidePassword: !this.state.hidePassword });
+          setHidePassword(!hidePassword);
         }}
       >
-        <Image style={styles.toggleHidenPasswordIcon} source={this.getHidePasswordIcon()} />
+        <Image style={styles.toggleHidenPasswordIcon} source={getHidePasswordIcon()} />
       </TouchableHighlight>
     );
   }
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderSignupButton(): JSX.Element {
+  function renderSignupButton(): JSX.Element {
     return (
       <PrimaryButtonComponent
         size={{ height: 50, width: '100%' }}
         label="Criar"
         btnFunction={async () => {
-          this.setState({ name: '', email: '', password: '', confirmPassword: '', hidePassword: true });
           const response = await signIn();
           console.log(response);
+          console.log({ signed, token, user });
         }}
       />
     );
@@ -207,7 +179,7 @@ export default class SignupScreen extends React.Component {
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderRedirectToLogin(): JSX.Element {
+  function renderRedirectToLogin(): JSX.Element {
     return (
       <Text style={styles.redirectToLogin}>
         Já possui uma conta?{' '}
@@ -215,7 +187,7 @@ export default class SignupScreen extends React.Component {
           style={styles.redirectToLoginHighlight}
           onPress={() => {
             console.log('go back');
-            this.router.goBack();
+            router.goBack();
           }}
         >
           Faça login
@@ -223,4 +195,25 @@ export default class SignupScreen extends React.Component {
       </Text>
     );
   }
-}
+
+  return (
+    <ScrollView>
+      <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
+        <Image style={styles.screenMainIcon} source={require('assets/images/signup-art.png')} />
+        <MainContainerComponent height="90%">
+          <Text style={styles.mainLabel}>Signup</Text>
+
+          {renderSocialSignupButtons()}
+
+          <View style={styles.containerLineBreak}>
+            <LineBreakComponent>Ou</LineBreakComponent>
+          </View>
+
+          {renderInputBoxes()}
+          {renderSignupButton()}
+          {renderRedirectToLogin()}
+        </MainContainerComponent>
+      </LinearGradient>
+    </ScrollView>
+  );
+};
