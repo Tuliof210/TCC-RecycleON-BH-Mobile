@@ -10,12 +10,12 @@ import PrimaryButtonComponent from 'components/buttons/primary-button.component'
 import SocialButtonComponent from 'components/buttons/social-button.component';
 import LineBreakComponent from 'components/common/line-break.component';
 
+import AuthContext from 'context/auth';
+import { signIn } from 'services/auth';
+
 import styles, { backgroundGradient } from './signup.style';
 
-import { signIn } from 'services/auth';
-import AuthContext from 'context/auth';
-
-export default (props: { navigation: NavigationProp<any, any> }) => {
+export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
   const { signed, token, user } = useContext(AuthContext);
 
   const [name, setName] = useState('');
@@ -195,6 +195,8 @@ export default (props: { navigation: NavigationProp<any, any> }) => {
       </Text>
     );
   }
+
+  //------------------------------------------------------------------------------------------------------------------
 
   return (
     <ScrollView>

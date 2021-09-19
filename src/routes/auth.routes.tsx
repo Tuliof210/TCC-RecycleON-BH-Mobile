@@ -15,7 +15,7 @@ const AuthRoutes: React.FC = () => (
       contentStyle: { backgroundColor: colors.get('white') },
     }}
   >
-    <AuthStack.Screen name="SignIn" component={SignupScreen} />
+    <AuthStack.Screen name="SignUp" component={SignupScreen} />
   </AuthStack.Navigator>
 );
 

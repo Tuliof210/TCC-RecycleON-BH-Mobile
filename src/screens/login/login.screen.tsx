@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Alert, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
@@ -10,94 +10,71 @@ import LineBreakComponent from 'components/common/line-break.component';
 import PrimaryButtonComponent from 'components/buttons/primary-button.component';
 import SocialButtonComponent from 'components/buttons/social-button.component';
 
+import AuthContext from 'context/auth';
+
 import styles, { backgroundGradient } from './login.style';
 
-export default class LoginScreen extends React.Component {
-  state: { email: string; password: string; hidePassword: boolean };
-  router: NavigationProp<any, any>;
+export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
+  const { signed, token, user } = useContext(AuthContext);
 
-  constructor(readonly props: { navigation: NavigationProp<any, any> }) {
-    super(props);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
 
-    this.state = { email: '', password: '', hidePassword: true };
-    this.router = this.props.navigation;
-  }
+  const router = props.navigation;
 
-  getHidePasswordIcon(): ImageProps {
-    return this.state.hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
-  }
-
-  render() {
-    return (
-      <ScrollView>
-        <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
-          <Image style={styles.screenMainIcon} source={require('assets/images/login-art.png')} />
-          <MainContainerComponent height="75%">
-            <Text style={styles.mainLabel}>Login</Text>
-
-            {this.renderInputBoxes()}
-            {this.renderLoginButton()}
-
-            <View style={styles.containerLineBreak}>
-              <LineBreakComponent>Ou</LineBreakComponent>
-            </View>
-
-            {this.renderSocialLoginButtons()}
-            {this.renderRedirectToSignup()}
-          </MainContainerComponent>
-        </LinearGradient>
-      </ScrollView>
-    );
+  function getHidePasswordIcon(): ImageProps {
+    return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
   }
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderInputBoxes(): JSX.Element {
+  function renderInputBoxes(): JSX.Element {
     return (
       <View style={styles.inputBoxesContainer}>
-        {this.renderInputEmail()}
-        {this.renderInputPassword()}
+        {renderInputEmail()}
+        {renderInputPassword()}
       </View>
     );
   }
 
-  renderInputEmail(): JSX.Element {
+  function renderInputEmail(): JSX.Element {
     return (
       <View style={styles.inputBox}>
         <Text style={styles.inputLabel}>E-mail</Text>
         <InputTextComponent
           size={styles.inputText}
           placeholder={'Insira seu e-mail'}
-          text={this.state.email}
+          text={email}
           secureText={false}
           inputFunction={(text: string) => {
-            this.setState({ email: text });
+            setEmail(text);
           }}
         />
       </View>
     );
   }
 
-  renderInputPassword(): JSX.Element {
+  function renderInputPassword(): JSX.Element {
     return (
       <View style={styles.inputBox}>
         <Text style={styles.inputLabel}>Senha</Text>
         <InputTextComponent
           size={styles.inputText}
           placeholder={'Insira sua senha'}
-          text={this.state.password}
-          secureText={this.state.hidePassword}
+          text={password}
+          secureText={hidePassword}
           inputFunction={(text: string) => {
-            this.setState({ password: text });
+            setPassword(text);
           }}
         />
-        {this.renderForgotPassword()}
-        {this.renderToggleHidenPassword()}
+        {renderForgotPassword()}
+        {renderToggleHidenPassword()}
       </View>
     );
   }
 
-  renderForgotPassword(): JSX.Element {
+  function renderForgotPassword(): JSX.Element {
     return (
       <View style={styles.forgotPassword}>
         <Text
@@ -112,34 +89,32 @@ export default class LoginScreen extends React.Component {
     );
   }
 
-  renderToggleHidenPassword(): JSX.Element {
+  function renderToggleHidenPassword(): JSX.Element {
     return (
       <TouchableHighlight
         style={styles.toggleHidenPassword}
         activeOpacity={1}
         underlayColor="transparent"
         onPress={() => {
-          this.setState({ hidePassword: !this.state.hidePassword });
+          setHidePassword(!hidePassword);
         }}
       >
-        <Image style={styles.toggleHidenPasswordIcon} source={this.getHidePasswordIcon()} />
+        <Image style={styles.toggleHidenPasswordIcon} source={getHidePasswordIcon()} />
       </TouchableHighlight>
     );
   }
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderLoginButton(): JSX.Element {
+  function renderLoginButton(): JSX.Element {
     return (
       <PrimaryButtonComponent
         size={{ height: 50, width: '100%' }}
         label="Entrar"
         btnFunction={() => {
-          this.setState({ email: '', password: '' });
-          Alert.alert('Login', `email: ${this.state.email}\npassword: ${this.state.password}`, [
-            { text: 'Cancel' },
-            { text: 'OK' },
-          ]);
+          setEmail('');
+          setPassword('');
+          Alert.alert('Login', `email: ${email}\npassword: ${password}`, [{ text: 'Cancel' }, { text: 'OK' }]);
         }}
       />
     );
@@ -147,16 +122,16 @@ export default class LoginScreen extends React.Component {
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderSocialLoginButtons(): JSX.Element {
+  function renderSocialLoginButtons(): JSX.Element {
     return (
       <View style={styles.socialLoginButtons}>
-        {this.renderFacebookLoginButton({ width: '44%', height: 55 })}
-        {this.renderGoogleLoginButton({ width: '44%', height: 55 })}
+        {renderFacebookLoginButton({ width: '44%', height: 55 })}
+        {renderGoogleLoginButton({ width: '44%', height: 55 })}
       </View>
     );
   }
 
-  renderFacebookLoginButton(size: { width: number | string; height: number | string }): JSX.Element {
+  function renderFacebookLoginButton(size: { width: number | string; height: number | string }): JSX.Element {
     return (
       <SocialButtonComponent
         size={size}
@@ -167,7 +142,8 @@ export default class LoginScreen extends React.Component {
       />
     );
   }
-  renderGoogleLoginButton(size: { width: number | string; height: number | string }): JSX.Element {
+
+  function renderGoogleLoginButton(size: { width: number | string; height: number | string }): JSX.Element {
     return (
       <SocialButtonComponent
         size={size}
@@ -181,14 +157,14 @@ export default class LoginScreen extends React.Component {
 
   //------------------------------------------------------------------------------------------------------------------
 
-  renderRedirectToSignup(): JSX.Element {
+  function renderRedirectToSignup(): JSX.Element {
     return (
       <Text style={styles.redirectToSignup}>
         É novo por aqui?{' '}
         <Text
           style={styles.redirectToSignupHighlight}
           onPress={() => {
-            this.router.navigate('signup');
+            router.navigate('SignUp');
           }}
         >
           Crie sua conta
@@ -196,4 +172,27 @@ export default class LoginScreen extends React.Component {
       </Text>
     );
   }
-}
+
+  //------------------------------------------------------------------------------------------------------------------
+
+  return (
+    <ScrollView>
+      <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
+        <Image style={styles.screenMainIcon} source={require('assets/images/login-art.png')} />
+        <MainContainerComponent height="75%">
+          <Text style={styles.mainLabel}>Login</Text>
+
+          {renderInputBoxes()}
+          {renderLoginButton()}
+
+          <View style={styles.containerLineBreak}>
+            <LineBreakComponent>Ou</LineBreakComponent>
+          </View>
+
+          {renderSocialLoginButtons()}
+          {renderRedirectToSignup()}
+        </MainContainerComponent>
+      </LinearGradient>
+    </ScrollView>
+  );
+};
