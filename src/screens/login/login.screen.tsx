@@ -15,16 +15,23 @@ import AuthContext from 'context/auth';
 import styles, { backgroundGradient } from './login.style';
 
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
-  const { signed, token, user } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('location@email.com');
+  const [password, setPassword] = useState('senha123');
   const [hidePassword, setHidePassword] = useState(true);
 
   const router = props.navigation;
 
   function getHidePasswordIcon(): ImageProps {
     return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
+  }
+
+  function handleLogin() {
+    login({ email, password });
+
+    setEmail('');
+    setPassword('');
   }
 
   return (
@@ -80,15 +87,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
               </TouchableHighlight>
             </View>
           </View>
-          <PrimaryButtonComponent
-            size={{ height: 50, width: '100%' }}
-            label="Entrar"
-            btnFunction={() => {
-              setEmail('');
-              setPassword('');
-              Alert.alert('Login', `email: ${email}\npassword: ${password}`, [{ text: 'Cancel' }, { text: 'OK' }]);
-            }}
-          />
+          <PrimaryButtonComponent size={{ height: 50, width: '100%' }} label="Entrar" btnFunction={handleLogin} />
 
           <View style={styles.containerLineBreak}>
             <LineBreakComponent>Ou</LineBreakComponent>
@@ -115,7 +114,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
             <Text
               style={styles.redirectToSignupHighlight}
               onPress={() => {
-                router.navigate('SignUp');
+                router.navigate('signup');
               }}
             >
               Crie sua conta

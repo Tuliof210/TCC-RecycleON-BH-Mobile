@@ -7,7 +7,6 @@ import AppLoading from 'expo-app-loading';
 
 import { useFonts } from '@use-expo/font';
 
-import AppRoutes from './src/navigation';
 import Routes from './src/routes';
 
 import { AuthProvider } from 'context/auth';
@@ -45,3 +44,5 @@ export default function App() {
     <AppLoading></AppLoading>
   );
 }
+
+//TODO pesquisar diferenças entre login-logon signup-signin

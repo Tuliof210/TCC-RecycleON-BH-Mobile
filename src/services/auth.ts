@@ -12,7 +12,8 @@ export default class AuthService {
     timeout: 10000,
   });
 
-  async logon({ email, password }: { email: string; password: string }): Promise<AuthenticatedUser> {
+  async login({ email, password }: { email: string; password: string }): Promise<AuthenticatedUser> {
+    var encodedString = btoa('string');
     const response = await this.api.get(`/auth`, {
       auth: {
         username: email,
@@ -22,7 +23,7 @@ export default class AuthService {
     return response.data as AuthenticatedUser;
   }
 
-  async signin({
+  async signup({
     name,
     email,
     password,
@@ -31,7 +32,6 @@ export default class AuthService {
     email: string;
     password: string;
   }): Promise<AuthenticatedUser> {
-    console.log(config['MASTER_KEY']);
     const response = await this.api.post(
       `/users`,
       { name, email, password },

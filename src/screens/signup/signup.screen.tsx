@@ -11,12 +11,11 @@ import SocialButtonComponent from 'components/buttons/social-button.component';
 import LineBreakComponent from 'components/common/line-break.component';
 
 import AuthContext from 'context/auth';
-import AuthService from 'services/auth';
 
 import styles, { backgroundGradient } from './signup.style';
 
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
-  const { signed, token, user } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
 
   const [name, setName] = useState('mobile');
   const [email, setEmail] = useState('mobileuser@email.com');
@@ -25,10 +24,13 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   const [hidePassword, setHidePassword] = useState(true);
 
   const router = props.navigation;
-  const authService = new AuthService();
 
   function getHidePasswordIcon(): ImageProps {
     return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
+  }
+
+  function handleSignup() {
+    signup({ name, email, password });
   }
 
   return (
@@ -119,20 +121,12 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
               />
             </View>
           </View>
-          <PrimaryButtonComponent
-            size={{ height: 50, width: '100%' }}
-            label="Criar"
-            btnFunction={async () => {
-              const response = await authService.signin({ name, email, password });
-              console.log(response);
-            }}
-          />
+          <PrimaryButtonComponent size={{ height: 50, width: '100%' }} label="Criar" btnFunction={handleSignup} />
           <Text style={styles.redirectToLogin}>
             Já possui uma conta?{' '}
             <Text
               style={styles.redirectToLoginHighlight}
               onPress={() => {
-                console.log('go back');
                 router.goBack();
               }}
             >
