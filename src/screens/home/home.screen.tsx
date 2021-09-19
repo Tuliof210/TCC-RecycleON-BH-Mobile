@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, ScrollView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
+import styles from './home.style';
+
 export default class HomeScreen extends React.Component {
   state: {};
   router: NavigationProp<any, any>;
@@ -15,8 +17,8 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView>
-        <Text>Home</Text>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.text}>Home</Text>
       </ScrollView>
     );
   }

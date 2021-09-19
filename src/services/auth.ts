@@ -1,4 +1,6 @@
 import axios from 'axios';
+import base64 from 'react-native-base64';
+
 import config from 'config';
 
 type AuthenticatedUser = {
@@ -13,11 +15,10 @@ export default class AuthService {
   });
 
   async login({ email, password }: { email: string; password: string }): Promise<AuthenticatedUser> {
-    var encodedString = btoa('string');
+    const auth = base64.encode(`${email}:${password}`);
     const response = await this.api.get(`/auth`, {
-      auth: {
-        username: email,
-        password,
+      headers: {
+        Authorization: `Basic ${auth}`,
       },
     });
     return response.data as AuthenticatedUser;

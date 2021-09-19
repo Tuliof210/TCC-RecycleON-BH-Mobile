@@ -17,9 +17,9 @@ import styles, { backgroundGradient } from './signup.style';
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
   const { signup } = useContext(AuthContext);
 
-  const [name, setName] = useState('mobile');
-  const [email, setEmail] = useState('mobileuser@email.com');
-  const [password, setPassword] = useState('senha123');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
 

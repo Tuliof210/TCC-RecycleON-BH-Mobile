@@ -17,8 +17,8 @@ import styles, { backgroundGradient } from './login.style';
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState('location@email.com');
-  const [password, setPassword] = useState('senha123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
 
   const router = props.navigation;
@@ -29,9 +29,6 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
   function handleLogin() {
     login({ email, password });
-
-    setEmail('');
-    setPassword('');
   }
 
   return (
