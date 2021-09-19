@@ -4,17 +4,25 @@ module.exports = function (api) {
     presets: ['babel-preset-expo'],
     plugins: [
       [
+        'inline-dotenv',
+        {
+          path: './env/.env',
+        },
+      ],
+      [
         'module-resolver',
         {
           root: ['./src'],
           alias: {
             assets: './src/assets',
             components: './src/components',
+            config: './src/config',
             context: './src/context',
             helpers: './src/helpers',
             routes: './src/routes',
             screens: './src/screens',
             services: './src/services',
+            src: '.',
             styles: './src/styles',
           },
         },
