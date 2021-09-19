@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Image, TouchableWithoutFeedback, ImageProps } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { colors, gradient } from '../../constants/styles';
+import { colors, gradient } from 'styles/colors';
 
 export default (props: {
   size: { width: number | string; height: number | string };

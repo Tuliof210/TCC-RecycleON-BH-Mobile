@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyleSheet, TextInput } from 'react-native';
 
-import { colors } from '../../constants/styles';
+import { colors } from 'styles/colors';
 
 export default (props: {
   size: { width: number | string; height: number | string };
