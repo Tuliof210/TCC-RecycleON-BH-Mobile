@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Alert, Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
@@ -8,7 +8,6 @@ import LoginForm from './login-form/login-form.component';
 
 import MainContainerComponent from 'common/components/main-container.component';
 import LineBreakComponent from 'common/components/line-break.component';
-import PrimaryButtonComponent from 'common/components/primary-button.component';
 import SocialButtonComponent from 'common/components/social-button.component';
 
 import AuthContext from 'context/auth';
@@ -20,23 +19,15 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
   const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   //--------------------------------------------------------------
 
-  function handleLogin() {
+  function handleLogin({ email, password }: { email: string; password: string }) {
     console.log({ email, password });
 
     login({
       email: email.trim(),
       password: password.trim(),
     });
-  }
-
-  function handleFormChange(key: string, value: string) {
-    if (key == 'email') setEmail(value);
-    if (key == 'password') setPassword(value);
   }
 
   function handleFacebookLogin() {
@@ -54,10 +45,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
         <MainContainerComponent height="75%">
           <Text style={styles.mainLabel}>Login</Text>
 
-          <View style={styles.inputBoxesContainer}>
-            <LoginForm values={{ email, password }} onChange={handleFormChange} />
-          </View>
-          <PrimaryButtonComponent size={{ height: 50, width: '100%' }} label="Entrar" handler={handleLogin} />
+          <LoginForm handler={handleLogin} />
 
           <View style={styles.containerLineBreak}>
             <LineBreakComponent>Ou</LineBreakComponent>

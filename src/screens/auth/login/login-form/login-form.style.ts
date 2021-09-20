@@ -18,6 +18,9 @@ export default StyleSheet.create({
     marginBottom: 15,
     position: 'relative',
   },
+  inputBoxesContainer: {
+    marginBottom: 20,
+  },
   inputLabel: {
     color: colors.get('green-dark'),
     fontFamily: 'Ubuntu-Medium',
@@ -27,6 +30,10 @@ export default StyleSheet.create({
   },
   inputText: {
     height: 40,
+    width: '100%',
+  },
+  submitButton: {
+    height: 50,
     width: '100%',
   },
   toggleHidenPasswordIcon: {

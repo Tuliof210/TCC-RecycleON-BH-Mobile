@@ -31,6 +31,14 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
     });
   }
 
+  function handleFacebookSignup() {
+    Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+  }
+
+  function handleGoogleSignup() {
+    Alert.alert('Login Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
@@ -48,16 +56,12 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
             <SocialButtonComponent
               size={styles.socialButtonSize}
               icon={require('assets/images/facebook.png')}
-              handler={() => {
-                Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-              }}
+              handler={handleFacebookSignup}
             />
             <SocialButtonComponent
               size={styles.socialButtonSize}
               icon={require('assets/images/google.png')}
-              handler={() => {
-                Alert.alert('Signup Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-              }}
+              handler={handleGoogleSignup}
             />
           </View>
 

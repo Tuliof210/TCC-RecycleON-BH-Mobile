@@ -5,9 +5,6 @@ export default StyleSheet.create({
   containerLineBreak: {
     marginVertical: 30,
   },
-  inputBoxesContainer: {
-    marginBottom: 20,
-  },
   mainLabel: {
     color: colors.get('green-dark'),
     fontFamily: 'Ubuntu-Medium',
