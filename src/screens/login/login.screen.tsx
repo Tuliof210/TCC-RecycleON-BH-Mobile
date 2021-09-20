@@ -26,6 +26,8 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   //--------------------------------------------------------------
 
   function handleLogin() {
+    console.log({ email, password });
+
     login({
       email: email.trim(),
       password: password.trim(),

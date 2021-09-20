@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
-import { Alert, Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
+import { Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
 
 import InputTextComponent from 'components/inputs/input-text.component';
 
-import styles from './login-form.style';
+import styles from './signup-form.style';
 
 export default (props: {
-  values: { email: string; password: string };
+  values: { name: string; email: string; password: string; confirmPassword: string };
   onChange: (key: string, value: string) => void;
 }): JSX.Element => {
   const [hidePassword, setHidePassword] = useState(true);
@@ -28,6 +28,16 @@ export default (props: {
   return (
     <Fragment>
       <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>Nome</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Insira seu nome'}
+          text={props.values.name}
+          secureText={false}
+          inputFunction={getValue('name')}
+        />
+      </View>
+      <View style={styles.inputBox}>
         <Text style={styles.inputLabel}>E-mail</Text>
         <InputTextComponent
           size={styles.inputText}
@@ -47,16 +57,6 @@ export default (props: {
           secureText={hidePassword}
           inputFunction={getValue('password')}
         />
-        <View style={styles.forgotPassword}>
-          <Text
-            style={[styles.inputLabel, styles.forgotPasswordTxt]}
-            onPress={() => {
-              Alert.alert('Forgot Password', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-            }}
-          >
-            esqueci minha senha
-          </Text>
-        </View>
         <TouchableHighlight
           style={styles.toggleHidenPassword}
           activeOpacity={1}
@@ -67,6 +67,16 @@ export default (props: {
         >
           <Image style={styles.toggleHidenPasswordIcon} source={getHidePasswordIcon()} />
         </TouchableHighlight>
+      </View>
+      <View style={styles.inputBox}>
+        <Text style={styles.inputLabel}>Confirmar Senha</Text>
+        <InputTextComponent
+          size={styles.inputText}
+          placeholder={'Confirme sua senha'}
+          text={props.values.confirmPassword}
+          secureText={hidePassword}
+          inputFunction={getValue('confirm-password')}
+        />
       </View>
     </Fragment>
   );

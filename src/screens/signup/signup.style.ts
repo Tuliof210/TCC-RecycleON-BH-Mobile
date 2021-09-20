@@ -5,23 +5,8 @@ export default StyleSheet.create({
   containerLineBreak: {
     marginVertical: 30,
   },
-  inputBox: {
-    marginBottom: 15,
-    position: 'relative',
-  },
   inputBoxesContainer: {
     marginBottom: 40,
-  },
-  inputLabel: {
-    color: colors.get('green-dark'),
-    fontFamily: 'Ubuntu-Medium',
-    fontSize: 12,
-    marginBottom: 5,
-    marginLeft: 5,
-  },
-  inputText: {
-    height: 40,
-    width: '100%',
   },
   mainLabel: {
     color: colors.get('green-dark'),
@@ -55,15 +40,6 @@ export default StyleSheet.create({
   socialSignupButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  toggleHidenPassword: {
-    bottom: 5,
-    position: 'absolute',
-    right: 10,
-  },
-  toggleHidenPasswordIcon: {
-    height: 30,
-    width: 30,
   },
 });
 
