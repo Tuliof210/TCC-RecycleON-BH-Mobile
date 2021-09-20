@@ -5,12 +5,11 @@ export default StyleSheet.create({
   containerLineBreak: {
     marginVertical: 30,
   },
-
   mainLabel: {
     color: colors.get('green-dark'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 25,
-    marginBottom: 40,
+    marginBottom: 30,
   },
   redirectToLogin: {
     color: colors.get('gray-font-light'),

@@ -4,10 +4,12 @@ import { Image, ImageProps, View, Text, TouchableHighlight } from 'react-native'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
+import styles from './signup-form.style';
+
 import InputTextComponent from 'common/components/input-text.component';
 import PrimaryButtonComponent from 'common/components/primary-button.component';
+import FormWarningComponent from 'common/components/form-warning.components';
 
-import styles from './signup-form.style';
 import { EmailRegex, PasswordRegex } from 'common/constants/regex';
 
 export default ({ handler }: { handler: (userData: { name: string; email: string; password: string }) => void }) => {
@@ -18,13 +20,20 @@ export default ({ handler }: { handler: (userData: { name: string; email: string
     email: Yup.string().strict().matches(EmailRegex, 'Digite um e-mail válido').required('Preencha o campo de e-mail'),
     password: Yup.string()
       .strict()
-      .matches(PasswordRegex, 'A senha deve ter no mínimo 6 caracteres')
+      .matches(PasswordRegex, 'Min. 6 caracteres, com ao menos 1 letra e 1 número')
       .required('Preencha o campo de senha'),
+    confirmPassword: Yup.string()
+      .strict()
+      .oneOf([Yup.ref('password'), null], 'As senhas devem ser iguais')
+      .required('Repita sua senha'),
   });
 
   const Form = withFormik({
-    mapPropsToValues: () => fields,
     validationSchema: schema,
+    validateOnBlur: true,
+    validateOnChange: false,
+
+    mapPropsToValues: () => fields,
     handleSubmit: (values) => {
       handler({ name: values.name, email: values.email, password: values.password });
     },
@@ -56,6 +65,7 @@ export default ({ handler }: { handler: (userData: { name: string; email: string
               text={props.values.name}
               handler={setField('name')}
             />
+            <FormWarningComponent message={props.errors.name} position={styles.formWarning} />
           </View>
           <View style={styles.inputBox}>
             <Text style={styles.inputLabel}>E-mail</Text>
@@ -66,7 +76,7 @@ export default ({ handler }: { handler: (userData: { name: string; email: string
               keyboardType={'email-address'}
               handler={setField('email')}
             />
-            {props.errors.email && <Text>{props.errors.email}</Text>}
+            <FormWarningComponent message={props.errors.email} position={styles.formWarning} />
           </View>
           <View style={styles.inputBox}>
             <Text style={styles.inputLabel}>Senha</Text>
@@ -87,6 +97,7 @@ export default ({ handler }: { handler: (userData: { name: string; email: string
             >
               <Image style={styles.toggleHidenPasswordIcon} source={getHidePasswordIcon()} />
             </TouchableHighlight>
+            <FormWarningComponent message={props.errors.password} position={styles.formWarning} />
           </View>
           <View style={styles.inputBox}>
             <Text style={styles.inputLabel}>Confirmar Senha</Text>
@@ -97,6 +108,7 @@ export default ({ handler }: { handler: (userData: { name: string; email: string
               secureText={hidePassword}
               handler={setField('confirmPassword')}
             />
+            <FormWarningComponent message={props.errors.confirmPassword} position={styles.formWarning} />
           </View>
         </View>
         <PrimaryButtonComponent size={styles.submitButton} label="Criar" handler={props.handleSubmit} />
