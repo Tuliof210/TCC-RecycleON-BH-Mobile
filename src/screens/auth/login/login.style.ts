@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, gradient } from 'styles/colors';
+import { colors, gradient } from 'common/constants/colors';
 
 export default StyleSheet.create({
   containerLineBreak: {

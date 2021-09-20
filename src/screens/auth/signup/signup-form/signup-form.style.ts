@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { colors } from 'styles/colors';
+import { colors } from 'common/constants/colors';
 
 export default StyleSheet.create({
+  inputBoxesContainer: {
+    marginBottom: 40,
+  },
   inputBox: {
     marginBottom: 15,
     position: 'relative',
@@ -15,6 +18,10 @@ export default StyleSheet.create({
   },
   inputText: {
     height: 40,
+    width: '100%',
+  },
+  submitButton: {
+    height: 50,
     width: '100%',
   },
   toggleHidenPassword: {

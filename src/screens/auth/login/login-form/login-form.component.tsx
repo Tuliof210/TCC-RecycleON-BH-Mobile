@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Alert, Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
 
-import InputTextComponent from 'components/inputs/input-text.component';
+import InputTextComponent from 'common/components/input-text.component';
 
 import styles from './login-form.style';
 
@@ -34,7 +34,6 @@ export default (props: {
           placeholder={'Insira seu e-mail'}
           text={props.values.email}
           keyboardType={'email-address'}
-          secureText={false}
           handler={getValue('email')}
         />
       </View>

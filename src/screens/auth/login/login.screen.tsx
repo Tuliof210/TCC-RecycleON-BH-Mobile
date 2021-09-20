@@ -6,10 +6,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import LoginForm from './login-form/login-form.component';
 
-import MainContainerComponent from 'components/layouts/main-container.component';
-import LineBreakComponent from 'components/common/line-break.component';
-import PrimaryButtonComponent from 'components/buttons/primary-button.component';
-import SocialButtonComponent from 'components/buttons/social-button.component';
+import MainContainerComponent from 'common/components/main-container.component';
+import LineBreakComponent from 'common/components/line-break.component';
+import PrimaryButtonComponent from 'common/components/primary-button.component';
+import SocialButtonComponent from 'common/components/social-button.component';
 
 import AuthContext from 'context/auth';
 
@@ -57,7 +57,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           <View style={styles.inputBoxesContainer}>
             <LoginForm values={{ email, password }} onChange={handleFormChange} />
           </View>
-          <PrimaryButtonComponent size={{ height: 50, width: '100%' }} label="Entrar" btnFunction={handleLogin} />
+          <PrimaryButtonComponent size={{ height: 50, width: '100%' }} label="Entrar" handler={handleLogin} />
 
           <View style={styles.containerLineBreak}>
             <LineBreakComponent>Ou</LineBreakComponent>
@@ -67,12 +67,12 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
             <SocialButtonComponent
               size={styles.socialButtonSize}
               icon={require('assets/images/facebook.png')}
-              btnFunction={handleFacebookLogin}
+              handler={handleFacebookLogin}
             />
             <SocialButtonComponent
               size={styles.socialButtonSize}
               icon={require('assets/images/google.png')}
-              btnFunction={handleGoogleLogin}
+              handler={handleGoogleLogin}
             />
           </View>
           <Text style={styles.redirectToSignup}>
