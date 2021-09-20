@@ -44,7 +44,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
         <Image style={styles.screenMainIcon} source={require('assets/images/signup-art.png')} />
         <MainContainerComponent height="90%">
-          <Text style={styles.mainLabel}>Signup</Text>
+          <Text style={styles.mainLabel}>Cadastrar</Text>
 
           <SignupForm handler={handleSignup} />
 

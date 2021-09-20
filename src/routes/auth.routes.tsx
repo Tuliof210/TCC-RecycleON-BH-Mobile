@@ -8,7 +8,7 @@ import LoginScreen from 'screens/auth/login/login.screen';
 
 const AuthStack = createNativeStackNavigator();
 
-const AuthRoutes: React.FC = () => (
+const AuthRoutes = () => (
   <AuthStack.Navigator
     screenOptions={{
       headerShown: false,

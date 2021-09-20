@@ -7,7 +7,7 @@ import HomeScreen from 'screens/app/home/home.screen';
 
 const AuthStack = createNativeStackNavigator();
 
-const AppRoutes: React.FC = () => (
+const AppRoutes = () => (
   <AuthStack.Navigator
     screenOptions={{
       headerShown: false,

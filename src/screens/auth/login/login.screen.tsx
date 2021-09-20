@@ -43,7 +43,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
         <Image style={styles.screenMainIcon} source={require('assets/images/login-art.png')} />
         <MainContainerComponent height="75%">
-          <Text style={styles.mainLabel}>Login</Text>
+          <Text style={styles.mainLabel}>Entrar</Text>
 
           <LoginForm handler={handleLogin} />
 
