@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
+import { Alert, Image, View, Text, ScrollView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
+import LoginForm from './form/login-form.component';
+
 import MainContainerComponent from 'components/layouts/main-container.component';
-import InputTextComponent from 'components/inputs/input-text.component';
 import LineBreakComponent from 'components/common/line-break.component';
 import PrimaryButtonComponent from 'components/buttons/primary-button.component';
 import SocialButtonComponent from 'components/buttons/social-button.component';
@@ -15,20 +16,24 @@ import AuthContext from 'context/auth';
 import styles, { backgroundGradient } from './login.style';
 
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
+  const router = props.navigation;
+
   const { login } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [hidePassword, setHidePassword] = useState(true);
 
-  const router = props.navigation;
-
-  function getHidePasswordIcon(): ImageProps {
-    return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
-  }
+  //--------------------------------------------------------------
 
   function handleLogin() {
     login({ email, password });
+  }
+
+  function handleFormChange(key: string, value: string) {
+    if (key == 'email') setEmail(value);
+    if (key == 'password') setPassword(value);
+
+    console.log(key, value);
   }
 
   return (
@@ -39,50 +44,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           <Text style={styles.mainLabel}>Login</Text>
 
           <View style={styles.inputBoxesContainer}>
-            <View style={styles.inputBox}>
-              <Text style={styles.inputLabel}>E-mail</Text>
-              <InputTextComponent
-                size={styles.inputText}
-                placeholder={'Insira seu e-mail'}
-                text={email}
-                secureText={false}
-                inputFunction={(text: string) => {
-                  setEmail(text);
-                }}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.inputLabel}>Senha</Text>
-              <InputTextComponent
-                size={styles.inputText}
-                placeholder={'Insira sua senha'}
-                text={password}
-                secureText={hidePassword}
-                inputFunction={(text: string) => {
-                  setPassword(text);
-                }}
-              />
-              <View style={styles.forgotPassword}>
-                <Text
-                  style={[styles.inputLabel, styles.forgotPasswordTxt]}
-                  onPress={() => {
-                    Alert.alert('Forgot Password', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-                  }}
-                >
-                  esqueci minha senha
-                </Text>
-              </View>
-              <TouchableHighlight
-                style={styles.toggleHidenPassword}
-                activeOpacity={1}
-                underlayColor="transparent"
-                onPress={() => {
-                  setHidePassword(!hidePassword);
-                }}
-              >
-                <Image style={styles.toggleHidenPasswordIcon} source={getHidePasswordIcon()} />
-              </TouchableHighlight>
-            </View>
+            <LoginForm values={{ email, password }} onChange={handleFormChange} />
           </View>
           <PrimaryButtonComponent size={{ height: 50, width: '100%' }} label="Entrar" btnFunction={handleLogin} />
 
