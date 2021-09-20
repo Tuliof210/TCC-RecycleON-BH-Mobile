@@ -17,6 +17,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<object | null>(null);
 
   async function login(loginData: { email: string; password: string }): Promise<void> {
+    console.log(loginData);
+
     const response = await authService.login(loginData);
     setUser(response.user);
   }

@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Image, View, Text, ScrollView } from 'react-native';
+import { Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import LoginForm from './form/login-form.component';
+import LoginForm from './login-form/login-form.component';
+import LoginSocial from './login-social/login-social.components';
 
 import MainContainerComponent from 'components/layouts/main-container.component';
 import LineBreakComponent from 'components/common/line-break.component';
 import PrimaryButtonComponent from 'components/buttons/primary-button.component';
-import SocialButtonComponent from 'components/buttons/social-button.component';
 
 import AuthContext from 'context/auth';
 
@@ -26,18 +26,19 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   //--------------------------------------------------------------
 
   function handleLogin() {
-    login({ email, password });
+    login({
+      email: email.trim(),
+      password: password.trim(),
+    });
   }
 
   function handleFormChange(key: string, value: string) {
     if (key == 'email') setEmail(value);
     if (key == 'password') setPassword(value);
-
-    console.log(key, value);
   }
 
   return (
-    <ScrollView>
+    <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
         <Image style={styles.screenMainIcon} source={require('assets/images/login-art.png')} />
         <MainContainerComponent height="75%">
@@ -53,20 +54,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           </View>
 
           <View style={styles.socialLoginButtons}>
-            <SocialButtonComponent
-              size={{ width: '44%', height: 55 }}
-              icon={require('assets/images/facebook.png')}
-              btnFunction={() => {
-                Alert.alert('Login Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-              }}
-            />
-            <SocialButtonComponent
-              size={{ width: '44%', height: 55 }}
-              icon={require('assets/images/google.png')}
-              btnFunction={() => {
-                Alert.alert('Login Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-              }}
-            />
+            <LoginSocial />
           </View>
           <Text style={styles.redirectToSignup}>
             É novo por aqui?{' '}
@@ -81,6 +69,6 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           </Text>
         </MainContainerComponent>
       </LinearGradient>
-    </ScrollView>
+    </SafeAreaView>
   );
 };

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Alert, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
+import { Alert, Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
 
 import InputTextComponent from 'components/inputs/input-text.component';
 
@@ -22,6 +22,8 @@ export default (props: {
   function getPassword(text: string): void {
     props.onChange('password', text);
   }
+
+  //--------------------------------------------------------------
 
   return (
     <Fragment>
