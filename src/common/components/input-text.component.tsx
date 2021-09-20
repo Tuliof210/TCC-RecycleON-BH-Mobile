@@ -1,23 +1,26 @@
 import React from 'react';
 
-import { StyleSheet, TextInput } from 'react-native';
+import { KeyboardTypeOptions, StyleSheet, TextInput } from 'react-native';
 
-import { colors } from 'styles/colors';
+import { colors } from 'common/constants/colors';
 
 export default (props: {
   size: { width: number | string; height: number | string };
   placeholder: string;
   text: string;
-  secureText: boolean;
-  inputFunction: (text: string) => void;
+  keyboardType?: KeyboardTypeOptions;
+  secureText?: boolean;
+  handler: (text: string) => void;
 }) => (
   <TextInput
-    secureTextEntry={props.secureText}
+    autoCapitalize={'none'}
+    keyboardType={props.keyboardType ?? 'default'}
+    secureTextEntry={props.secureText ?? false}
     style={[styles.container, styles.inputBorder, styles.inputFont, { ...props.size }]}
     placeholderTextColor={colors.get('black') + '4D'}
     placeholder={props.placeholder}
-    onChangeText={props.inputFunction}
     value={props.text}
+    onChangeText={props.handler}
   />
 );
 

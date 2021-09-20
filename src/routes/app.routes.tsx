@@ -1,13 +1,13 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { colors } from 'styles/colors';
+import { colors } from 'common/constants/colors';
 
-import HomeScreen from 'screens/home/home.screen';
+import HomeScreen from 'screens/app/home/home.screen';
 
 const AuthStack = createNativeStackNavigator();
 
-const AppRoutes: React.FC = () => (
+const AppRoutes = () => (
   <AuthStack.Navigator
     screenOptions={{
       headerShown: false,

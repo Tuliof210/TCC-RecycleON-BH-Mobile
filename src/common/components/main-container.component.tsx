@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { colors } from 'styles/colors';
+import { colors } from 'common/constants/colors';
 
 export default (props: { height: string; children: React.ReactNode }) => (
   <View style={[styles.container, styles.containerShadow, { height: props.height }]}>{props.children}</View>

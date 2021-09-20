@@ -3,14 +3,14 @@ import React from 'react';
 import { StyleSheet, Image, TouchableWithoutFeedback, ImageProps } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { colors, gradient } from 'styles/colors';
+import { colors, gradient } from 'common/constants/colors';
 
 export default (props: {
   size: { width: number | string; height: number | string };
   icon: ImageProps;
-  btnFunction: () => void;
+  handler: () => void;
 }) => (
-  <TouchableWithoutFeedback onPress={props.btnFunction}>
+  <TouchableWithoutFeedback onPress={props.handler}>
     <LinearGradient
       style={[styles.container, styles.containerBorder, { width: props.size.width, height: props.size.height }]}
       colors={[gradient.get('fade-gray-btn').start, gradient.get('fade-gray-btn').end]}
