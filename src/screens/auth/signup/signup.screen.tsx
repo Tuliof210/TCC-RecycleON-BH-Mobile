@@ -62,14 +62,14 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
           <View style={styles.socialSignupButtons}>
             <SocialButtonComponent
-              size={{ width: '44%', height: 55 }}
+              size={styles.socialButtonSize}
               icon={require('assets/images/facebook.png')}
               btnFunction={() => {
                 Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
               }}
             />
             <SocialButtonComponent
-              size={{ width: '44%', height: 55 }}
+              size={styles.socialButtonSize}
               icon={require('assets/images/google.png')}
               btnFunction={() => {
                 Alert.alert('Signup Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);

@@ -65,12 +65,12 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
           <View style={styles.socialLoginButtons}>
             <SocialButtonComponent
-              size={styles.buttonSize}
+              size={styles.socialButtonSize}
               icon={require('assets/images/facebook.png')}
               btnFunction={handleFacebookLogin}
             />
             <SocialButtonComponent
-              size={styles.buttonSize}
+              size={styles.socialButtonSize}
               icon={require('assets/images/google.png')}
               btnFunction={handleGoogleLogin}
             />

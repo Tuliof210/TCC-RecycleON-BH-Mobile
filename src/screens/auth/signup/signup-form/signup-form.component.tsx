@@ -34,7 +34,7 @@ export default (props: {
           placeholder={'Insira seu nome'}
           text={props.values.name}
           secureText={false}
-          inputFunction={getValue('name')}
+          handler={getValue('name')}
         />
       </View>
       <View style={styles.inputBox}>
@@ -45,7 +45,7 @@ export default (props: {
           text={props.values.email}
           keyboardType={'email-address'}
           secureText={false}
-          inputFunction={getValue('email')}
+          handler={getValue('email')}
         />
       </View>
       <View style={styles.inputBox}>
@@ -55,7 +55,7 @@ export default (props: {
           placeholder={'Insira sua senha'}
           text={props.values.password}
           secureText={hidePassword}
-          inputFunction={getValue('password')}
+          handler={getValue('password')}
         />
         <TouchableHighlight
           style={styles.toggleHidenPassword}
@@ -75,7 +75,7 @@ export default (props: {
           placeholder={'Confirme sua senha'}
           text={props.values.confirmPassword}
           secureText={hidePassword}
-          inputFunction={getValue('confirm-password')}
+          handler={getValue('confirm-password')}
         />
       </View>
     </Fragment>

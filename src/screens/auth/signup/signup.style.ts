@@ -37,6 +37,10 @@ export default StyleSheet.create({
     resizeMode: 'contain',
     width: 70,
   },
+  socialButtonSize: {
+    width: '44%',
+    height: 55,
+  },
   socialSignupButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',

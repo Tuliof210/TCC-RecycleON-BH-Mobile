@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { colors } from 'styles/colors';
 
-import HomeScreen from 'screens/home/home.screen';
+import HomeScreen from 'screens/app/home/home.screen';
 
 const AuthStack = createNativeStackNavigator();
 

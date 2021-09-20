@@ -35,7 +35,7 @@ export default (props: {
           text={props.values.email}
           keyboardType={'email-address'}
           secureText={false}
-          inputFunction={getValue('email')}
+          handler={getValue('email')}
         />
       </View>
       <View style={styles.inputBox}>
@@ -45,7 +45,7 @@ export default (props: {
           placeholder={'Insira sua senha'}
           text={props.values.password}
           secureText={hidePassword}
-          inputFunction={getValue('password')}
+          handler={getValue('password')}
         />
         <View style={styles.forgotPassword}>
           <Text

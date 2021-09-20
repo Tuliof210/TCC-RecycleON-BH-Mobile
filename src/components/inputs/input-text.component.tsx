@@ -10,16 +10,17 @@ export default (props: {
   text: string;
   keyboardType?: KeyboardTypeOptions;
   secureText: boolean;
-  inputFunction: (text: string) => void;
+  handler: (text: string) => void;
 }) => (
   <TextInput
+    autoCapitalize={'none'}
     keyboardType={props.keyboardType ?? 'default'}
     secureTextEntry={props.secureText}
     style={[styles.container, styles.inputBorder, styles.inputFont, { ...props.size }]}
     placeholderTextColor={colors.get('black') + '4D'}
     placeholder={props.placeholder}
-    onChangeText={props.inputFunction}
     value={props.text}
+    onChangeText={props.handler}
   />
 );
 

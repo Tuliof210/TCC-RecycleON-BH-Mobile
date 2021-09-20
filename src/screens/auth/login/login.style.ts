@@ -2,10 +2,6 @@ import { StyleSheet } from 'react-native';
 import { colors, gradient } from 'styles/colors';
 
 export default StyleSheet.create({
-  buttonSize: {
-    width: '44%',
-    height: 55,
-  },
   containerLineBreak: {
     marginVertical: 30,
   },
@@ -40,6 +36,10 @@ export default StyleSheet.create({
     position: 'relative',
     resizeMode: 'contain',
     width: 180,
+  },
+  socialButtonSize: {
+    width: '44%',
+    height: 55,
   },
   socialLoginButtons: {
     flexDirection: 'row',
