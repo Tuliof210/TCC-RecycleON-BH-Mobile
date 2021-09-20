@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { colors, gradient } from 'styles/colors';
 
 export default StyleSheet.create({
+  buttonSize: {
+    width: '44%',
+    height: 55,
+  },
   containerLineBreak: {
     marginVertical: 30,
   },

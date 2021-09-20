@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Image, View, Text, SafeAreaView } from 'react-native';
+import { Alert, Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
 import LoginForm from './login-form/login-form.component';
-import LoginSocial from './login-social/login-social.components';
 
 import MainContainerComponent from 'components/layouts/main-container.component';
 import LineBreakComponent from 'components/common/line-break.component';
 import PrimaryButtonComponent from 'components/buttons/primary-button.component';
+import SocialButtonComponent from 'components/buttons/social-button.component';
 
 import AuthContext from 'context/auth';
 
@@ -37,6 +37,14 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
     if (key == 'password') setPassword(value);
   }
 
+  function handleFacebookLogin() {
+    Alert.alert('Login Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+  }
+
+  function handleGoogleLogin() {
+    Alert.alert('Login Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
@@ -54,7 +62,16 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           </View>
 
           <View style={styles.socialLoginButtons}>
-            <LoginSocial />
+            <SocialButtonComponent
+              size={styles.buttonSize}
+              icon={require('assets/images/facebook.png')}
+              btnFunction={handleFacebookLogin}
+            />
+            <SocialButtonComponent
+              size={styles.buttonSize}
+              icon={require('assets/images/google.png')}
+              btnFunction={handleGoogleLogin}
+            />
           </View>
           <Text style={styles.redirectToSignup}>
             É novo por aqui?{' '}
