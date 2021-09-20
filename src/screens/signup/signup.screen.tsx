@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Image, ImageProps, View, Text, TouchableHighlight, ScrollView } from 'react-native';
+import { Alert, Image, ImageProps, View, Text, TouchableHighlight, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -34,32 +34,11 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   }
 
   return (
-    <ScrollView>
+    <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
         <Image style={styles.screenMainIcon} source={require('assets/images/signup-art.png')} />
         <MainContainerComponent height="90%">
           <Text style={styles.mainLabel}>Signup</Text>
-
-          <View style={styles.socialSignupButtons}>
-            <SocialButtonComponent
-              size={{ width: '44%', height: 55 }}
-              icon={require('assets/images/facebook.png')}
-              btnFunction={() => {
-                Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-              }}
-            />
-            <SocialButtonComponent
-              size={{ width: '44%', height: 55 }}
-              icon={require('assets/images/google.png')}
-              btnFunction={() => {
-                Alert.alert('Signup Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-              }}
-            />
-          </View>
-
-          <View style={styles.containerLineBreak}>
-            <LineBreakComponent>Ou</LineBreakComponent>
-          </View>
 
           <View style={styles.inputBoxesContainer}>
             <View style={styles.inputBox}>
@@ -80,6 +59,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
                 size={styles.inputText}
                 placeholder={'Insira seu e-mail'}
                 text={email}
+                keyboardType={'email-address'}
                 secureText={false}
                 inputFunction={(text: string) => {
                   setEmail(text);
@@ -122,6 +102,28 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
             </View>
           </View>
           <PrimaryButtonComponent size={{ height: 50, width: '100%' }} label="Criar" btnFunction={handleSignup} />
+
+          <View style={styles.containerLineBreak}>
+            <LineBreakComponent>Ou</LineBreakComponent>
+          </View>
+
+          <View style={styles.socialSignupButtons}>
+            <SocialButtonComponent
+              size={{ width: '44%', height: 55 }}
+              icon={require('assets/images/facebook.png')}
+              btnFunction={() => {
+                Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+              }}
+            />
+            <SocialButtonComponent
+              size={{ width: '44%', height: 55 }}
+              icon={require('assets/images/google.png')}
+              btnFunction={() => {
+                Alert.alert('Signup Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+              }}
+            />
+          </View>
+
           <Text style={styles.redirectToLogin}>
             Já possui uma conta?{' '}
             <Text
@@ -135,6 +137,6 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           </Text>
         </MainContainerComponent>
       </LinearGradient>
-    </ScrollView>
+    </SafeAreaView>
   );
 };

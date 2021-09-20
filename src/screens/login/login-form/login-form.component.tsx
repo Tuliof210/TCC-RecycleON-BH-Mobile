@@ -33,6 +33,7 @@ export default (props: {
           size={styles.inputText}
           placeholder={'Insira seu e-mail'}
           text={props.values.email}
+          keyboardType={'email-address'}
           secureText={false}
           inputFunction={getEmail}
         />
