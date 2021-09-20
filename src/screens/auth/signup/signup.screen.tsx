@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Image, ImageProps, View, Text, TouchableHighlight, SafeAreaView } from 'react-native';
+import { Alert, Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
