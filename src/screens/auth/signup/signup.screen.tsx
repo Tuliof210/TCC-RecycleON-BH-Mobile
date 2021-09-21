@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
-import { Alert, Image, View, Text, SafeAreaView } from 'react-native';
+import { Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import SignupForm from './signup-form/signup-form.component';
-
 import MainContainerComponent from 'common/components/main-container.component';
-import SocialAuthButtonComponent from 'common/components/social-auth-button.component';
 import LineBreakComponent from 'common/components/line-break.component';
+import SignupForm from './signup-form/signup-form.component';
+import SocialAuth from '../social-auth/social-auth.component';
 
 import AuthContext from 'context/auth';
 
@@ -31,14 +30,6 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
     });
   }
 
-  function handleFacebookAuth() {
-    Alert.alert('Auth With Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-  }
-
-  function handleGoogleAuth() {
-    Alert.alert('Auth With Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
-  }
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
@@ -52,18 +43,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
             <LineBreakComponent>Ou</LineBreakComponent>
           </View>
 
-          <View style={styles.socialSignupButtons}>
-            <SocialAuthButtonComponent
-              size={styles.socialButtonSize}
-              icon={require('assets/images/facebook.png')}
-              handler={handleFacebookAuth}
-            />
-            <SocialAuthButtonComponent
-              size={styles.socialButtonSize}
-              icon={require('assets/images/google.png')}
-              handler={handleGoogleAuth}
-            />
-          </View>
+          <SocialAuth />
 
           <Text style={styles.redirectToSignIn}>
             Já possui uma conta?{' '}
