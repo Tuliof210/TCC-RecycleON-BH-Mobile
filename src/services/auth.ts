@@ -14,7 +14,7 @@ export default class AuthService {
     timeout: 10000,
   });
 
-  async signup({
+  async signUp({
     name,
     email,
     password,
@@ -35,7 +35,7 @@ export default class AuthService {
     return response.data as AuthenticatedUser;
   }
 
-  async login({ email, password }: { email: string; password: string }): Promise<AuthenticatedUser> {
+  async signIn({ email, password }: { email: string; password: string }): Promise<AuthenticatedUser> {
     const auth = base64.encode(`${email}:${password}`);
     const response = await this.api.get(`/auth`, {
       headers: {

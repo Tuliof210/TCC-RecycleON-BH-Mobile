@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import SignupForm from './signup-form/signup-form.component';
 
 import MainContainerComponent from 'common/components/main-container.component';
-import SocialButtonComponent from 'common/components/social-button.component';
+import SocialAuthButtonComponent from 'common/components/social-auth-button.component';
 import LineBreakComponent from 'common/components/line-break.component';
 
 import AuthContext from 'context/auth';
@@ -17,26 +17,26 @@ import styles, { backgroundGradient } from './signup.style';
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
   const router = props.navigation;
 
-  const { signup } = useContext(AuthContext);
+  const { signUp } = useContext(AuthContext);
 
   //--------------------------------------------------------------
 
   function handleSignup({ name, email, password }: { name: string; email: string; password: string }) {
     console.log({ name, email, password });
 
-    signup({
+    signUp({
       name: name.trim(),
       email: email.trim(),
       password: password.trim(),
     });
   }
 
-  function handleFacebookSignup() {
-    Alert.alert('Signup Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+  function handleFacebookAuth() {
+    Alert.alert('Auth With Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
   }
 
-  function handleGoogleSignup() {
-    Alert.alert('Login Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+  function handleGoogleAuth() {
+    Alert.alert('Auth With Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
   }
 
   return (
@@ -53,27 +53,27 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           </View>
 
           <View style={styles.socialSignupButtons}>
-            <SocialButtonComponent
+            <SocialAuthButtonComponent
               size={styles.socialButtonSize}
               icon={require('assets/images/facebook.png')}
-              handler={handleFacebookSignup}
+              handler={handleFacebookAuth}
             />
-            <SocialButtonComponent
+            <SocialAuthButtonComponent
               size={styles.socialButtonSize}
               icon={require('assets/images/google.png')}
-              handler={handleGoogleSignup}
+              handler={handleGoogleAuth}
             />
           </View>
 
-          <Text style={styles.redirectToLogin}>
+          <Text style={styles.redirectToSignIn}>
             Já possui uma conta?{' '}
             <Text
-              style={styles.redirectToLoginHighlight}
+              style={styles.redirectToSignInHighlight}
               onPress={() => {
                 router.goBack();
               }}
             >
-              Faça login
+              Clique aqui para entrar
             </Text>
           </Text>
         </MainContainerComponent>

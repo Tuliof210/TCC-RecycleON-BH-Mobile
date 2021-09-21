@@ -38,7 +38,7 @@ export default StyleSheet.create({
     width: '44%',
     height: 55,
   },
-  socialLoginButtons: {
+  socialAuthButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

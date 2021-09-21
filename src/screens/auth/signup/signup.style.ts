@@ -11,14 +11,14 @@ export default StyleSheet.create({
     fontSize: 25,
     marginBottom: 30,
   },
-  redirectToLogin: {
+  redirectToSignIn: {
     color: colors.get('gray-font-light'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 16,
     marginVertical: 30,
     textAlign: 'center',
   },
-  redirectToLoginHighlight: {
+  redirectToSignInHighlight: {
     color: colors.get('green-dark'),
     fontFamily: 'Ubuntu-Bold',
   },

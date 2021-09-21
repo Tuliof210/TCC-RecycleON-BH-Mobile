@@ -4,7 +4,7 @@ import { Alert, Image, ImageProps, View, Text, TouchableHighlight } from 'react-
 import InputTextComponent from 'common/components/input-text.component';
 import PrimaryButtonComponent from 'common/components/primary-button.component';
 
-import styles from './login-form.style';
+import styles from './signin-form.style';
 
 export default (props: { handler: (userData: { email: string; password: string }) => void }): JSX.Element => {
   const [email, setEmail] = useState('');
