@@ -7,9 +7,9 @@ export default class LocationService {
     setLongitude: React.Dispatch<React.SetStateAction<number | null>>,
   ) {
     const locationOptions = { accuracy: 3, timeInterval: 1000, distanceInterval: 10 };
-    return Location.watchPositionAsync(locationOptions, (data) => {
-      setLatitude(data.coords.latitude);
-      setLongitude(data.coords.longitude);
+    return Location.watchPositionAsync(locationOptions, ({ coords }) => {
+      setLatitude(coords.latitude);
+      setLongitude(coords.longitude);
     });
   }
 }
