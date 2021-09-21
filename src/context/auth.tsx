@@ -13,7 +13,9 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export default AuthContext;
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const authService: AuthService = new AuthService();
 
   const [token, setToken] = useState<string | null>(null);
@@ -43,5 +45,3 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   );
 };
-
-export default AuthContext;

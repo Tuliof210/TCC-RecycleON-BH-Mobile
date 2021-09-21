@@ -10,6 +10,7 @@ import { useFonts } from '@use-expo/font';
 import Routes from './src/routes';
 
 import { AuthProvider } from 'context/auth';
+import { LocationProvider } from 'context/location';
 
 export default function App() {
   // habilita a possibilidade de executar com "react-devtools" em ambiente de Dev
@@ -36,7 +37,9 @@ export default function App() {
       <StatusBar style="auto" />
       <NavigationContainer>
         <AuthProvider>
-          <Routes />
+          <LocationProvider>
+            <Routes />
+          </LocationProvider>
         </AuthProvider>
       </NavigationContainer>
     </Fragment>
