@@ -32,7 +32,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
-        <Image style={styles.screenMainIcon} source={require('assets/images/sigin-art.png')} />
+        <Image style={styles.screenMainIcon} source={require('assets/images/signin-art.png')} />
         <MainContainerComponent height="75%">
           <Text style={styles.mainLabel}>Entrar</Text>
 
@@ -49,7 +49,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
             <Text
               style={styles.redirectToSignupHighlight}
               onPress={() => {
-                router.navigate('signup');
+                router.navigate('signUp');
               }}
             >
               Crie sua conta
