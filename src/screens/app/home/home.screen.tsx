@@ -7,11 +7,11 @@ import AuthContext from 'context/auth';
 import styles from './home.style';
 
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
-  const { logout } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.text}>Home</Text>
-      <Text onPress={logout}>Sair</Text>
+      <Text onPress={signOut}>Sair</Text>
     </ScrollView>
   );
 };

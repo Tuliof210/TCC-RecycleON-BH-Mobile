@@ -34,14 +34,6 @@ export default StyleSheet.create({
     resizeMode: 'contain',
     width: 180,
   },
-  socialButtonSize: {
-    width: '44%',
-    height: 55,
-  },
-  socialLoginButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
 });
 
 export const backgroundGradient = [gradient.get('fade-green-bg').start, gradient.get('fade-green-bg').end];

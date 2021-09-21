@@ -44,5 +44,3 @@ export default function App() {
     <AppLoading></AppLoading>
   );
 }
-
-//TODO pesquisar diferenças entre login-logon signup-signin
