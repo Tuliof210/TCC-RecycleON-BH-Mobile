@@ -19,8 +19,8 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   }, []);
 
   useEffect(() => {
-    console.log({ coordinates: { latitude, longitude } });
-  }, [latitude, longitude]);
+    console.log({ latitude, longitude });
+  }, [latitude, latitude]);
 
   //----------------------------------------------------------------------------
 
@@ -46,7 +46,13 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map}>{renderMainMark()}</MapView>
+      {/*TODO https://github.com/react-native-maps/react-native-maps/issues/505 */}
+      <MapView
+        style={styles.map}
+        region={{ latitude: latitude ?? 0, longitude: longitude ?? 0, latitudeDelta: 0.04, longitudeDelta: 0.001 }}
+      >
+        {renderMainMark()}
+      </MapView>
     </View>
   );
 };
