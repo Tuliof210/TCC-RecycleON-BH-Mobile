@@ -9,26 +9,30 @@ import LocationContext from 'context/location';
 import styles from './home.style';
 
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
-  const { signOut } = useContext(AuthContext);
-  const { latitude, longitude, requestLocationPermission, startWatchCurrentPosition } = useContext(LocationContext);
-
   const [locationPermission, setLocationPermission] = useState<boolean>(false);
+
+  const { latitude, longitude, requestLocationPermission, startWatchCurrentPosition, locationService } =
+    useContext(LocationContext);
 
   useEffect(() => {
     requestUserLocation();
   }, []);
 
   useEffect(() => {
-    console.log({ latitude, longitude });
-  }, [latitude, latitude]);
+    console.log(latitude, longitude);
+  }, [latitude, longitude]);
 
   //----------------------------------------------------------------------------
+
+  function requestMapRegion() {
+    return locationService.getMapRegion([{ latitude, longitude }]);
+  }
 
   function requestUserLocation() {
     requestLocationPermission()
       .then(async (permission) => {
         setLocationPermission(permission);
-        await startWatchCurrentPosition();
+        //await startWatchCurrentPosition();
 
         console.log({ permission });
       })
@@ -37,21 +41,10 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
       });
   }
 
-  function renderMainMark() {
-    return (
-      latitude &&
-      longitude && <Marker key={1} coordinate={{ latitude, longitude }} title={'Casa'} description={'Minha Casa'} />
-    );
-  }
-
   return (
     <View style={styles.container}>
-      {/*TODO https://github.com/react-native-maps/react-native-maps/issues/505 */}
-      <MapView
-        style={styles.map}
-        region={{ latitude: latitude ?? 0, longitude: longitude ?? 0, latitudeDelta: 0.04, longitudeDelta: 0.001 }}
-      >
-        {renderMainMark()}
+      <MapView style={styles.map} region={requestMapRegion()}>
+        <Marker key={1} coordinate={{ latitude, longitude }} title={'Casa'} description={'Minha Casa'} />
       </MapView>
     </View>
   );

@@ -9,8 +9,8 @@ import { useFonts } from '@use-expo/font';
 
 import Routes from './src/routes';
 
-import { AuthProvider } from 'context/auth';
-import { LocationProvider } from 'context/location';
+import { AuthProvider } from 'context/auth.context';
+import { LocationProvider } from 'context/location.context';
 
 export default function App() {
   // habilita a possibilidade de executar com "react-devtools" em ambiente de Dev

@@ -1,13 +1,16 @@
 import React, { createContext, useCallback, useState } from 'react';
 import * as Location from 'expo-location';
 
-import LocationService from 'services/location';
+import LocationService from 'services/location-service';
+
+import { DefaultLocation } from 'common/constants/locations';
 
 interface LocationContextData {
-  latitude: number | null;
-  longitude: number | null;
+  latitude: number;
+  longitude: number;
   requestLocationPermission(): Promise<boolean>;
   startWatchCurrentPosition(): Promise<void>;
+  locationService: LocationService;
 }
 
 const LocationContext = createContext<LocationContextData>({} as LocationContextData);
@@ -19,10 +22,10 @@ const count = new Set();
 //=====================================================
 
 export const LocationProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  const locationService: LocationService = new LocationService();
+  const [latitude, setLatitude] = useState<number>(DefaultLocation.latitude);
+  const [longitude, setLongitude] = useState<number>(DefaultLocation.longitude);
 
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+  const locationService: LocationService = new LocationService(setLatitude, setLongitude);
 
   //=====================================================
   // com useCallback as funções so serão reescritas caso
@@ -34,7 +37,7 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
   }, []);
 
   const startWatchCurrentPosition = useCallback(async () => {
-    await locationService.watchPosition(setLatitude, setLongitude);
+    await locationService.watchCurrentPosition();
   }, []);
 
   count.add(requestLocationPermission);
@@ -45,7 +48,15 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
   //=====================================================
 
   return (
-    <LocationContext.Provider value={{ latitude, longitude, requestLocationPermission, startWatchCurrentPosition }}>
+    <LocationContext.Provider
+      value={{
+        latitude,
+        longitude,
+        requestLocationPermission,
+        startWatchCurrentPosition,
+        locationService,
+      }}
+    >
       {children}
     </LocationContext.Provider>
   );
