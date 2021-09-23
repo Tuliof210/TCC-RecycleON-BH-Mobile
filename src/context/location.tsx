@@ -14,7 +14,9 @@ const LocationContext = createContext<LocationContextData>({} as LocationContext
 
 export default LocationContext;
 
-const teste = new Set();
+//=====================================================
+const count = new Set();
+//=====================================================
 
 export const LocationProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const locationService: LocationService = new LocationService();
@@ -22,18 +24,25 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
 
-  async function requestLocationPermission() {
+  //=====================================================
+  // com useCallback as funções so serão reescritas caso
+  // os valores passados no array mudem
+  //=====================================================
+  const requestLocationPermission = useCallback(async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     return status === 'granted';
-  }
+  }, []);
 
-  async function startWatchCurrentPosition() {
+  const startWatchCurrentPosition = useCallback(async () => {
     await locationService.watchPosition(setLatitude, setLongitude);
-  }
+  }, []);
 
-  teste.add(requestLocationPermission);
-  teste.add(startWatchCurrentPosition);
-  console.log(teste);
+  count.add(requestLocationPermission);
+  count.add(startWatchCurrentPosition);
+
+  console.log(count);
+  //=====================================================
+  //=====================================================
 
   return (
     <LocationContext.Provider value={{ latitude, longitude, requestLocationPermission, startWatchCurrentPosition }}>
