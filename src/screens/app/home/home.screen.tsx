@@ -1,7 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
+
+import { LocationPoint } from 'common/constants/types';
 
 import LocationContext from 'context/location.context';
 
@@ -15,28 +17,43 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
     requestLocationPermission,
     startWatchCurrentPosition,
     getMapRegion,
+    getLocationsMap,
   } = useContext(LocationContext);
+
+  const [locationPoints, setLocationPoints] = useState<Array<LocationPoint>>([]);
+
+  //----------------------------------------------------------------------------
 
   useEffect(() => {
     requestUserLocation();
   }, []);
 
   useEffect(() => {
-    console.log(latitude, longitude);
+    (async () => {
+      console.log(latitude, longitude);
+      const locationPointsList = await getLocationsMap();
+      setLocationPoints(locationPointsList);
+    })();
   }, [latitude, longitude]);
 
   //----------------------------------------------------------------------------
 
   function requestMapRegion() {
-    return getMapRegion([]);
+    const pointsCoordinates = locationPoints.map((location) => {
+      const [pointLongitude, pointLatitude] = location.geometry.coordinates;
+      return { latitude: pointLatitude, longitude: pointLongitude };
+    });
+    return getMapRegion(pointsCoordinates);
   }
 
   function requestUserLocation() {
     requestLocationPermission()
       .then(async () => {
-        setTimeout(async () => {
-          await startWatchCurrentPosition();
-        }, 5000);
+        if (hasLocationPermission) {
+          setTimeout(async () => {
+            await startWatchCurrentPosition();
+          }, 5000);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -51,10 +68,25 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
     );
   }
 
+  function renderLocationPoints(): Array<JSX.Element> {
+    return locationPoints.map((point) => {
+      const [pointLongitude, pointLatitude] = point.geometry.coordinates;
+      return (
+        <Marker
+          key={point._id}
+          coordinate={{ latitude: pointLatitude, longitude: pointLongitude }}
+          title={point.locationTag}
+          description={point.properties.name}
+        />
+      );
+    });
+  }
+
   return (
     <View style={styles.container}>
       <MapView style={styles.map} region={requestMapRegion()}>
         {renderUserLocation()}
+        {renderLocationPoints()}
       </MapView>
     </View>
   );

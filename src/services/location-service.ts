@@ -1,7 +1,9 @@
 import React from 'react';
 import * as Location from 'expo-location';
 
-import axios from 'axios';
+import { AppAPI } from 'common/libs/axios';
+
+import { LocationsMap } from 'common/constants/types';
 
 export default class LocationService {
   constructor(
@@ -19,5 +21,17 @@ export default class LocationService {
     });
   }
 
-  async getLocationsMap() {}
+  async getLocationsMap(token: string | null): Promise<LocationsMap | void> {
+    if (token) {
+      const resource = 'locations';
+      const request = 'locationTag=LEV&materials=papel';
+
+      const response = await AppAPI.get(`/${resource}?${request}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data as LocationsMap;
+    }
+  }
 }

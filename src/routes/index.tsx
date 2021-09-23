@@ -11,7 +11,7 @@ const Routes = () => {
   const { signed } = useContext(AuthContext);
   const defaultScreenOptions = { headerShown: false, contentStyle: { backgroundColor: colors('white') } };
 
-  return !signed ? (
+  return signed ? (
     <AppRoutes screenOptions={defaultScreenOptions} />
   ) : (
     <AuthRoutes screenOptions={defaultScreenOptions} />

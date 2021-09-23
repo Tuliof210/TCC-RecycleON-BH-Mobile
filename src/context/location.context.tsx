@@ -1,11 +1,13 @@
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import * as Location from 'expo-location';
 
-import { Coordinates, FullCoordinates } from 'common/constants/types';
+import { Coordinates, FullCoordinates, LocationPoint } from 'common/constants/types';
 import { DefaultLocation } from 'common/constants/locations';
 
 import LocationService from 'services/location-service';
 import LocationHelper from 'helpers/location-helper';
+
+import AuthContext from 'context/auth.context';
 
 interface LocationContextData {
   latitude: number;
@@ -14,6 +16,7 @@ interface LocationContextData {
   requestLocationPermission(): Promise<void>;
   startWatchCurrentPosition(): Promise<void>;
   getMapRegion(coordinatesList: Array<Coordinates>): FullCoordinates;
+  getLocationsMap(): Promise<Array<LocationPoint>>;
 }
 
 const LocationContext = createContext<LocationContextData>({} as LocationContextData);
@@ -25,6 +28,8 @@ const count = new Set();
 //=====================================================
 
 export const LocationProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
+  const { token } = useContext(AuthContext);
+
   const [latitude, setLatitude] = useState<number>(DefaultLocation.latitude);
   const [longitude, setLongitude] = useState<number>(DefaultLocation.longitude);
   const [hasLocationPermission, setHasLocationPermission] = useState<boolean>(false);
@@ -53,6 +58,11 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
     [latitude, longitude],
   );
 
+  const getLocationsMap = useCallback(async () => {
+    const locationsMap = await locationService.getLocationsMap(token);
+    return locationsMap ? locationsMap.features : [];
+  }, [token]);
+
   count.add(requestLocationPermission);
   count.add(startWatchCurrentPosition);
   count.add(getMapRegion);
@@ -70,6 +80,7 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
         requestLocationPermission,
         startWatchCurrentPosition,
         getMapRegion,
+        getLocationsMap,
       }}
     >
       {children}

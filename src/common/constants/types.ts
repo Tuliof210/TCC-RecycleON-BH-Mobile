@@ -23,3 +23,37 @@ export type FullCoordinates = Coordinates & {
   latitudeDelta: number;
   longitudeDelta: number;
 };
+
+//------------------------------------------------
+
+export type LocationsMap = {
+  type: string;
+  count: number;
+  features: Array<LocationPoint>;
+};
+
+export type LocationPoint = {
+  _id: string;
+  type: string;
+  locationTag: string;
+  geometry: {
+    type: string;
+    coordinates: Array<number>;
+  };
+  properties: LocationProperties;
+};
+
+export type LocationProperties = {
+  materials: Array<string>;
+  idExternal: string;
+  name: string;
+  businessHours: string | null;
+  address: {
+    reference: string | null;
+    region: string | null;
+    neighborhood: string | null;
+    number: string | null;
+    street: string | null;
+  };
+  info: string | null;
+};
