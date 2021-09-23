@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import * as Location from 'expo-location';
 
 import LocationService from 'services/location';
@@ -14,6 +14,8 @@ const LocationContext = createContext<LocationContextData>({} as LocationContext
 
 export default LocationContext;
 
+const teste = new Set();
+
 export const LocationProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const locationService: LocationService = new LocationService();
 
@@ -28,6 +30,10 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
   async function startWatchCurrentPosition() {
     await locationService.watchPosition(setLatitude, setLongitude);
   }
+
+  teste.add(requestLocationPermission);
+  teste.add(startWatchCurrentPosition);
+  console.log(teste);
 
   return (
     <LocationContext.Provider value={{ latitude, longitude, requestLocationPermission, startWatchCurrentPosition }}>
