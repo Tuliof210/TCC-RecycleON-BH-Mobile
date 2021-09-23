@@ -6,20 +6,20 @@ export default StyleSheet.create({
     marginVertical: 30,
   },
   mainLabel: {
-    color: colors.get('green-dark'),
+    color: colors('green-dark'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 25,
     marginBottom: 30,
   },
   redirectToSignIn: {
-    color: colors.get('gray-font-light'),
+    color: colors('gray-font-light'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 16,
     marginVertical: 30,
     textAlign: 'center',
   },
   redirectToSignInHighlight: {
-    color: colors.get('green-dark'),
+    color: colors('green-dark'),
     fontFamily: 'Ubuntu-Bold',
   },
   screen: {
@@ -36,4 +36,4 @@ export default StyleSheet.create({
   },
 });
 
-export const backgroundGradient = [gradient.get('fade-green-bg').start, gradient.get('fade-green-bg').end];
+export const backgroundGradient = [gradient('fade-green-bg').start, gradient('fade-green-bg').end];

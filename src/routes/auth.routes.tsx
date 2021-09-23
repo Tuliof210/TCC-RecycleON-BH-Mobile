@@ -8,13 +8,8 @@ import SignInScreen from 'screens/auth/signin/signin.screen';
 
 const AuthStack = createNativeStackNavigator();
 
-const AuthRoutes = () => (
-  <AuthStack.Navigator
-    screenOptions={{
-      headerShown: false,
-      contentStyle: { backgroundColor: colors.get('white') },
-    }}
-  >
+const AuthRoutes = (props: { screenOptions: { headerShown: boolean; contentStyle: { backgroundColor: string } } }) => (
+  <AuthStack.Navigator screenOptions={props.screenOptions}>
     <AuthStack.Screen name="signIn" component={SignInScreen} />
     <AuthStack.Screen name="signUp" component={SignUpScreen} />
   </AuthStack.Navigator>

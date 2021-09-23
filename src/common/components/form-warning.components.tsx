@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   label: {
     width: '100%',
-    color: colors.get('red'),
+    color: colors('red'),
     fontSize: 9,
     fontFamily: 'Ubuntu-Medium',
   },

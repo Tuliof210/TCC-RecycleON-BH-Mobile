@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     position: 'relative',
     bottom: 0,
-    backgroundColor: colors.get('white'),
+    backgroundColor: colors('white'),
   },
   containerShadow: {
-    shadowColor: colors.get('black'),
+    shadowColor: colors('black'),
     shadowOffset: { width: 0, height: 12 },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,

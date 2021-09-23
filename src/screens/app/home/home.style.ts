@@ -3,7 +3,7 @@ import { colors } from 'common/constants/colors';
 
 export default StyleSheet.create({
   text: {
-    color: colors.get('black-light'),
+    color: colors('black-light'),
     fontFamily: 'Ubuntu-Bold',
     fontSize: 20,
     textAlign: 'center',

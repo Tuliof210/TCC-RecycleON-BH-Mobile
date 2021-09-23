@@ -7,13 +7,8 @@ import HomeScreen from 'screens/app/home/home.screen';
 
 const AuthStack = createNativeStackNavigator();
 
-const AppRoutes = () => (
-  <AuthStack.Navigator
-    screenOptions={{
-      headerShown: false,
-      contentStyle: { backgroundColor: colors.get('white') },
-    }}
-  >
+const AppRoutes = (props: { screenOptions: { headerShown: boolean; contentStyle: { backgroundColor: string } } }) => (
+  <AuthStack.Navigator screenOptions={props.screenOptions}>
     <AuthStack.Screen name="Home" component={HomeScreen} />
   </AuthStack.Navigator>
 );

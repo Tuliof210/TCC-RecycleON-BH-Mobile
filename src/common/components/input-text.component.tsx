@@ -17,7 +17,7 @@ export default (props: {
     keyboardType={props.keyboardType ?? 'default'}
     secureTextEntry={props.secureText ?? false}
     style={[styles.container, styles.inputBorder, styles.inputFont, { ...props.size }]}
-    placeholderTextColor={colors.get('black') + '4D'}
+    placeholderTextColor={colors('black') + '4D'}
     placeholder={props.placeholder}
     value={props.text}
     onChangeText={props.handler}
@@ -27,16 +27,16 @@ export default (props: {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
-    backgroundColor: colors.get('white-dark'),
+    backgroundColor: colors('white-dark'),
   },
   inputBorder: {
     borderWidth: 1,
-    borderColor: colors.get('black') + '26',
+    borderColor: colors('black') + '26',
     borderRadius: 7,
   },
   inputFont: {
     fontSize: 14,
     fontFamily: 'Ubuntu-Light',
-    color: colors.get('black') + 'B3',
+    color: colors('black') + 'B3',
   },
 });

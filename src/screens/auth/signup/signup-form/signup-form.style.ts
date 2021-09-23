@@ -14,7 +14,7 @@ export default StyleSheet.create({
     position: 'relative',
   },
   inputLabel: {
-    color: colors.get('green-dark'),
+    color: colors('green-dark'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 12,
     marginBottom: 5,

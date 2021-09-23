@@ -22,14 +22,14 @@ const styles = StyleSheet.create({
   label: {
     width: '10%',
     textAlign: 'center',
-    color: colors.get('gray-font'),
-    backgroundColor: colors.get('white'),
+    color: colors('gray-font'),
+    backgroundColor: colors('white'),
     fontSize: 11,
     fontFamily: 'Ubuntu-Regular',
   },
   lineBreak: {
     height: 1,
     width: '45%',
-    backgroundColor: colors.get('gray-line'),
+    backgroundColor: colors('gray-line'),
   },
 });

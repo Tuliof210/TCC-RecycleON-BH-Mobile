@@ -22,7 +22,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   inputLabel: {
-    color: colors.get('green-dark'),
+    color: colors('green-dark'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 12,
     marginBottom: 5,
