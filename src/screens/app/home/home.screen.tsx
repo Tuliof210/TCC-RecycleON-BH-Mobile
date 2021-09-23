@@ -1,18 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 
-import AuthContext from 'context/auth.context';
 import LocationContext from 'context/location.context';
 
 import styles from './home.style';
 
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
-  const [locationPermission, setLocationPermission] = useState<boolean>(false);
-
-  const { latitude, longitude, requestLocationPermission, startWatchCurrentPosition, locationService } =
-    useContext(LocationContext);
+  const {
+    latitude,
+    longitude,
+    hasLocationPermission,
+    requestLocationPermission,
+    startWatchCurrentPosition,
+    getMapRegion,
+  } = useContext(LocationContext);
 
   useEffect(() => {
     requestUserLocation();
@@ -25,26 +28,33 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   //----------------------------------------------------------------------------
 
   function requestMapRegion() {
-    return locationService.getMapRegion([{ latitude, longitude }]);
+    return getMapRegion([]);
   }
 
   function requestUserLocation() {
     requestLocationPermission()
-      .then(async (permission) => {
-        setLocationPermission(permission);
-        //await startWatchCurrentPosition();
-
-        console.log({ permission });
+      .then(async () => {
+        setTimeout(async () => {
+          await startWatchCurrentPosition();
+        }, 5000);
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
+  function renderUserLocation(): JSX.Element | false {
+    return (
+      hasLocationPermission && (
+        <Marker key={'user'} coordinate={{ latitude, longitude }} title={'Casa'} description={'Minha Casa'} />
+      )
+    );
+  }
+
   return (
     <View style={styles.container}>
       <MapView style={styles.map} region={requestMapRegion()}>
-        <Marker key={1} coordinate={{ latitude, longitude }} title={'Casa'} description={'Minha Casa'} />
+        {renderUserLocation()}
       </MapView>
     </View>
   );
