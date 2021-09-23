@@ -3,8 +3,8 @@ import { View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 
-import AuthContext from 'context/auth';
-import LocationContext from 'context/location';
+import AuthContext from 'context/auth.context';
+import LocationContext from 'context/location.context';
 
 import styles from './home.style';
 

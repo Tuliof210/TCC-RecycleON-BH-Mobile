@@ -9,7 +9,7 @@ import LineBreakComponent from 'common/components/line-break.component';
 import SignInForm from './signin-form/signin-form.component';
 import SocialAuth from '../social-auth/social-auth.component';
 
-import AuthContext from 'context/auth';
+import AuthContext from 'context/auth.context';
 
 import styles, { backgroundGradient } from './signin.style';
 

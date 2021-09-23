@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import AuthContext from 'context/auth';
+import AuthContext from 'context/auth.context';
 
 import { colors } from 'common/constants/colors';
 
