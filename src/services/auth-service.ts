@@ -3,10 +3,7 @@ import base64 from 'react-native-base64';
 
 import config from 'config';
 
-type AuthenticatedUser = {
-  token: string;
-  user: object;
-};
+import { AuthenticatedUser, SigninData, SignupData } from 'common/constants/types';
 
 export default class AuthService {
   private readonly api = axios.create({
@@ -14,29 +11,17 @@ export default class AuthService {
     timeout: 10000,
   });
 
-  async signUp({
-    name,
-    email,
-    password,
-  }: {
-    name: string;
-    email: string;
-    password: string;
-  }): Promise<AuthenticatedUser> {
-    const response = await this.api.post(
-      `/users`,
-      { name, email, password },
-      {
-        headers: {
-          masterKey: config['MASTER_KEY'],
-        },
+  async signUp(data: SignupData): Promise<AuthenticatedUser> {
+    const response = await this.api.post(`/users`, data, {
+      headers: {
+        masterKey: config['MASTER_KEY'],
       },
-    );
+    });
     return response.data as AuthenticatedUser;
   }
 
-  async signIn({ email, password }: { email: string; password: string }): Promise<AuthenticatedUser> {
-    const auth = base64.encode(`${email}:${password}`);
+  async signIn(data: SigninData): Promise<AuthenticatedUser> {
+    const auth = base64.encode(`${data.email}:${data.password}`);
     const response = await this.api.get(`/auth`, {
       headers: {
         Authorization: `Basic ${auth}`,

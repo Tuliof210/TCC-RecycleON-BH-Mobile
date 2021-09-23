@@ -9,6 +9,7 @@ import LineBreakComponent from 'common/components/line-break.component';
 import SignupForm from './signup-form/signup-form.component';
 import SocialAuth from '../social-auth/social-auth.component';
 
+import { SignupData } from 'common/constants/types';
 import AuthContext from 'context/auth.context';
 
 import styles, { backgroundGradient } from './signup.style';
@@ -20,7 +21,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
   //--------------------------------------------------------------
 
-  function handleSignup({ name, email, password }: { name: string; email: string; password: string }) {
+  function handleSignup({ name, email, password }: SignupData) {
     console.log({ name, email, password });
 
     signUp({

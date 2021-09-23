@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 export default StyleSheet.create({
   socialAuthButtons: {
     flexDirection: 'row',

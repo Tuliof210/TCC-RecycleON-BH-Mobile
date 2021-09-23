@@ -1,6 +1,8 @@
 import React from 'react';
 import * as Location from 'expo-location';
 
+import axios from 'axios';
+
 export default class LocationService {
   constructor(
     private readonly setLatitude: React.Dispatch<React.SetStateAction<number>>,
@@ -16,4 +18,6 @@ export default class LocationService {
       console.log(data);
     });
   }
+
+  async getLocationsMap() {}
 }

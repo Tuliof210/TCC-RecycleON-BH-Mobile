@@ -4,9 +4,10 @@ import { Alert, Image, ImageProps, View, Text, TouchableHighlight } from 'react-
 import InputTextComponent from 'common/components/input-text.component';
 import PrimaryButtonComponent from 'common/components/primary-button.component';
 
+import { SigninData } from 'common/constants/types';
 import styles from './signin-form.style';
 
-export default (props: { handler: (userData: { email: string; password: string }) => void }): JSX.Element => {
+export default (props: { handler: (data: SigninData) => void }): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);

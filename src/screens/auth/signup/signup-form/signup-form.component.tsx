@@ -11,8 +11,9 @@ import PrimaryButtonComponent from 'common/components/primary-button.component';
 import FormWarningComponent from 'common/components/form-warning.components';
 
 import { EmailRegex, PasswordRegex } from 'common/constants/regex';
+import { SignupData } from 'common/constants/types';
 
-export default ({ handler }: { handler: (userData: { name: string; email: string; password: string }) => void }) => {
+export default ({ handler }: { handler: (data: SignupData) => void }) => {
   const fields = { name: '', email: '', password: '', confirmPassword: '' };
 
   const schema = Yup.object().shape({
