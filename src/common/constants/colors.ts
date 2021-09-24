@@ -13,19 +13,19 @@ const colorsMap = new Map<string, string>([
   ['white-dark', '#F8F8F8'],
   ['white-font', '#FEFEFE'],
 ]);
-export const colors = (key: string): string => {
+export const colors = (key: string) => {
   const valueToReturn = colorsMap.get(key);
   return valueToReturn ?? '#FFFFFF';
 };
 
 //===============================================================================
 
-const gradientMap = new Map<string, any>([
+const gradientMap = new Map<string, { start: string; end: string }>([
   ['fade-green-bg', { start: '#E6FFD7', end: colors('green-light') }],
   ['fade-green-btn', { start: colors('green-dark'), end: colors('green-light') }],
   ['fade-gray-btn', { start: '#F2F2F2', end: colors('white') }],
 ]);
-export const gradient = (key: string): string => {
+export const gradient = (key: string) => {
   const valueToReturn = gradientMap.get(key);
   return valueToReturn ?? { start: '#FFFFFF', end: '#FFFFFF' };
 };
