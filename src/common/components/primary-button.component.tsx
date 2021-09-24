@@ -5,21 +5,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from 'common/constants/colors';
 
-export default (props: {
-  handler: () => void;
+export default function PrimaryButtonComponent(props: {
   size: { width: number | string; height: number | string };
   label: string;
-}) => (
-  <TouchableWithoutFeedback onPress={props.handler}>
-    <LinearGradient
-      style={[styles.container, styles.containerShadow]}
-      colors={[gradient('fade-green-btn').start, gradient('fade-green-btn').end]}
-      end={{ x: 0.8, y: 0 }}
-    >
-      <Text style={[{ width: props.size.width, height: props.size.height }, styles.text]}>{props.label}</Text>
-    </LinearGradient>
-  </TouchableWithoutFeedback>
-);
+  handler: () => void;
+}): JSX.Element {
+  return (
+    <TouchableWithoutFeedback onPress={props.handler}>
+      <LinearGradient
+        style={[styles.container, styles.containerShadow]}
+        colors={[gradient('fade-green-btn').start, gradient('fade-green-btn').end]}
+        end={{ x: 0.8, y: 0 }}
+      >
+        <Text style={[{ width: props.size.width, height: props.size.height }, styles.text]}>{props.label}</Text>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

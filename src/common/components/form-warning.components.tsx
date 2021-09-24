@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { colors } from 'common/constants/colors';
 
-export default (props: {
+export default function FormWarningComponent(props: {
   message?: string;
   position: {
     top?: number;
@@ -12,11 +12,13 @@ export default (props: {
     left?: number;
     right?: number;
   };
-}) => (
-  <View style={[styles.container, { display: props.message ? 'flex' : 'none', ...props.position }]}>
-    <Text style={styles.label}>{props.message}</Text>
-  </View>
-);
+}): JSX.Element {
+  return (
+    <View style={[styles.container, { display: props.message ? 'flex' : 'none', ...props.position }]}>
+      <Text style={styles.label}>{props.message}</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

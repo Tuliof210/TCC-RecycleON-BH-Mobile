@@ -4,25 +4,27 @@ import { KeyboardTypeOptions, StyleSheet, TextInput } from 'react-native';
 
 import { colors } from 'common/constants/colors';
 
-export default (props: {
+export default function InputTextComponent(props: {
   size: { width: number | string; height: number | string };
   placeholder: string;
   text: string;
   keyboardType?: KeyboardTypeOptions;
   secureText?: boolean;
   handler: (text: string) => void;
-}) => (
-  <TextInput
-    autoCapitalize={'none'}
-    keyboardType={props.keyboardType ?? 'default'}
-    secureTextEntry={props.secureText ?? false}
-    style={[styles.container, styles.inputBorder, styles.inputFont, { ...props.size }]}
-    placeholderTextColor={colors('black') + '4D'}
-    placeholder={props.placeholder}
-    value={props.text}
-    onChangeText={props.handler}
-  />
-);
+}): JSX.Element {
+  return (
+    <TextInput
+      autoCapitalize={'none'}
+      keyboardType={props.keyboardType ?? 'default'}
+      secureTextEntry={props.secureText ?? false}
+      style={[styles.container, styles.inputBorder, styles.inputFont, { ...props.size }]}
+      placeholderTextColor={colors('black') + '4D'}
+      placeholder={props.placeholder}
+      value={props.text}
+      onChangeText={props.handler}
+    />
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
