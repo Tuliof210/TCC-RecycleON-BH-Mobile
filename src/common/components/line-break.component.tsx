@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { colors } from 'common/constants/colors';
 
-export default function LineBreakComponent(props: { children: React.ReactNode }): JSX.Element {
+export function LineBreakComponent(props: { children: React.ReactNode }): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.lineBreak}></View>

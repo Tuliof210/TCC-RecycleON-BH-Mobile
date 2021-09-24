@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { colors } from 'common/constants/colors';
 
-export default function FormWarningComponent(props: {
+export function FormWarningComponent(props: {
   message?: string;
   position: {
     top?: number;

@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from 'common/constants/colors';
 
-export default function PrimaryButtonComponent(props: {
+export function PrimaryButtonComponent(props: {
   size: { width: number | string; height: number | string };
   label: string;
   handler: () => void;

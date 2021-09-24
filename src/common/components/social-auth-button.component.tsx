@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from 'common/constants/colors';
 
-export default function SocialAuthButtonComponent(props: {
+export function SocialAuthButtonComponent(props: {
   size: { width: number | string; height: number | string };
   icon: ImageProps;
   handler: () => void;

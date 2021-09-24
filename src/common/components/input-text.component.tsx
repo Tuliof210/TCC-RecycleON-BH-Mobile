@@ -4,7 +4,7 @@ import { KeyboardTypeOptions, StyleSheet, TextInput } from 'react-native';
 
 import { colors } from 'common/constants/colors';
 
-export default function InputTextComponent(props: {
+export function InputTextComponent(props: {
   size: { width: number | string; height: number | string };
   placeholder: string;
   text: string;

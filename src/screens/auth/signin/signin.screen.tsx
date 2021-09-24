@@ -4,10 +4,9 @@ import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import MainContainerComponent from 'common/components/main-container.component';
-import LineBreakComponent from 'common/components/line-break.component';
 import SignInForm from './signin-form/signin-form.component';
 import SocialAuth from '../social-auth/social-auth.component';
+import { LineBreakComponent, MainContainerComponent } from 'common/components';
 
 import { SigninData } from 'common/constants/types';
 import AuthContext from 'context/auth.context';

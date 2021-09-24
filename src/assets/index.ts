@@ -8,3 +8,8 @@ export const UbuntuFonts = {
   'Ubuntu-MediumItalic': require('./fonts/Ubuntu-MediumItalic.ttf'),
   'Ubuntu-Regular': require('./fonts/Ubuntu-Regular.ttf'),
 };
+
+export const AppImages = {
+  'eye-close': require('./images/eye-close.png'),
+  'eye-open': require('./images/eye-open.png'),
+};
