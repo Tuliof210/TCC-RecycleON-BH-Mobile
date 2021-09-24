@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Callout, Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
 
@@ -71,6 +71,9 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   function renderLocationPoints(): Array<JSX.Element> {
     return locationPoints.map((point) => {
       const [pointLongitude, pointLatitude] = point.geometry.coordinates;
+
+      let show = false;
+
       return (
         <Marker
           key={point._id}
@@ -78,7 +81,22 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
           coordinate={{ latitude: pointLatitude, longitude: pointLongitude }}
           title={point.locationTag}
           description={point.properties.name}
-        />
+        >
+          <Callout tooltip>
+            {/*TODO adicionar aqui o component de card de cada localização */}
+            <View
+              style={{
+                width: 100,
+                height: 50,
+                borderRadius: 10,
+                borderStyle: 'solid',
+                borderWidth: 2,
+                borderColor: '#f00',
+                backgroundColor: '#ff0',
+              }}
+            ></View>
+          </Callout>
+        </Marker>
       );
     });
   }
