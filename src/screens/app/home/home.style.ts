@@ -18,12 +18,13 @@ export default StyleSheet.create({
   },
   map: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    //height: Dimensions.get('window').height,
+    flex: 1,
   },
 });
 
 export const mapConfiguration: { mapPadding: EdgePadding; mapType: MapTypes; showsBuildings: boolean } = {
-  mapPadding: { left: 10, top: 10, bottom: 10, right: 10 },
+  mapPadding: { left: 0, top: 0, bottom: 0, right: 0 },
   mapType: 'standard',
   showsBuildings: false,
 };
