@@ -9,7 +9,7 @@ import SocialAuth from '../social-auth/social-auth.component';
 import { LineBreakComponent, MainContainerComponent } from 'common/components';
 
 import { SigninData } from 'common/constants/types';
-import AuthContext from 'context/auth.context';
+import { AuthContext } from 'context';
 
 import styles, { backgroundGradient } from './signin.style';
 

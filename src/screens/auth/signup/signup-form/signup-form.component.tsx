@@ -4,14 +4,11 @@ import { Image, ImageProps, View, Text, TouchableHighlight } from 'react-native'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
-import styles from './signup-form.style';
-
-import InputTextComponent from 'common/components/input-text.component';
-import PrimaryButtonComponent from 'common/components/primary-button.component';
-import FormWarningComponent from 'common/components/form-warning.components';
-
-import { EmailRegex, PasswordRegex } from 'common/constants/regex';
 import { SignupData } from 'common/constants/types';
+import { EmailRegex, PasswordRegex } from 'common/constants/regex';
+import { FormWarningComponent, InputTextComponent, PrimaryButtonComponent } from 'common/components';
+
+import styles from './signup-form.style';
 
 export default ({ handler }: { handler: (data: SignupData) => void }) => {
   const fields = { name: '', email: '', password: '', confirmPassword: '' };

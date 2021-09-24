@@ -1,13 +1,12 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import * as Location from 'expo-location';
 
-import { Coordinates, FullCoordinates, LocationPoint, LocationsMap } from 'common/constants/types';
+import { Coordinates, FullCoordinates, LocationPoint } from 'common/constants/types';
 import { DefaultLocation } from 'common/constants/locations';
 
-import LocationService from 'services/location-service';
-import LocationHelper from 'helpers/location-helper';
-
-import AuthContext from 'context/auth.context';
+import { AuthContext } from 'context';
+import { LocationHelper } from 'helpers';
+import { LocationService } from 'services';
 
 interface LocationContextData {
   latitude: number;
@@ -19,15 +18,9 @@ interface LocationContextData {
   getLocationsMap(data: { tags: Array<string>; materials: Array<string> }): Promise<Array<LocationPoint>>;
 }
 
-const LocationContext = createContext<LocationContextData>({} as LocationContextData);
+export const LocationContext = createContext<LocationContextData>({} as LocationContextData);
 
-export default LocationContext;
-
-//=====================================================
-const count = new Set();
-//=====================================================
-
-export const LocationProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
+export function LocationProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const { token } = useContext(AuthContext);
 
   const [latitude, setLatitude] = useState<number>(DefaultLocation.latitude);
@@ -37,10 +30,6 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
   const locationHelper: LocationHelper = new LocationHelper();
   const locationService: LocationService = new LocationService(setLatitude, setLongitude);
 
-  //=====================================================
-  // com useCallback as funções so serão reescritas caso
-  // os valores passados no array mudem
-  //=====================================================
   const requestLocationPermission = useCallback(async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     setHasLocationPermission(status === 'granted');
@@ -66,14 +55,6 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
     [token],
   );
 
-  count.add(requestLocationPermission);
-  count.add(startWatchCurrentPosition);
-  count.add(getMapRegion);
-
-  console.log(count);
-  //=====================================================
-  //=====================================================
-
   return (
     <LocationContext.Provider
       value={{
@@ -89,4 +70,4 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
       {children}
     </LocationContext.Provider>
   );
-};
+}

@@ -5,7 +5,7 @@ import { AppAPI } from 'common/libs/axios';
 
 import { AuthenticatedUser, SigninData, SignupData } from 'common/constants/types';
 
-export default class AuthService {
+export class AuthService {
   async signUp(data: SignupData): Promise<AuthenticatedUser> {
     const response = await AppAPI.post(`/users`, data, {
       headers: {

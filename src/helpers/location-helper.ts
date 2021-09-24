@@ -1,6 +1,6 @@
 import { Coordinates, FullCoordinates } from 'common/constants/types';
 
-export default class LocationHelper {
+export class LocationHelper {
   getMapRegion(points: Array<Coordinates>): FullCoordinates {
     // points should be an array of { latitude: X, longitude: Y }
     let minX: number;

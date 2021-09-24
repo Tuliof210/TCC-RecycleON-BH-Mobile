@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
-
-import LocationContext from 'context/location.context';
+import { LocationContext } from 'context';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 

@@ -1,8 +1,8 @@
 import React, { createContext, useState } from 'react';
 
-import { AuthenticatedUser, SigninData, SignupData } from 'common/constants/types';
+import { SigninData, SignupData } from 'common/constants/types';
 
-import AuthService from 'services/auth-service';
+import { AuthService } from 'services';
 
 interface AuthContextData {
   signed: boolean;
@@ -13,11 +13,9 @@ interface AuthContextData {
   signOut(): Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export default AuthContext;
-
-export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
+export function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const authService: AuthService = new AuthService();
 
   const [token, setToken] = useState<string | null>(null);
@@ -46,4 +44,4 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
       {children}
     </AuthContext.Provider>
   );
-};
+}

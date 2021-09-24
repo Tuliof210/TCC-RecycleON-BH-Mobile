@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 
-import AuthContext from 'context/auth.context';
+import { AuthContext } from 'context';
+import AuthRoutes from './auth.routes';
+import AppRoutes from './app.routes';
 
 import { colors } from 'common/constants/colors';
 
-import AuthRoutes from '../routes/auth.routes';
-import AppRoutes from '../routes/app.routes';
-
-const Routes = () => {
+export function Routes(): JSX.Element {
   const { signed } = useContext(AuthContext);
   const defaultScreenOptions = { headerShown: false, contentStyle: { backgroundColor: colors('white') } };
 
@@ -16,6 +15,4 @@ const Routes = () => {
   ) : (
     <AuthRoutes screenOptions={defaultScreenOptions} />
   );
-};
-
-export default Routes;
+}

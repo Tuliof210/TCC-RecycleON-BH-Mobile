@@ -5,7 +5,7 @@ import { AppAPI } from 'common/libs/axios';
 
 import { LocationsMap } from 'common/constants/types';
 
-export default class LocationService {
+export class LocationService {
   constructor(
     private readonly setLatitude: React.Dispatch<React.SetStateAction<number>>,
     private readonly setLongitude: React.Dispatch<React.SetStateAction<number>>,

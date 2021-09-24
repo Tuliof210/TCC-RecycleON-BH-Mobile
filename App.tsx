@@ -2,16 +2,13 @@ import React, { Fragment } from 'react';
 import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
-
+import { StatusBar } from 'expo-status-bar';
 import { useFonts } from '@use-expo/font';
+
 import { UbuntuFonts } from 'assets';
-
-import Routes from './src/routes';
-
-import { AuthProvider } from 'context/auth.context';
-import { LocationProvider } from 'context/location.context';
+import { AuthProvider, LocationProvider } from 'context';
+import Routes from 'routes';
 
 export default function RecycleON_BH(): JSX.Element {
   // habilita a possibilidade de executar com "react-devtools" em ambiente de Dev

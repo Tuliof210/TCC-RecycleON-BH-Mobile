@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import { Alert, Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
 
-import InputTextComponent from 'common/components/input-text.component';
-import PrimaryButtonComponent from 'common/components/primary-button.component';
-
 import { SigninData } from 'common/constants/types';
+import { InputTextComponent, PrimaryButtonComponent } from 'common/components';
+
 import styles from './signin-form.style';
 
 export default (props: { handler: (data: SigninData) => void }): JSX.Element => {
