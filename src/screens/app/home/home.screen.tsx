@@ -8,7 +8,7 @@ import { LocationContext } from 'context';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
-export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
+export default function HomeScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const {
     latitude,
     longitude,
@@ -39,8 +39,8 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
   function requestMapRegion() {
     const pointsCoordinates = locationPoints.map((location) => {
-      const [pointLongitude, pointLatitude] = location.geometry.coordinates;
-      return { latitude: pointLatitude, longitude: pointLongitude };
+      const coordinates = location.geometry.coordinates;
+      return { latitude: coordinates[1], longitude: coordinates[0] };
     });
     return getMapRegion(pointsCoordinates);
   }
@@ -69,15 +69,12 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
   function renderLocationPoints(): Array<JSX.Element> {
     return locationPoints.map((point) => {
-      const [pointLongitude, pointLatitude] = point.geometry.coordinates;
-
-      let show = false;
-
+      const coordinates = point.geometry.coordinates;
       return (
         <Marker
           key={point._id}
           pinColor={markerConfiguration.pinColor}
-          coordinate={{ latitude: pointLatitude, longitude: pointLongitude }}
+          coordinate={{ latitude: coordinates[1], longitude: coordinates[0] }}
           title={point.locationTag}
           description={point.properties.name}
         >
@@ -114,4 +111,4 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
       </MapView>
     </View>
   );
-};
+}

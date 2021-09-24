@@ -5,8 +5,9 @@ import { SigninData } from 'common/constants/types';
 import { InputTextComponent, PrimaryButtonComponent } from 'common/components';
 
 import styles from './signin-form.style';
+import { AppImages } from 'assets';
 
-export default (props: { handler: (data: SigninData) => void }): JSX.Element => {
+export default function SigninForm(props: { handler: (data: SigninData) => void }): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
@@ -14,7 +15,7 @@ export default (props: { handler: (data: SigninData) => void }): JSX.Element => 
   //--------------------------------------------------------------
 
   function getHidePasswordIcon(): ImageProps {
-    return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
+    return hidePassword ? AppImages['eye-close'] : AppImages['eye-open'];
   }
 
   function setField(key: string) {
@@ -77,4 +78,4 @@ export default (props: { handler: (data: SigninData) => void }): JSX.Element => 
       <PrimaryButtonComponent size={styles.submitButton} label="Entrar" handler={handleSubmit} />
     </Fragment>
   );
-};
+}

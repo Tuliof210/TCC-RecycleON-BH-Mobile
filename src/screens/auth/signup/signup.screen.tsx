@@ -13,7 +13,7 @@ import { AuthContext } from 'context';
 
 import styles, { backgroundGradient } from './signup.style';
 
-export default function SignUpScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
+export default function SignupScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const router = props.navigation;
 
   const { signUp } = useContext(AuthContext);

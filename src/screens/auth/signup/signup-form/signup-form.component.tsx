@@ -9,8 +9,9 @@ import { EmailRegex, PasswordRegex } from 'common/constants/regex';
 import { FormWarningComponent, InputTextComponent, PrimaryButtonComponent } from 'common/components';
 
 import styles from './signup-form.style';
+import { AppImages } from 'assets';
 
-export default ({ handler }: { handler: (data: SignupData) => void }) => {
+export default function SignupForm({ handler }: { handler: (data: SignupData) => void }): JSX.Element {
   const fields = { name: '', email: '', password: '', confirmPassword: '' };
 
   const schema = Yup.object().shape({
@@ -41,7 +42,7 @@ export default ({ handler }: { handler: (data: SignupData) => void }) => {
     const [hidePassword, setHidePassword] = useState(true);
 
     function getHidePasswordIcon(): ImageProps {
-      return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
+      return hidePassword ? AppImages['eye-close'] : AppImages['eye-open'];
     }
 
     function setField(key: string) {
@@ -115,4 +116,4 @@ export default ({ handler }: { handler: (data: SignupData) => void }) => {
   });
 
   return <Form />;
-};
+}

@@ -13,7 +13,7 @@ import { AuthContext } from 'context';
 
 import styles, { backgroundGradient } from './signin.style';
 
-export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
+export default function SigninScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const router = props.navigation;
 
   const { signIn } = useContext(AuthContext);
@@ -59,4 +59,4 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
       </LinearGradient>
     </SafeAreaView>
   );
-};
+}

@@ -8,7 +8,7 @@ import { useFonts } from '@use-expo/font';
 
 import { UbuntuFonts } from 'assets';
 import { AuthProvider, LocationProvider } from 'context';
-import Routes from 'routes';
+import { Routes } from 'routes';
 
 export default function RecycleON_BH(): JSX.Element {
   // habilita a possibilidade de executar com "react-devtools" em ambiente de Dev

@@ -4,7 +4,7 @@ import * as Location from 'expo-location';
 import { Coordinates, FullCoordinates, LocationPoint } from 'common/constants/types';
 import { DefaultLocation } from 'common/constants/locations';
 
-import { AuthContext } from 'context';
+import { AuthContext } from 'context/auth.context';
 import { LocationHelper } from 'helpers';
 import { LocationService } from 'services';
 
