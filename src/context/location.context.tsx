@@ -16,7 +16,7 @@ interface LocationContextData {
   requestLocationPermission(): Promise<void>;
   startWatchCurrentPosition(): Promise<void>;
   getMapRegion(coordinatesList: Array<Coordinates>): FullCoordinates;
-  getLocationsMap(): Promise<Array<LocationPoint>>;
+  getLocationsMap(data: { tags: Array<string>; materials: Array<string> }): Promise<Array<LocationPoint>>;
 }
 
 const LocationContext = createContext<LocationContextData>({} as LocationContextData);
@@ -58,10 +58,13 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }): J
     [latitude, longitude],
   );
 
-  const getLocationsMap = useCallback(async () => {
-    const locationsMap = await locationService.getLocationsMap(token);
-    return locationsMap ? locationsMap.features : [];
-  }, [token]);
+  const getLocationsMap = useCallback(
+    async (data: { tags: Array<string>; materials: Array<string> }) => {
+      const locationsMap = await locationService.getLocationsMap(token, data);
+      return locationsMap ? locationsMap.features : [];
+    },
+    [token],
+  );
 
   count.add(requestLocationPermission);
   count.add(startWatchCurrentPosition);

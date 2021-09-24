@@ -21,17 +21,32 @@ export default class LocationService {
     });
   }
 
-  async getLocationsMap(token: string | null): Promise<LocationsMap | void> {
+  async getLocationsMap(
+    token: string | null,
+    requestData: { tags: Array<string>; materials: Array<string> },
+  ): Promise<LocationsMap | void> {
     if (token) {
-      const resource = 'locations';
-      const request = 'locationTag=LEV&materials=papel';
+      const tags = requestData.tags.join(',');
+      const materials = requestData.materials.join(',');
+      const request = this.mountQueryParams(tags, materials);
 
-      const response = await AppAPI.get(`/${resource}?${request}`, {
+      console.log(request);
+
+      const response = await AppAPI.get(`/locations?${request}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       return response.data as LocationsMap;
     }
+  }
+
+  private mountQueryParams(tags: string, materials: string) {
+    const query = [];
+
+    if (tags) query.push(`locationTag=${tags}`);
+    if (materials) query.push(`materials=${materials}`);
+
+    return query.join('&');
   }
 }

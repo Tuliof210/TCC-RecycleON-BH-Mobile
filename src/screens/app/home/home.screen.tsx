@@ -31,7 +31,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
   useEffect(() => {
     (async () => {
       console.log(latitude, longitude);
-      const locationPointsList = await getLocationsMap();
+      const locationPointsList = await getLocationsMap({ tags: [], materials: [] });
       setLocationPoints(locationPointsList);
     })();
   }, [latitude, longitude]);
