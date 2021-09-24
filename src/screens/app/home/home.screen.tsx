@@ -7,7 +7,7 @@ import { LocationPoint } from 'common/constants/types';
 
 import LocationContext from 'context/location.context';
 
-import styles from './home.style';
+import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
 export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
   const {
@@ -74,6 +74,7 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
       return (
         <Marker
           key={point._id}
+          pinColor={markerConfiguration.pinColor}
           coordinate={{ latitude: pointLatitude, longitude: pointLongitude }}
           title={point.locationTag}
           description={point.properties.name}
@@ -84,7 +85,13 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} region={requestMapRegion()}>
+      <MapView
+        style={styles.map}
+        region={requestMapRegion()}
+        mapPadding={mapConfiguration.mapPadding}
+        mapType={mapConfiguration.mapType}
+        showsBuildings={mapConfiguration.showsBuildings}
+      >
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>

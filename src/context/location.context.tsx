@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import * as Location from 'expo-location';
 
-import { Coordinates, FullCoordinates, LocationPoint } from 'common/constants/types';
+import { Coordinates, FullCoordinates, LocationPoint, LocationsMap } from 'common/constants/types';
 import { DefaultLocation } from 'common/constants/locations';
 
 import LocationService from 'services/location-service';
