@@ -5,7 +5,7 @@ import { SigninData } from 'common/constants/types';
 import { InputTextComponent, PrimaryButtonComponent } from 'common/components';
 
 import styles from './signin-form.style';
-import { AppImages } from 'assets';
+import { AppImages } from 'assets/images';
 
 export default function SigninForm(props: { handler: (data: SigninData) => void }): JSX.Element {
   const [email, setEmail] = useState('');
