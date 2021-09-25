@@ -7,7 +7,7 @@ import WikiScreen from 'screens/app/wiki/wiki.screen';
 import ProfileScreen from 'screens/app/profile/profile.screen';
 
 import { SvgXml } from 'react-native-svg';
-import { HomeSVG, WikiSVG, ProfileSVG } from 'assets/svg';
+import { HomeSVG, WikiSVG, ProfileSVG } from 'assets/svgs';
 
 type Icon = {
   defaultIcon: string;
