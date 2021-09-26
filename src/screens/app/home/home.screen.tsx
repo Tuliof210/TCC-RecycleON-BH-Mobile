@@ -1,12 +1,12 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
 import { LocationContext } from 'context';
 
-import { MainContainerComponent } from 'common/components';
+import { LocationCardComponent, MainContainerComponent } from 'common/components';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
@@ -31,7 +31,7 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
 
   useEffect(() => {
     (async () => {
-      const locationPointsList = await getLocationsMap({ tags: [], materials: [] });
+      const locationPointsList = await getLocationsMap({ tags: ['PV'], materials: [] });
       setLocationPoints(locationPointsList);
     })();
   }, [latitude, longitude]);
@@ -71,6 +71,7 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
   function renderLocationPoints(): Array<JSX.Element> {
     return locationPoints.map((point) => {
       const coordinates = point.geometry.coordinates;
+
       return (
         <Marker
           key={point._id}
@@ -79,7 +80,9 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
           title={point.locationTag}
           description={point.properties.name}
         >
-          <Callout tooltip>{/*TODO adicionar aqui o component de card de cada localização */}</Callout>
+          <Callout tooltip>
+            <LocationCardComponent location={point.properties} />
+          </Callout>
         </Marker>
       );
     });

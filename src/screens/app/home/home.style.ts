@@ -22,6 +22,14 @@ export default StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height * 0.85,
   },
+  locationCard: {
+    width: 150,
+    height: 75,
+  },
+  locationCardButton: {
+    width: 100,
+    height: 20,
+  },
 });
 
 export const mapConfiguration: { mapPadding: EdgePadding; mapType: MapTypes; showsBuildings: boolean } = {
