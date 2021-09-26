@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
 import { LocationContext } from 'context';
+
+import { MainContainerComponent } from 'common/components';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
@@ -77,20 +79,7 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
           title={point.locationTag}
           description={point.properties.name}
         >
-          <Callout tooltip>
-            {/*TODO adicionar aqui o component de card de cada localização */}
-            <View
-              style={{
-                width: 100,
-                height: 50,
-                borderRadius: 10,
-                borderStyle: 'solid',
-                borderWidth: 2,
-                borderColor: '#f00',
-                backgroundColor: '#ff0',
-              }}
-            ></View>
-          </Callout>
+          <Callout tooltip>{/*TODO adicionar aqui o component de card de cada localização */}</Callout>
         </Marker>
       );
     });
@@ -108,6 +97,9 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
+      <MainContainerComponent height={'20%'}>
+        <View></View>
+      </MainContainerComponent>
     </View>
   );
 }
