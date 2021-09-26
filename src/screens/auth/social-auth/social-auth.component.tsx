@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { Alert, View } from 'react-native';
 
-import SocialAuthButtonComponent from 'common/components/social-auth-button.component';
+import { SocialAuthButtonComponent } from 'common/components';
 
 import styles from './social-auth.style';
 
-export default (props: {}): JSX.Element => {
+export default function SocialAuthComponent(): JSX.Element {
   function handleFacebookAuth() {
     Alert.alert('Auth With Facebook', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
   }
@@ -30,4 +30,4 @@ export default (props: {}): JSX.Element => {
       </View>
     </Fragment>
   );
-};
+}

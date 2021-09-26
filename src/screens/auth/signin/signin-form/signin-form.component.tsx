@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Alert, Image, ImageProps, View, Text, TouchableHighlight } from 'react-native';
 
-import InputTextComponent from 'common/components/input-text.component';
-import PrimaryButtonComponent from 'common/components/primary-button.component';
+import { SigninData } from 'common/constants/types';
+import { InputTextComponent, PrimaryButtonComponent } from 'common/components';
 
 import styles from './signin-form.style';
+import { AppImages } from 'assets/images';
 
-export default (props: { handler: (userData: { email: string; password: string }) => void }): JSX.Element => {
+export default function SigninForm(props: { handler: (data: SigninData) => void }): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
@@ -14,7 +15,7 @@ export default (props: { handler: (userData: { email: string; password: string }
   //--------------------------------------------------------------
 
   function getHidePasswordIcon(): ImageProps {
-    return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
+    return hidePassword ? AppImages['eye-close'] : AppImages['eye-open'];
   }
 
   function setField(key: string) {
@@ -77,4 +78,4 @@ export default (props: { handler: (userData: { email: string; password: string }
       <PrimaryButtonComponent size={styles.submitButton} label="Entrar" handler={handleSubmit} />
     </Fragment>
   );
-};
+}

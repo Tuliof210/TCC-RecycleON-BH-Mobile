@@ -4,23 +4,23 @@ import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import MainContainerComponent from 'common/components/main-container.component';
-import LineBreakComponent from 'common/components/line-break.component';
 import SignInForm from './signin-form/signin-form.component';
 import SocialAuth from '../social-auth/social-auth.component';
+import { LineBreakComponent, MainContainerComponent } from 'common/components';
 
-import AuthContext from 'context/auth';
+import { SigninData } from 'common/constants/types';
+import { AuthContext } from 'context';
 
 import styles, { backgroundGradient } from './signin.style';
 
-export default (props: { navigation: NavigationProp<any, any> }): JSX.Element => {
+export default function SigninScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const router = props.navigation;
 
   const { signIn } = useContext(AuthContext);
 
   //--------------------------------------------------------------
 
-  function handleSignIn({ email, password }: { email: string; password: string }) {
+  function handleSignIn({ email, password }: SigninData) {
     console.log({ email, password });
 
     signIn({
@@ -59,4 +59,4 @@ export default (props: { navigation: NavigationProp<any, any> }): JSX.Element =>
       </LinearGradient>
     </SafeAreaView>
   );
-};
+}

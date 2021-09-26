@@ -1,4 +1,4 @@
-export const colors = new Map<string, string>([
+const colorsMap = new Map<string, string>([
   ['black', '#000000'],
   ['black-medium', '#263238'],
   ['gray-border', '#E1E1E1'],
@@ -13,9 +13,19 @@ export const colors = new Map<string, string>([
   ['white-dark', '#F8F8F8'],
   ['white-font', '#FEFEFE'],
 ]);
+export const colors = (key: string) => {
+  const valueToReturn = colorsMap.get(key);
+  return valueToReturn ?? '#FFFFFF';
+};
 
-export const gradient = new Map<string, any>([
-  ['fade-green-bg', { start: '#E6FFD7', end: colors.get('green-light') }],
-  ['fade-green-btn', { start: colors.get('green-dark'), end: colors.get('green-light') }],
-  ['fade-gray-btn', { start: '#F2F2F2', end: colors.get('white') }],
+//===============================================================================
+
+const gradientMap = new Map<string, { start: string; end: string }>([
+  ['fade-green-bg', { start: '#E6FFD7', end: colors('green-light') }],
+  ['fade-green-btn', { start: colors('green-dark'), end: colors('green-light') }],
+  ['fade-gray-btn', { start: '#F2F2F2', end: colors('white') }],
 ]);
+export const gradient = (key: string) => {
+  const valueToReturn = gradientMap.get(key);
+  return valueToReturn ?? { start: '#FFFFFF', end: '#FFFFFF' };
+};

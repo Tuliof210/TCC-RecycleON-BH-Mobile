@@ -4,15 +4,14 @@ import { Image, ImageProps, View, Text, TouchableHighlight } from 'react-native'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
-import styles from './signup-form.style';
-
-import InputTextComponent from 'common/components/input-text.component';
-import PrimaryButtonComponent from 'common/components/primary-button.component';
-import FormWarningComponent from 'common/components/form-warning.components';
-
+import { SignupData } from 'common/constants/types';
 import { EmailRegex, PasswordRegex } from 'common/constants/regex';
+import { FormWarningComponent, InputTextComponent, PrimaryButtonComponent } from 'common/components';
 
-export default ({ handler }: { handler: (userData: { name: string; email: string; password: string }) => void }) => {
+import styles from './signup-form.style';
+import { AppImages } from 'assets/images';
+
+export default function SignupForm({ handler }: { handler: (data: SignupData) => void }): JSX.Element {
   const fields = { name: '', email: '', password: '', confirmPassword: '' };
 
   const schema = Yup.object().shape({
@@ -43,7 +42,7 @@ export default ({ handler }: { handler: (userData: { name: string; email: string
     const [hidePassword, setHidePassword] = useState(true);
 
     function getHidePasswordIcon(): ImageProps {
-      return hidePassword ? require('assets/images/eye-closed.png') : require('assets/images/eye-open.png');
+      return hidePassword ? AppImages['eye-close'] : AppImages['eye-open'];
     }
 
     function setField(key: string) {
@@ -117,4 +116,4 @@ export default ({ handler }: { handler: (userData: { name: string; email: string
   });
 
   return <Form />;
-};
+}

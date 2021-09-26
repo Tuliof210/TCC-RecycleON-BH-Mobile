@@ -5,21 +5,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from 'common/constants/colors';
 
-export default (props: {
+export function SocialAuthButtonComponent(props: {
   size: { width: number | string; height: number | string };
   icon: ImageProps;
   handler: () => void;
-}) => (
-  <TouchableWithoutFeedback onPress={props.handler}>
-    <LinearGradient
-      style={[styles.container, styles.containerBorder, { width: props.size.width, height: props.size.height }]}
-      colors={[gradient.get('fade-gray-btn').start, gradient.get('fade-gray-btn').end]}
-      end={{ x: 0.8, y: 0 }}
-    >
-      <Image style={styles.icon} source={props.icon} />
-    </LinearGradient>
-  </TouchableWithoutFeedback>
-);
+}): JSX.Element {
+  return (
+    <TouchableWithoutFeedback onPress={props.handler}>
+      <LinearGradient
+        style={[styles.container, styles.containerBorder, { width: props.size.width, height: props.size.height }]}
+        colors={[gradient('fade-gray-btn').start, gradient('fade-gray-btn').end]}
+        end={{ x: 0.8, y: 0 }}
+      >
+        <Image style={styles.icon} source={props.icon} />
+      </LinearGradient>
+    </TouchableWithoutFeedback>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   containerBorder: {
     borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: colors.get('gray-border'),
+    borderColor: colors('gray-border'),
   },
   icon: {
     width: 35,

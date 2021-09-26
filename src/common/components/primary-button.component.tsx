@@ -5,21 +5,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors, gradient } from 'common/constants/colors';
 
-export default (props: {
-  handler: () => void;
+export function PrimaryButtonComponent(props: {
   size: { width: number | string; height: number | string };
   label: string;
-}) => (
-  <TouchableWithoutFeedback onPress={props.handler}>
-    <LinearGradient
-      style={[styles.container, styles.containerShadow]}
-      colors={[gradient.get('fade-green-btn').start, gradient.get('fade-green-btn').end]}
-      end={{ x: 0.8, y: 0 }}
-    >
-      <Text style={[{ width: props.size.width, height: props.size.height }, styles.text]}>{props.label}</Text>
-    </LinearGradient>
-  </TouchableWithoutFeedback>
-);
+  handler: () => void;
+}): JSX.Element {
+  return (
+    <TouchableWithoutFeedback onPress={props.handler}>
+      <LinearGradient
+        style={[styles.container, styles.containerShadow]}
+        colors={[gradient('fade-green-btn').start, gradient('fade-green-btn').end]}
+        end={{ x: 0.8, y: 0 }}
+      >
+        <Text style={[{ width: props.size.width, height: props.size.height }, styles.text]}>{props.label}</Text>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   containerShadow: {
-    shadowColor: colors.get('black'),
+    shadowColor: colors('black'),
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
@@ -40,6 +42,6 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     fontFamily: 'Ubuntu-Bold',
     fontSize: 17,
-    color: colors.get('white-font'),
+    color: colors('white-font'),
   },
 });
