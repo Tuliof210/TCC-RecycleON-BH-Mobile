@@ -29,7 +29,6 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
 
   useEffect(() => {
     (async () => {
-      console.log(latitude, longitude);
       const locationPointsList = await getLocationsMap({ tags: [], materials: [] });
       setLocationPoints(locationPointsList);
     })();

@@ -16,8 +16,6 @@ export class LocationService {
     return Location.watchPositionAsync(locationOptions, (data) => {
       this.setLatitude(data.coords.latitude);
       this.setLongitude(data.coords.longitude);
-
-      console.log(data);
     });
   }
 
@@ -29,8 +27,6 @@ export class LocationService {
       const tags = requestData.tags.join(',');
       const materials = requestData.materials.join(',');
       const request = this.mountQueryParams(tags, materials);
-
-      console.log(request);
 
       const response = await AppAPI.get(`/locations?${request}`, {
         headers: {

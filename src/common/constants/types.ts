@@ -7,9 +7,15 @@ export type SignupData = SigninData & {
   name: string;
 };
 
+export type User = {
+  _id: string;
+  name: string;
+  email: string;
+};
+
 export type AuthenticatedUser = {
   token: string;
-  user: object;
+  user: User;
 };
 
 //------------------------------------------------
