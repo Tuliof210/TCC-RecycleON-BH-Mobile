@@ -18,9 +18,8 @@ export default StyleSheet.create({
   },
   map: {
     position: 'absolute',
-    top: 0,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height * 0.85,
+    height: Dimensions.get('window').height,
   },
   locationCard: {
     width: 150,

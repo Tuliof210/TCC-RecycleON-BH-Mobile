@@ -6,7 +6,8 @@ import MapView, { Marker } from 'react-native-maps';
 import { LocationPoint } from 'common/constants/types';
 import { LocationContext } from 'context';
 
-import { LocationPointComponent, MainContainerComponent } from 'common/components';
+import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
+import { LocationPointComponent } from './location-point/location-point.component';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
@@ -86,9 +87,10 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
-      <MainContainerComponent height={'20%'}>
+      {/* <MainContainerComponent height={'20%'}>
         <View></View>
-      </MainContainerComponent>
+      </MainContainerComponent> */}
+      <LocationSearcherComponent />
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Alert, View } from 'react-native';
 
-import { SocialAuthButtonComponent } from 'common/components';
+import { SocialButtonComponent } from './social-button/social-button.component';
 
 import styles from './social-auth.style';
 
@@ -17,12 +17,12 @@ export default function SocialAuthComponent(): JSX.Element {
   return (
     <Fragment>
       <View style={styles.socialAuthButtons}>
-        <SocialAuthButtonComponent
+        <SocialButtonComponent
           size={styles.socialAuthButtonSize}
           icon={require('assets/images/facebook.png')}
           handler={handleFacebookAuth}
         />
-        <SocialAuthButtonComponent
+        <SocialButtonComponent
           size={styles.socialAuthButtonSize}
           icon={require('assets/images/google.png')}
           handler={handleGoogleAuth}
