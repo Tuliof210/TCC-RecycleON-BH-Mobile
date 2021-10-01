@@ -31,13 +31,17 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const locationPointsList = await getLocationsMap({ tags: [], materials: [] });
-      setLocationPoints(locationPointsList);
-    })();
+    requestLocations([], []);
   }, [latitude, longitude]);
 
   //----------------------------------------------------------------------------
+
+  async function requestLocations(tags: Array<string>, materials: Array<string>) {
+    console.log({ tags, materials });
+
+    const locationPointsList = await getLocationsMap({ tags, materials });
+    setLocationPoints(locationPointsList);
+  }
 
   function requestMapRegion() {
     const pointsCoordinates = locationPoints.map((location) => {
@@ -87,10 +91,9 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
-      {/* <MainContainerComponent height={'20%'}>
-        <View></View>
-      </MainContainerComponent> */}
-      <LocationSearcherComponent />
+      <View style={styles.searcher}>
+        <LocationSearcherComponent handlerSearch={requestLocations} />
+      </View>
     </View>
   );
 }

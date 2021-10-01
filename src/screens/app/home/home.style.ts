@@ -29,6 +29,10 @@ export default StyleSheet.create({
     width: 100,
     height: 20,
   },
+  searcher: {
+    position: 'absolute',
+    top: 75,
+  },
 });
 
 export const mapConfiguration: { mapPadding: EdgePadding; mapType: MapTypes; showsBuildings: boolean } = {
