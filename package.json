@@ -2,6 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "start:wsl": "expo start --tunnel",
     "cc": "expo r -c",
     "debug": "react-devtools",
     "start:debug": "expo start & react-devtools",
