@@ -48,4 +48,7 @@ export class AutocompleteHelper {
       .toLowerCase()
       .trim();
   }
+
+  //---------------------------------------
+  async populateData(): Promise<void> {}
 }
