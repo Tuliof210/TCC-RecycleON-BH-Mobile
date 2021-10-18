@@ -14,17 +14,29 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   map: {
+    position: 'absolute',
     width: Dimensions.get('window').width,
-    //height: Dimensions.get('window').height,
-    flex: 1,
+    height: Dimensions.get('window').height,
+  },
+  locationCard: {
+    width: 150,
+    height: 75,
+  },
+  locationCardButton: {
+    width: 100,
+    height: 20,
+  },
+  searcher: {
+    position: 'absolute',
+    top: 75,
   },
 });
 
 export const mapConfiguration: { mapPadding: EdgePadding; mapType: MapTypes; showsBuildings: boolean } = {
-  mapPadding: { left: 0, top: 0, bottom: 0, right: 0 },
+  mapPadding: { left: 0, top: 0, bottom: 60, right: 0 },
   mapType: 'standard',
   showsBuildings: false,
 };

@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { colors } from 'common/constants/colors';
 
-export function MainContainerComponent(props: { height: string; children: React.ReactNode }): JSX.Element {
+export function MainContainerComponent(props: { height: string | number; children: React.ReactNode }): JSX.Element {
   return <View style={[styles.container, styles.containerShadow, { height: props.height }]}>{props.children}</View>;
 }
 

@@ -26,8 +26,6 @@ export default function AppRoutes(props: {
   ]);
 
   const tabOptions = {
-    tabBarActiveTintColor: 'tomato',
-    tabBarInactiveTintColor: 'gray',
     tabBarShowLabel: false,
     ...props.screenOptions,
   };

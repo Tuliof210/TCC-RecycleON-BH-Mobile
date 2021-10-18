@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
-import MapView, { Callout, Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
 import { LocationContext } from 'context';
+
+import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
+import { LocationPointComponent } from './location-point/location-point.component';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
@@ -28,13 +31,17 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const locationPointsList = await getLocationsMap({ tags: [], materials: [] });
-      setLocationPoints(locationPointsList);
-    })();
+    requestLocations([], []);
   }, [latitude, longitude]);
 
   //----------------------------------------------------------------------------
+
+  async function requestLocations(tags: Array<string>, materials: Array<string>) {
+    console.log({ tags, materials });
+
+    const locationPointsList = await getLocationsMap({ tags, materials });
+    setLocationPoints(locationPointsList);
+  }
 
   function requestMapRegion() {
     const pointsCoordinates = locationPoints.map((location) => {
@@ -67,33 +74,9 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
   }
 
   function renderLocationPoints(): Array<JSX.Element> {
-    return locationPoints.map((point) => {
-      const coordinates = point.geometry.coordinates;
-      return (
-        <Marker
-          key={point._id}
-          pinColor={markerConfiguration.pinColor}
-          coordinate={{ latitude: coordinates[1], longitude: coordinates[0] }}
-          title={point.locationTag}
-          description={point.properties.name}
-        >
-          <Callout tooltip>
-            {/*TODO adicionar aqui o component de card de cada localização */}
-            <View
-              style={{
-                width: 100,
-                height: 50,
-                borderRadius: 10,
-                borderStyle: 'solid',
-                borderWidth: 2,
-                borderColor: '#f00',
-                backgroundColor: '#ff0',
-              }}
-            ></View>
-          </Callout>
-        </Marker>
-      );
-    });
+    return locationPoints.map((point) => (
+      <LocationPointComponent key={point._id} point={point} pinColor={markerConfiguration.pinColor} />
+    ));
   }
 
   return (
@@ -108,6 +91,9 @@ export default function HomeScreen(props: { navigation: NavigationProp<any, any>
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
+      <View style={styles.searcher}>
+        <LocationSearcherComponent handlerSearch={requestLocations} />
+      </View>
     </View>
   );
 }

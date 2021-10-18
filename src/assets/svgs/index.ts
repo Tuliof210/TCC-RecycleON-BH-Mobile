@@ -1,3 +1,5 @@
 export * as HomeSVG from './home-svg';
 export * as WikiSVG from './wiki-svg';
 export * as ProfileSVG from './profile-svg';
+
+export * as SearchSVG from './search-svg';
