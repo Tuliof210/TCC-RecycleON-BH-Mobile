@@ -27,13 +27,20 @@ export default StyleSheet.create({
     backgroundColor: colors('gray-line'),
   },
   menuOption: {
-    paddingHorizontal: 20,
+    flexDirection: 'row',
+    paddingHorizontal: 10,
     paddingVertical: 10,
+  },
+  menuOptionText: {
     fontSize: 15,
     fontFamily: 'Ubuntu-Medium',
     color: colors('gray-font-dark'),
+    paddingHorizontal: 10,
   },
   exit: {
     color: colors('red'),
+  },
+  svgIcon: {
+    alignSelf: 'center',
   },
 });

@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
-import { Text, TouchableHighlight, View } from 'react-native';
+import { Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 
 import styles from './profile-card.style';
 import { highLightColors } from 'common/constants/colors';
+
+import { SvgXml } from 'react-native-svg';
+import { ConfigSVG, StarSVG, LogoutSVG } from 'assets/svgs';
 
 export function ProfileCardComponent(props: { name: string | undefined; email: string | undefined }): JSX.Element {
   const test = () => {
@@ -17,22 +20,26 @@ export function ProfileCardComponent(props: { name: string | undefined; email: s
       </View>
 
       <View style={[styles.container, styles.containerShadow, styles.containerOptions]}>
-        <TouchableHighlight activeOpacity={1} underlayColor={highLightColors('green-light')} onPress={test}>
-          <Text style={styles.menuOption}>Alterar Dados</Text>
-        </TouchableHighlight>
+        <TouchableWithoutFeedback onPress={test}>
+          <View style={styles.menuOption}>
+            <SvgXml xml={ConfigSVG.default} width={17} height={17} style={styles.svgIcon} />
+            <Text style={styles.menuOptionText}>Alterar Dados</Text>
+          </View>
+        </TouchableWithoutFeedback>
 
-        <TouchableHighlight activeOpacity={1} underlayColor={highLightColors('green-light')} onPress={test}>
-          <Text style={styles.menuOption}>Locais Favoritos</Text>
-        </TouchableHighlight>
+        <TouchableWithoutFeedback onPress={test}>
+          <View style={styles.menuOption}>
+            <SvgXml xml={StarSVG.filled} width={17} height={17} style={styles.svgIcon} />
+            <Text style={styles.menuOptionText}>Locais Favoritos</Text>
+          </View>
+        </TouchableWithoutFeedback>
 
-        <TouchableHighlight
-          activeOpacity={1}
-          underlayColor={highLightColors('red')}
-          onPress={test}
-          style={{ zIndex: -11 }}
-        >
-          <Text style={[styles.menuOption, styles.exit]}>Sair</Text>
-        </TouchableHighlight>
+        <TouchableWithoutFeedback onPress={test}>
+          <View style={[styles.menuOption, { paddingTop: 25 }]}>
+            <SvgXml xml={LogoutSVG.default} width={17} height={17} style={styles.svgIcon} />
+            <Text style={[styles.menuOptionText, styles.exit]}>Sair</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     </Fragment>
   );
