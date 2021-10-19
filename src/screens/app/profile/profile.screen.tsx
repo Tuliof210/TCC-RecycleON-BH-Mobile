@@ -16,7 +16,7 @@ export default function ProfileScreen(props: { navigation: NavigationProp<any, a
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <LinearGradient style={styles.container} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
+      <LinearGradient style={styles.container} colors={backgroundGradient} end={{ x: 0, y: 1 }}>
         <ProfileCardComponent name={user?.name} email={user?.email} />
         <ProfileMenuComponent signOut={signOut} />
       </LinearGradient>
