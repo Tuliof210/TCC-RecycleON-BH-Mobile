@@ -4,15 +4,25 @@ import { Image, ImageProps, View, Text, TouchableHighlight } from 'react-native'
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { SignupData } from 'common/constants/types';
+import { UpdateUserData } from 'common/constants/types';
 import { EmailRegex, PasswordRegex } from 'common/constants/regex';
 import { FormWarningComponent, InputTextComponent, PrimaryButtonComponent } from 'common/components';
 
 import styles from './profile-update-form.style';
 import { AppImages } from 'assets/images';
 
-export function ProfileUpdateForm({ handler }: { handler: (data: SignupData) => void }): JSX.Element {
-  const fields = { name: '', email: '', password: '', confirmPassword: '' };
+export function ProfileUpdateForm({
+  handler,
+  userData,
+}: {
+  handler: (data: UpdateUserData) => void;
+  userData: {
+    name: string;
+    email: string;
+    password: string;
+  };
+}): JSX.Element {
+  const fields = { ...userData, confirmPassword: '' };
 
   const schema = Yup.object().shape({
     name: Yup.string().strict().required('Preencha o campo de nome'),
@@ -99,10 +109,10 @@ export function ProfileUpdateForm({ handler }: { handler: (data: SignupData) => 
             <FormWarningComponent message={props.errors.password} position={styles.formWarning} />
           </View>
           <View style={styles.inputBox}>
-            <Text style={styles.inputLabel}>Confirmar Senha</Text>
+            <Text style={styles.inputLabel}>Senha atual</Text>
             <InputTextComponent
               size={styles.inputText}
-              placeholder={'Confirme sua senha'}
+              placeholder={'Insira sua senha atual'}
               text={props.values.confirmPassword}
               secureText={hidePassword}
               handler={setField('confirmPassword')}
@@ -110,7 +120,7 @@ export function ProfileUpdateForm({ handler }: { handler: (data: SignupData) => 
             <FormWarningComponent message={props.errors.confirmPassword} position={styles.formWarning} />
           </View>
         </View>
-        <PrimaryButtonComponent size={styles.submitButton} label="Criar" handler={props.handleSubmit} />
+        <PrimaryButtonComponent size={styles.submitButton} label="Atualizar" handler={props.handleSubmit} />
       </Fragment>
     );
   });

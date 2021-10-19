@@ -7,10 +7,10 @@ export default StyleSheet.create({
     left: 5,
   },
   inputBoxesContainer: {
-    marginBottom: 40,
+    marginVertical: 50,
   },
   inputBox: {
-    marginBottom: 20,
+    marginBottom: 10,
     position: 'relative',
   },
   inputLabel: {

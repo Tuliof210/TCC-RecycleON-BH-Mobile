@@ -18,6 +18,12 @@ export type AuthenticatedUser = {
   user: User;
 };
 
+export type UpdateUserData = {
+  name?: string;
+  email?: string;
+  password?: string;
+};
+
 //------------------------------------------------
 
 export type Coordinates = {

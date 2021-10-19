@@ -7,3 +7,5 @@ export * as LogoutSVG from './logout-svg';
 
 export * as StarSVG from './star-svg';
 export * as ConfigSVG from './configuration-svg';
+
+export * as ArrowBackSVG from './arrow-back-svg';

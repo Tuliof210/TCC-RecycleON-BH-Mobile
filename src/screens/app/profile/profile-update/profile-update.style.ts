@@ -5,22 +5,11 @@ export default StyleSheet.create({
   containerLineBreak: {
     marginVertical: 30,
   },
-  mainLabel: {
+  return: {
     color: colors('green-dark'),
     fontFamily: 'Ubuntu-Medium',
     fontSize: 25,
     marginBottom: 30,
-  },
-  redirectToSignIn: {
-    color: colors('gray-font-light'),
-    fontFamily: 'Ubuntu-Medium',
-    fontSize: 16,
-    marginVertical: 30,
-    textAlign: 'center',
-  },
-  redirectToSignInHighlight: {
-    color: colors('green-dark'),
-    fontFamily: 'Ubuntu-Bold',
   },
   screen: {
     alignItems: 'center',

@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { ProfileUpdateForm } from './profile-update-form/profile-update-form.component';
-import { LineBreakComponent, MainContainerComponent } from 'common/components';
+import { AuthContext } from 'context';
 
-import { SignupData } from 'common/constants/types';
+import { ProfileUpdateForm } from './profile-update-form/profile-update-form.component';
+import { ReturnButtonComponent, MainContainerComponent } from 'common/components';
+
+import { UpdateUserData } from 'common/constants/types';
 
 import styles, { backgroundGradient } from './profile-update.style';
 
 export default function ProfileUpdateScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const router = props.navigation;
 
-  function handleUpdate({ name, email, password }: SignupData) {
+  const { user } = useContext(AuthContext);
+
+  function handleUpdate({ name, email, password }: UpdateUserData) {
     console.log({ name, email, password });
   }
 
@@ -22,22 +26,12 @@ export default function ProfileUpdateScreen(props: { navigation: NavigationProp<
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
         <MainContainerComponent height="90%">
-          <Text style={styles.mainLabel}>Cadastrar</Text>
+          <ReturnButtonComponent navigation={router}>Voltar</ReturnButtonComponent>
 
-          <ProfileUpdateForm handler={handleUpdate} />
-
-          <View style={styles.containerLineBreak}>
-            <LineBreakComponent>Ou</LineBreakComponent>
-          </View>
-
-          <Text
-            style={styles.redirectToSignInHighlight}
-            onPress={() => {
-              router.goBack();
-            }}
-          >
-            Clique aqui para voltar
-          </Text>
+          <ProfileUpdateForm
+            handler={handleUpdate}
+            userData={{ name: user?.name || '', email: user?.email || '', password: 'senha123' || '' }}
+          />
         </MainContainerComponent>
       </LinearGradient>
     </SafeAreaView>
