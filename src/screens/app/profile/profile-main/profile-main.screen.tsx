@@ -9,9 +9,9 @@ import { AuthContext } from 'context';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 
-import styles, { backgroundGradient } from './profile.style';
+import styles, { backgroundGradient } from './profile-main.style';
 
-export default function ProfileScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
+export default function ProfileMainScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const { user, signOut } = useContext(AuthContext);
 
   return (
