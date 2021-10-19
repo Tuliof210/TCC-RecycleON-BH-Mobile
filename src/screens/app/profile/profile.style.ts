@@ -1,12 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { colors } from 'common/constants/colors';
+import { colors, gradient } from 'common/constants/colors';
 
 export default StyleSheet.create({
-  title: {
-    marginVertical: 75,
-    textAlign: 'center',
-    color: colors('green-dark'),
-    fontFamily: 'Ubuntu-Medium',
-    fontSize: 25,
+  container: {
+    justifyContent: 'center',
+    flex: 1,
   },
 });
+
+export const backgroundGradient = [gradient('fade-green-bg').start, gradient('fade-green-bg').end];
