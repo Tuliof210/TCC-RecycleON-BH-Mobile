@@ -21,7 +21,6 @@ export type AuthenticatedUser = {
 export type UpdateUserData = {
   name?: string;
   email?: string;
-  password?: string;
 };
 
 //------------------------------------------------

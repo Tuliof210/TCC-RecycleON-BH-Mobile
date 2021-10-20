@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { LocationProvider } from 'context';
 
 import HomeScreen from 'screens/app/home/home.screen';

@@ -19,22 +19,13 @@ export function ProfileUpdateForm({
   userData: {
     name: string;
     email: string;
-    password: string;
   };
 }): JSX.Element {
-  const fields = { ...userData, confirmPassword: '' };
+  const fields = { ...userData };
 
   const schema = Yup.object().shape({
     name: Yup.string().strict().required('Preencha o campo de nome'),
     email: Yup.string().strict().matches(EmailRegex, 'Digite um e-mail válido').required('Preencha o campo de e-mail'),
-    password: Yup.string()
-      .strict()
-      .matches(PasswordRegex, 'Min. 6 caracteres, com ao menos 1 letra e 1 número')
-      .required('Preencha o campo de senha'),
-    confirmPassword: Yup.string()
-      .strict()
-      .oneOf([Yup.ref('password'), null], 'As senhas devem ser iguais')
-      .required('Repita sua senha'),
   });
 
   const Form = withFormik({
@@ -44,16 +35,10 @@ export function ProfileUpdateForm({
 
     mapPropsToValues: () => fields,
     handleSubmit: (values) => {
-      handler({ name: values.name, email: values.email, password: values.password });
+      handler({ name: values.name, email: values.email });
     },
   })((props): JSX.Element => {
     //----------------------------------------------------------------------------------------------------------
-
-    const [hidePassword, setHidePassword] = useState(true);
-
-    function getHidePasswordIcon(): ImageProps {
-      return hidePassword ? AppImages['eye-close'] : AppImages['eye-open'];
-    }
 
     function setField(key: string) {
       return (text: string): void => {
@@ -86,38 +71,6 @@ export function ProfileUpdateForm({
               handler={setField('email')}
             />
             <FormWarningComponent message={props.errors.email} position={styles.formWarning} />
-          </View>
-          <View style={styles.inputBox}>
-            <Text style={styles.inputLabel}>Senha</Text>
-            <InputTextComponent
-              size={styles.inputText}
-              placeholder={'Insira sua senha'}
-              text={props.values.password}
-              secureText={hidePassword}
-              handler={setField('password')}
-            />
-            <TouchableHighlight
-              style={styles.toggleHidenPassword}
-              activeOpacity={1}
-              underlayColor="transparent"
-              onPress={() => {
-                setHidePassword(!hidePassword);
-              }}
-            >
-              <Image style={styles.toggleHidenPasswordIcon} source={getHidePasswordIcon()} />
-            </TouchableHighlight>
-            <FormWarningComponent message={props.errors.password} position={styles.formWarning} />
-          </View>
-          <View style={styles.inputBox}>
-            <Text style={styles.inputLabel}>Senha atual</Text>
-            <InputTextComponent
-              size={styles.inputText}
-              placeholder={'Insira sua senha atual'}
-              text={props.values.confirmPassword}
-              secureText={hidePassword}
-              handler={setField('confirmPassword')}
-            />
-            <FormWarningComponent message={props.errors.confirmPassword} position={styles.formWarning} />
           </View>
         </View>
         <PrimaryButtonComponent size={styles.submitButton} label="Atualizar" handler={props.handleSubmit} />
