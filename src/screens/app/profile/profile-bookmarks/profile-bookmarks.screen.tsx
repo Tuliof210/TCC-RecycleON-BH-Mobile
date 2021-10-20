@@ -3,9 +3,9 @@ import { SafeAreaView, View } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import styles, { backgroundGradient } from './wiki-main.style';
+import styles, { backgroundGradient } from './profile-bookmarks.style';
 
-export default function WikiMainScreen(): JSX.Element {
+export default function ProfileBookmarksScreen(): JSX.Element {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 1, y: 1 }}>

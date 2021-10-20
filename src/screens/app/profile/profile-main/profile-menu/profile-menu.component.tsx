@@ -10,20 +10,20 @@ export function ProfileMenuComponent(props: {
   signOut: () => Promise<void>;
   navigatorHandler: (route: string) => void;
 }): JSX.Element {
-  const navigateToProfileUpdateScreen = () => {
-    props.navigatorHandler('profileUpdate');
+  const navigateToScreen = (route: string) => () => {
+    props.navigatorHandler(route);
   };
 
   return (
     <View style={[styles.container, styles.containerShadow]}>
-      <TouchableWithoutFeedback onPress={navigateToProfileUpdateScreen}>
+      <TouchableWithoutFeedback onPress={navigateToScreen('profileUpdate')}>
         <View style={[styles.menuOption, styles.bottomBorder]}>
           <SvgXml xml={ConfigSVG.default} width={20} height={20} style={styles.svgIcon} />
           <Text style={styles.menuOptionText}>Alterar Dados</Text>
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={navigateToProfileUpdateScreen}>
+      <TouchableWithoutFeedback onPress={navigateToScreen('profileBookmarks')}>
         <View style={[styles.menuOption, styles.bottomBorder]}>
           <SvgXml xml={StarSVG.filled} width={20} height={20} style={styles.svgIcon} />
           <Text style={styles.menuOptionText}>Locais Favoritos</Text>

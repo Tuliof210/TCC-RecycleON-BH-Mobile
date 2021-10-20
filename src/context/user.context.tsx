@@ -12,9 +12,9 @@ interface UserContextData {
 export const UserContext = createContext<UserContextData>({} as UserContextData);
 
 export function UserProvider({ children }: { children: React.ReactNode }): JSX.Element {
-  const { token, signIn } = useContext(AuthContext);
+  const { token, syncUser } = useContext(AuthContext);
 
-  const userService: UserService = new UserService(signIn);
+  const userService: UserService = new UserService(syncUser);
 
   const updateUser = useCallback(async (userData: UpdateUserData) => {
     await userService.updateUserData(token, userData);

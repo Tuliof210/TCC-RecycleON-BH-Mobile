@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-import { SigninData, SignupData, User } from 'common/constants/types';
+import { SigninData, SignupData, User, UpdateUserData } from 'common/constants/types';
 
 import { AuthService } from 'services';
 
@@ -11,6 +11,7 @@ interface AuthContextData {
   signUp(data: SignupData): Promise<void>;
   signIn(data: SigninData): Promise<void>;
   signOut(): Promise<void>;
+  syncUser(): Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -26,6 +27,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
     })();
   }, []);
 
+  async function syncUser() {
+    await authService.syncUser(token);
+  }
+
   async function signUp(data: SignupData): Promise<void> {
     await authService.signUp(data);
   }
@@ -39,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, token, user, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed: !!user, token, user, signUp, signIn, signOut, syncUser }}>
       {children}
     </AuthContext.Provider>
   );

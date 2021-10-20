@@ -1,10 +1,9 @@
-import config from 'config';
 import { AppAPI } from 'common/libs/axios';
 
-import { UpdateUserData, SigninData } from 'common/constants/types';
+import { User, UpdateUserData, SigninData } from 'common/constants/types';
 
 export class UserService {
-  constructor(private readonly signInHandler: (data: SigninData) => Promise<void>) {}
+  constructor(private readonly syncUser: (token: string | null) => Promise<void>) {}
 
   async updateUserData(token: string | null, userData: UpdateUserData): Promise<void> {
     if (token) {
@@ -13,14 +12,12 @@ export class UserService {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then(this.signInWithUpdatedData)
+        .then((data) => {
+          console.log(data.data);
+          this.syncUser(token);
+        })
         .catch(this.handleError);
     }
-  }
-
-  private async signInWithUpdatedData(data: any): Promise<void> {
-    console.log(data);
-    return this.signInHandler({ email: '', password: '' });
   }
 
   private handleError(error: any) {

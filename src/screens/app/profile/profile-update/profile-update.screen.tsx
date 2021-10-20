@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -20,8 +20,10 @@ export default function ProfileUpdateScreen(props: { navigation: NavigationProp<
   const { updateUser } = useContext(UserContext);
 
   async function handleUpdate({ name, email }: UpdateUserData) {
-    console.log({ name, email });
-    await updateUser({ name, email });
+    await updateUser({ name, email }).then(() => {
+      console.log('hi');
+      router.navigate('profileMain');
+    });
   }
 
   return (

@@ -16,12 +16,11 @@ export class AuthService {
   async loadUserData(): Promise<void> {
     try {
       const jsonValue: string | null = await AsyncStorage.getItem(this.userKey);
-      console.log({ jsonValue });
       if (jsonValue !== null) {
         await this.saveUser(JSON.parse(jsonValue));
       }
     } catch (error) {
-      console.log(error);
+      this.handleError(error);
     }
   }
 
@@ -48,23 +47,36 @@ export class AuthService {
     this.setToken(authenticatedUser.token ?? null);
     this.setUser(authenticatedUser.user ?? null);
 
-    console.log({ authenticatedUser });
-
     const jsonValue = JSON.stringify(authenticatedUser);
-    try {
-      await AsyncStorage.setItem(this.userKey, jsonValue);
-    } catch (error) {
-      console.log(error);
-    }
+
+    await AsyncStorage.setItem(this.userKey, jsonValue).catch(this.handleError);
   }
 
   async signOut(): Promise<void> {
-    try {
-      await AsyncStorage.removeItem(this.userKey);
-      this.setToken(null);
-      this.setUser(null);
-    } catch (error) {
-      console.log(error);
+    await AsyncStorage.removeItem(this.userKey)
+      .then(() => {
+        this.setToken(null);
+        this.setUser(null);
+      })
+      .catch(this.handleError);
+  }
+
+  async syncUser(token: string | null): Promise<void> {
+    if (token) {
+      await AppAPI.get('/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((data) => {
+          const { _id, name, email } = data.data as User;
+          this.setUser({ _id, name, email });
+        })
+        .catch(this.handleError);
     }
+  }
+
+  private handleError(error: any) {
+    console.log(error);
   }
 }
