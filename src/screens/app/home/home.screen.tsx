@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
@@ -11,7 +10,7 @@ import { LocationPointComponent } from './location-point/location-point.componen
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
-export default function HomeScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
+export default function HomeScreen(): JSX.Element {
   const {
     latitude,
     longitude,

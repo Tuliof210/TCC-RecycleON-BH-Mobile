@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { LocationProvider } from 'context';
 
 import HomeScreen from 'screens/app/home/home.screen';
 
@@ -31,6 +32,12 @@ export default function AppRoutes(props: {
     ...props.screenOptions,
   };
 
+  const HomeScreenWithContext = () => (
+    <LocationProvider>
+      <HomeScreen />
+    </LocationProvider>
+  );
+
   const WikiRoutesConfigured = () => <WikiRoutes screenOptions={props.screenOptions} />;
   const ProfileRoutesConfigured = () => <ProfileRoutes screenOptions={props.screenOptions} />;
 
@@ -45,7 +52,7 @@ export default function AppRoutes(props: {
         ...tabOptions,
       })}
     >
-      <AppTab.Screen name="Home" component={HomeScreen} />
+      <AppTab.Screen name="Home" component={HomeScreenWithContext} />
       <AppTab.Screen name="Wiki" component={WikiRoutesConfigured} />
       <AppTab.Screen name="Profile" component={ProfileRoutesConfigured} />
     </AppTab.Navigator>
