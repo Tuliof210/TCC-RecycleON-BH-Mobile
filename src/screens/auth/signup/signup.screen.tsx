@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Image, View, Text, ScrollView } from 'react-native';
+import { Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -31,7 +31,7 @@ export default function SignupScreen(props: { navigation: NavigationProp<any, an
   }
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
         <Image style={styles.screenMainIcon} source={require('assets/images/signup-art.png')} />
         <MainContainerComponent height="90%">
@@ -58,6 +58,6 @@ export default function SignupScreen(props: { navigation: NavigationProp<any, an
           </Text>
         </MainContainerComponent>
       </LinearGradient>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
