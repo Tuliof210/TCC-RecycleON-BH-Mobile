@@ -18,6 +18,11 @@ export const colors = (key: string) => {
   return valueToReturn ?? '#FFFFFF';
 };
 
+export const highLightColors = (key: string) => {
+  const rawColor = colorsMap.get(key);
+  return rawColor + '33';
+};
+
 //===============================================================================
 
 const gradientMap = new Map<string, { start: string; end: string }>([

@@ -26,9 +26,7 @@ export default function RecycleON_BH(): JSX.Element {
       <StatusBar style="auto" />
       <NavigationContainer>
         <AuthProvider>
-          <LocationProvider>
-            <Routes />
-          </LocationProvider>
+          <Routes />
         </AuthProvider>
       </NavigationContainer>
     </Fragment>

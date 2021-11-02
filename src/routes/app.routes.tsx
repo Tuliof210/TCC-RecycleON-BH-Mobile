@@ -2,9 +2,12 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { LocationProvider } from 'context';
+
 import HomeScreen from 'screens/app/home/home.screen';
-import WikiScreen from 'screens/app/wiki/wiki.screen';
-import ProfileScreen from 'screens/app/profile/profile.screen';
+
+import WikiRoutes from './wiki.routes';
+import ProfileRoutes from './profile.routes';
 
 import { SvgXml } from 'react-native-svg';
 import { HomeSVG, WikiSVG, ProfileSVG } from 'assets/svgs';
@@ -30,6 +33,15 @@ export default function AppRoutes(props: {
     ...props.screenOptions,
   };
 
+  const HomeScreenWithContext = () => (
+    <LocationProvider>
+      <HomeScreen />
+    </LocationProvider>
+  );
+
+  const WikiRoutesConfigured = () => <WikiRoutes screenOptions={props.screenOptions} />;
+  const ProfileRoutesConfigured = () => <ProfileRoutes screenOptions={props.screenOptions} />;
+
   return (
     <AppTab.Navigator
       screenOptions={({ route }) => ({
@@ -41,9 +53,9 @@ export default function AppRoutes(props: {
         ...tabOptions,
       })}
     >
-      <AppTab.Screen name="Home" component={HomeScreen} />
-      <AppTab.Screen name="Wiki" component={WikiScreen} />
-      <AppTab.Screen name="Profile" component={ProfileScreen} />
+      <AppTab.Screen name="Home" component={HomeScreenWithContext} />
+      <AppTab.Screen name="Wiki" component={WikiRoutesConfigured} />
+      <AppTab.Screen name="Profile" component={ProfileRoutesConfigured} />
     </AppTab.Navigator>
   );
 }
