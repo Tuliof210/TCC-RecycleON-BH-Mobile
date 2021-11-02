@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Text, View, TouchableHighlight, ScrollView } from 'react-native';
 
 import { WikiData, WikiItem } from 'common/constants/types';
 
 import { WikiContext } from 'context';
 
-import styles, { backgroundGradient } from './wiki-main.style';
+import { colors } from 'common/constants/colors';
+import styles from './wiki-main.style';
 
 export default function WikiMainScreen(): JSX.Element {
   const { wikiData } = useContext(WikiContext);
@@ -25,11 +26,10 @@ export default function WikiMainScreen(): JSX.Element {
   }
 
   function renderItemsContainer(label: string, itemList: WikiData): JSX.Element | boolean {
-    console.log({ label, itemList });
     return (
       itemList.length > 0 && (
-        <View>
-          <Text>{label}</Text>
+        <View style={styles.item}>
+          <Text style={styles.label}>{label}</Text>
           <View>{renderListOfItems(itemList)}</View>
         </View>
       )
@@ -37,26 +37,24 @@ export default function WikiMainScreen(): JSX.Element {
   }
 
   function renderListOfItems(items: WikiData): Array<JSX.Element> {
-    return items.map((item) => {
-      const component = <Text key={item._id}>{item.tag}</Text>;
-
-      console.log(component);
-
-      return component;
-    });
+    return items.map((item) => (
+      <TouchableHighlight key={item._id} activeOpacity={1} underlayColor={colors('white-dark')} onPress={() => {}}>
+        <Text style={styles.itemText}>{item.tag}</Text>
+      </TouchableHighlight>
+    ));
   }
 
   function renderBreakLine(): JSX.Element | boolean {
-    return locationsItems.length > 0 && materialItems.length > 0 && <Text>===============================</Text>;
+    return locationsItems.length > 0 && materialItems.length > 0 && <View style={styles.breakLine}></View>;
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }}>
       <View style={styles.screen}>
         {renderItemsContainer('Locais', locationsItems)}
         {renderBreakLine()}
         {renderItemsContainer('Categorias', materialItems)}
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
