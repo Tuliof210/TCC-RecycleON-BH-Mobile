@@ -5,13 +5,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { WikiContext } from 'context';
 
-import styles, { backgroundGradient } from './wiki-main.style';
+import styles, { backgroundGradient } from './wiki-item.style';
 
 export default function WikiMainScreen(): JSX.Element {
-  const { wikiData } = useContext(WikiContext);
+  const { getWikiItem } = useContext(WikiContext);
 
   useEffect(() => {
-    console.log(wikiData);
+    (async () => {
+      await getWikiItem('af3f455a-e64a-41e6-80a6-9aec5ac1d85a').then(console.log);
+    })();
   }, []);
 
   return (
