@@ -68,3 +68,5 @@ export type LocationProperties = {
   };
   info: string | null;
 };
+
+//------------------------------------------------
