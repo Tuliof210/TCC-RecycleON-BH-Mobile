@@ -21,7 +21,6 @@ export default function ProfileUpdateScreen(props: { navigation: NavigationProp<
 
   async function handleUpdate({ name, email }: UpdateUserData) {
     await updateUser({ name, email }).then(() => {
-      console.log('hi');
       router.navigate('profileMain');
     });
   }

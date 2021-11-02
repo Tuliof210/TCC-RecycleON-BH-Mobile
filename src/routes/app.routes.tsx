@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { LocationProvider } from 'context';
+import { LocationProvider, WikiProvider } from 'context';
 
 import HomeScreen from 'screens/app/home/home.screen';
 
@@ -33,29 +33,33 @@ export default function AppRoutes(props: {
     ...props.screenOptions,
   };
 
-  const HomeScreenWithContext = () => (
-    <LocationProvider>
-      <HomeScreen />
-    </LocationProvider>
-  );
-
   const WikiRoutesConfigured = () => <WikiRoutes screenOptions={props.screenOptions} />;
   const ProfileRoutesConfigured = () => <ProfileRoutes screenOptions={props.screenOptions} />;
 
+  const ComposeContext = ({ children }: { children: React.ReactNode }): JSX.Element => {
+    return (
+      <LocationProvider>
+        <WikiProvider>{children}</WikiProvider>
+      </LocationProvider>
+    );
+  };
+
   return (
-    <AppTab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused }) => {
-          const icon = Tabs.get(route.name) ?? { defaultIcon: '', focusedIcon: '' };
-          const xml = focused ? icon.focusedIcon : icon.defaultIcon;
-          return <SvgXml xml={xml} width={30} height={30} />;
-        },
-        ...tabOptions,
-      })}
-    >
-      <AppTab.Screen name="Home" component={HomeScreenWithContext} />
-      <AppTab.Screen name="Wiki" component={WikiRoutesConfigured} />
-      <AppTab.Screen name="Profile" component={ProfileRoutesConfigured} />
-    </AppTab.Navigator>
+    <ComposeContext>
+      <AppTab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused }) => {
+            const icon = Tabs.get(route.name) ?? { defaultIcon: '', focusedIcon: '' };
+            const xml = focused ? icon.focusedIcon : icon.defaultIcon;
+            return <SvgXml xml={xml} width={30} height={30} />;
+          },
+          ...tabOptions,
+        })}
+      >
+        <AppTab.Screen name="Home" component={HomeScreen} />
+        <AppTab.Screen name="Wiki" component={WikiRoutesConfigured} />
+        <AppTab.Screen name="Profile" component={ProfileRoutesConfigured} />
+      </AppTab.Navigator>
+    </ComposeContext>
   );
 }

@@ -21,8 +21,6 @@ export default function SigninScreen(props: { navigation: NavigationProp<any, an
   //--------------------------------------------------------------
 
   function handleSignIn({ email, password }: SigninData) {
-    console.log({ email, password });
-
     signIn({
       email: email.trim(),
       password: password.trim(),

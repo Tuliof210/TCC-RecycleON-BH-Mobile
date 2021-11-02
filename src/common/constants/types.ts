@@ -70,3 +70,17 @@ export type LocationProperties = {
 };
 
 //------------------------------------------------
+
+export type WikiItem = {
+  _id: string;
+  keyWords: Array<string>;
+  tag: string;
+  type: string;
+};
+
+export type WikiData = Array<WikiItem>;
+
+export type WikiFullItem = WikiItem & {
+  about: string;
+  relatedItems: Array<string>;
+};

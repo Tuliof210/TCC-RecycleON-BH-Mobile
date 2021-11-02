@@ -21,8 +21,6 @@ export default function SignupScreen(props: { navigation: NavigationProp<any, an
   //--------------------------------------------------------------
 
   function handleSignup({ name, email, password }: SignupData) {
-    console.log({ name, email, password });
-
     signUp({
       name: name.trim(),
       email: email.trim(),

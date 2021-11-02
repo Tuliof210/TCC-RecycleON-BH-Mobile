@@ -36,8 +36,6 @@ export default function HomeScreen(): JSX.Element {
   //----------------------------------------------------------------------------
 
   async function requestLocations(tags: Array<string>, materials: Array<string>) {
-    console.log({ tags, materials });
-
     const locationPointsList = await getLocationsMap({ tags, materials });
     setLocationPoints(locationPointsList);
   }

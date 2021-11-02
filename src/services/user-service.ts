@@ -1,6 +1,6 @@
-import { AppAPI } from 'common/libs/axios';
+import { AppAPI, handleHttpError } from 'common/libs/axios';
 
-import { User, UpdateUserData, SigninData } from 'common/constants/types';
+import { UpdateUserData } from 'common/constants/types';
 
 export class UserService {
   constructor(private readonly syncUser: (token: string | null) => Promise<void>) {}
@@ -12,15 +12,10 @@ export class UserService {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((data) => {
-          console.log(data.data);
+        .then(() => {
           this.syncUser(token);
         })
-        .catch(this.handleError);
+        .catch(handleHttpError);
     }
-  }
-
-  private handleError(error: any) {
-    console.log(error);
   }
 }
