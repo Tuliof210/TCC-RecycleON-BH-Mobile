@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, View, TouchableHighlight, ScrollView } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
 import { WikiData, WikiItem } from 'common/constants/types';
 
@@ -8,7 +9,8 @@ import { WikiContext } from 'context';
 import { colors } from 'common/constants/colors';
 import styles from './wiki-main.style';
 
-export default function WikiMainScreen(): JSX.Element {
+export default function WikiMainScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
+  const router = props.navigation;
   const { wikiData } = useContext(WikiContext);
 
   const [locationsItems, setLocationsItems] = useState<WikiData>([]);
@@ -20,6 +22,10 @@ export default function WikiMainScreen(): JSX.Element {
 
     console.log({ locationsItems, materialItems });
   }, []);
+
+  function navigateToItem(itemId: string) {
+    router.navigate('wikiItem', { itemId });
+  }
 
   function filterItemsByType(type: string): (item: WikiItem) => boolean {
     return (item: WikiItem): boolean => item.type === type;
@@ -38,7 +44,12 @@ export default function WikiMainScreen(): JSX.Element {
 
   function renderListOfItems(items: WikiData): Array<JSX.Element> {
     return items.map((item) => (
-      <TouchableHighlight key={item._id} activeOpacity={1} underlayColor={colors('white-dark')} onPress={() => {}}>
+      <TouchableHighlight
+        key={item._id}
+        activeOpacity={1}
+        underlayColor={colors('white-dark')}
+        onPress={() => navigateToItem(item._id)}
+      >
         <Text style={styles.itemText}>{item.tag}</Text>
       </TouchableHighlight>
     ));

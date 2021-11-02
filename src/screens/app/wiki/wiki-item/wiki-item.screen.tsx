@@ -1,20 +1,34 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SafeAreaView, View } from 'react-native';
+import { NavigationProp, Route } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
+
+import { WikiItem } from 'common/constants/types';
 
 import { WikiContext } from 'context';
 
 import styles, { backgroundGradient } from './wiki-item.style';
 
-export default function WikiMainScreen(): JSX.Element {
+export default function WikiMainScreen(props: {
+  navigation: NavigationProp<any, any>;
+  route: Route<any, { itemId: string }>;
+}): JSX.Element {
+  const router = props.navigation;
+  const { params } = props.route;
+
   const { getWikiItem } = useContext(WikiContext);
+  const [wikiItem, setWikiItem] = useState({} as WikiItem);
 
   useEffect(() => {
     (async () => {
-      await getWikiItem('af3f455a-e64a-41e6-80a6-9aec5ac1d85a').then(console.log);
+      await getWikiItem(params.itemId).then(populateWikiItem);
     })();
   }, []);
+
+  function populateWikiItem(item: WikiItem | void) {
+    if (item) setWikiItem(item);
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
