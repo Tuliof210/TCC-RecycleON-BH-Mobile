@@ -13,7 +13,7 @@ export class WikiService {
             Authorization: `Bearer ${token}`,
           },
         }).then((response) => {
-          this.setWikiData(response.data as WikiData);
+          this.setWikiData(response.data.list as WikiData);
         });
       } catch (error) {
         handleHttpError(error);
