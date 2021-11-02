@@ -18,9 +18,6 @@ export class AutocompleteHelper {
       suggestions.push(...mappedWords.filter((word) => keyWord && word.includes(keyWord)));
     });
 
-    console.log(keyWords);
-    console.log(suggestions);
-
     return suggestions;
   }
 

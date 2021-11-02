@@ -1,10 +1,13 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
+import { WikiData, WikiFullItem } from 'common/constants/types';
+
 import { AuthContext } from 'context/auth.context';
 import { WikiService } from 'services';
 
 interface WikiContextData {
-  getListOfItems(): Promise<void>;
+  getWikiData(): Promise<WikiData>;
+  getWikiItem(wikiItemId: string): Promise<WikiFullItem | void>;
 }
 
 export const WikiContext = createContext<WikiContextData>({} as WikiContextData);
@@ -14,15 +17,14 @@ export function WikiProvider({ children }: { children: React.ReactNode }): JSX.E
 
   const wikiService: WikiService = new WikiService();
 
-  const getListOfItems = useCallback(async () => {
-    await wikiService.getListOfItems(token);
+  const getWikiData = useCallback(async () => {
+    const wikiData = await wikiService.getWikiData(token);
+    return wikiData ? wikiData : [];
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      await getListOfItems();
-    })();
+  const getWikiItem = useCallback(async (wikiItemId: string) => {
+    return wikiService.getWikiItem(token, wikiItemId);
   }, []);
 
-  return <WikiContext.Provider value={{ getListOfItems }}>{children}</WikiContext.Provider>;
+  return <WikiContext.Provider value={{ getWikiData, getWikiItem }}>{children}</WikiContext.Provider>;
 }

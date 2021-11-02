@@ -1,21 +1,35 @@
 import { AppAPI, handleHttpError } from 'common/libs/axios';
 
-import {} from 'common/constants/types';
+import { WikiData, WikiFullItem } from 'common/constants/types';
 
 export class WikiService {
   constructor() {}
 
-  async getListOfItems(token: string | null): Promise<void> {
+  async getWikiData(token: string | null): Promise<WikiData | void> {
     if (token) {
-      await AppAPI.get('/wiki', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((data) => {
-          console.log(data.data);
-        })
-        .catch(handleHttpError);
+      try {
+        return AppAPI.get('/wiki', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((response) => response.data as WikiData);
+      } catch (error) {
+        handleHttpError(error);
+      }
+    }
+  }
+
+  async getWikiItem(token: string | null, wikiItemId: string): Promise<WikiFullItem | void> {
+    if (token) {
+      try {
+        return AppAPI.get(`/wiki/${wikiItemId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((response) => response.data as WikiFullItem);
+      } catch (error) {
+        handleHttpError(error);
+      }
     }
   }
 }

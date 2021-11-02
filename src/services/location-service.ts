@@ -29,12 +29,11 @@ export class LocationService {
       const request = this.mountQueryParams(tags, materials);
 
       try {
-        const response = await AppAPI.get(`/locations?${request}`, {
+        return AppAPI.get(`/locations?${request}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        return response.data as LocationsMap;
+        }).then((response) => response.data as LocationsMap);
       } catch (error) {
         handleHttpError(error);
       }

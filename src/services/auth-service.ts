@@ -25,22 +25,20 @@ export class AuthService {
   }
 
   async signUp(data: SignupData): Promise<void> {
-    const response = await AppAPI.post(`/users`, data, {
+    await AppAPI.post(`/users`, data, {
       headers: {
         masterKey: config['MASTER_KEY'],
       },
-    });
-    this.saveUser(response.data);
+    }).then((response) => this.saveUser(response.data));
   }
 
   async signIn(data: SigninData): Promise<void> {
     const auth = base64.encode(`${data.email}:${data.password}`);
-    const response = await AppAPI.get(`/auth`, {
+    await AppAPI.get(`/auth`, {
       headers: {
         Authorization: `Basic ${auth}`,
       },
-    });
-    this.saveUser(response.data);
+    }).then((response) => this.saveUser(response.data));
   }
 
   private async saveUser(authenticatedUser: AuthenticatedUser): Promise<void> {
