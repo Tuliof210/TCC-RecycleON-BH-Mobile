@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { SafeAreaView, View } from 'react-native';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { ScrollView, View, TouchableHighlight, Text, SafeAreaView } from 'react-native';
 import { NavigationProp, Route } from '@react-navigation/native';
 
-import { LinearGradient } from 'expo-linear-gradient';
-
-import { WikiItem } from 'common/constants/types';
+import { WikiFullItem } from 'common/constants/types';
 
 import { WikiContext } from 'context';
 
-import styles, { backgroundGradient } from './wiki-item.style';
+import { SvgXml } from 'react-native-svg';
+import { ArrowBackSVG } from 'assets/svgs';
+
+import styles from './wiki-item.style';
+import { colors } from 'common/constants/colors';
 
 export default function WikiMainScreen(props: {
   navigation: NavigationProp<any, any>;
@@ -18,7 +20,7 @@ export default function WikiMainScreen(props: {
   const { params } = props.route;
 
   const { getWikiItem } = useContext(WikiContext);
-  const [wikiItem, setWikiItem] = useState({} as WikiItem);
+  const [wikiItem, setWikiItem] = useState({} as WikiFullItem);
 
   useEffect(() => {
     (async () => {
@@ -26,15 +28,49 @@ export default function WikiMainScreen(props: {
     })();
   }, []);
 
-  function populateWikiItem(item: WikiItem | void) {
+  function populateWikiItem(item: WikiFullItem | void) {
     if (item) setWikiItem(item);
   }
 
+  function renderWikiData(): JSX.Element | boolean {
+    return (
+      !!wikiItem.tag &&
+      !!wikiItem.about &&
+      wikiItem.relatedItems.length > 0 && (
+        <ScrollView style={styles.container}>
+          <Text style={styles.title}>{wikiItem.tag}</Text>
+          <Text style={styles.body}>{wikiItem.about}</Text>
+          {renderBreakLine()}
+          <Text style={[styles.title, styles.relatedItemsLabel]}>Itens Relacionados</Text>
+          {renderRelatedItems()}
+        </ScrollView>
+      )
+    );
+  }
+
+  function renderBreakLine(): JSX.Element {
+    return <View style={styles.breakLine}></View>;
+  }
+
+  function renderRelatedItems(): Array<JSX.Element> {
+    return wikiItem.relatedItems.map((item, index) => (
+      <Text key={index} style={styles.relatedItems}>
+        {item}
+      </Text>
+    ));
+  }
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 1, y: 1 }}>
-        <View></View>
-      </LinearGradient>
-    </SafeAreaView>
+    <Fragment>
+      <SafeAreaView style={{ flex: 1 }}>
+        <TouchableHighlight activeOpacity={1} underlayColor={colors('white')} onPress={() => router.goBack()}>
+          <View style={styles.goBackContainer}>
+            <SvgXml xml={ArrowBackSVG.default} width={25} height={25} />
+            <Text style={styles.goBackText}>Voltar</Text>
+          </View>
+        </TouchableHighlight>
+        {renderWikiData()}
+      </SafeAreaView>
+    </Fragment>
   );
 }
