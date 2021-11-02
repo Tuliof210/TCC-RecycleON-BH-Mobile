@@ -1,4 +1,4 @@
-import { AppAPI } from 'common/libs/axios';
+import { AppAPI, handleHttpError } from 'common/libs/axios';
 
 import { User, UpdateUserData, SigninData } from 'common/constants/types';
 
@@ -16,11 +16,7 @@ export class UserService {
           console.log(data.data);
           this.syncUser(token);
         })
-        .catch(this.handleError);
+        .catch(handleHttpError);
     }
-  }
-
-  private handleError(error: any) {
-    console.log(error);
   }
 }

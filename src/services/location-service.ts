@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Location from 'expo-location';
 
-import { AppAPI } from 'common/libs/axios';
+import { AppAPI, handleHttpError } from 'common/libs/axios';
 
 import { LocationsMap } from 'common/constants/types';
 
@@ -28,12 +28,16 @@ export class LocationService {
       const materials = requestData.materials.join(',');
       const request = this.mountQueryParams(tags, materials);
 
-      const response = await AppAPI.get(`/locations?${request}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data as LocationsMap;
+      try {
+        const response = await AppAPI.get(`/locations?${request}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return response.data as LocationsMap;
+      } catch (error) {
+        handleHttpError(error);
+      }
     }
   }
 

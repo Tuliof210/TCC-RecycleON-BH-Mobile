@@ -5,3 +5,7 @@ export const AppAPI = axios.create({
   baseURL: config['APP_API'],
   timeout: 10000,
 });
+
+export const handleHttpError = (error: any) => {
+  console.log(error);
+};

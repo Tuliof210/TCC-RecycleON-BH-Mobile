@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import base64 from 'react-native-base64';
 
 import config from 'config';
-import { AppAPI } from 'common/libs/axios';
+import { AppAPI, handleHttpError } from 'common/libs/axios';
 import { AuthenticatedUser, SigninData, SignupData, User } from 'common/constants/types';
 
 export class AuthService {
@@ -20,7 +20,7 @@ export class AuthService {
         await this.saveUser(JSON.parse(jsonValue));
       }
     } catch (error) {
-      this.handleError(error);
+      console.log(error);
     }
   }
 
@@ -49,7 +49,7 @@ export class AuthService {
 
     const jsonValue = JSON.stringify(authenticatedUser);
 
-    await AsyncStorage.setItem(this.userKey, jsonValue).catch(this.handleError);
+    await AsyncStorage.setItem(this.userKey, jsonValue).catch(handleHttpError);
   }
 
   async signOut(): Promise<void> {
@@ -58,7 +58,7 @@ export class AuthService {
         this.setToken(null);
         this.setUser(null);
       })
-      .catch(this.handleError);
+      .catch(handleHttpError);
   }
 
   async syncUser(token: string | null): Promise<void> {
@@ -72,11 +72,7 @@ export class AuthService {
           const { _id, name, email } = data.data as User;
           this.setUser({ _id, name, email });
         })
-        .catch(this.handleError);
+        .catch(handleHttpError);
     }
-  }
-
-  private handleError(error: any) {
-    console.log(error);
   }
 }
