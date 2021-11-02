@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from 'context/auth.context';
 import { MetadataService } from 'services';
@@ -16,6 +16,12 @@ export function MetadataProvider({ children }: { children: React.ReactNode }): J
 
   const getMetadataList = useCallback(async () => {
     await metadataService.getMetadataList(token);
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await getMetadataList();
+    })();
   }, []);
 
   return <MetadataContext.Provider value={{ getMetadataList }}>{children}</MetadataContext.Provider>;
