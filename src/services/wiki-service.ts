@@ -2,12 +2,12 @@ import { AppAPI, handleHttpError } from 'common/libs/axios';
 
 import {} from 'common/constants/types';
 
-export class MetadataService {
+export class WikiService {
   constructor() {}
 
-  async getMetadataList(token: string | null): Promise<void> {
+  async getListOfItems(token: string | null): Promise<void> {
     if (token) {
-      await AppAPI.get('/metadata', {
+      await AppAPI.get('/wiki', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
