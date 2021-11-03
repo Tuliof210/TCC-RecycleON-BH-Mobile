@@ -1,13 +1,43 @@
-export class AutocompleteHelper {
-  private readonly tags = ['ponto verde', 'urpv', 'lev'];
-  private readonly materials = ['metal', 'plastico', 'vidro', 'papel'];
+import { WikiData, WikiItem } from 'common/constants/types';
 
-  suggestTags(params: string) {
-    return this.suggest(this.tags, params);
+export class AutocompleteHelper {
+  private locationTagKeys: Array<string> = [];
+  private locationTags = new Map<string, string>([]);
+
+  private materialKeys: Array<string> = [];
+  private materials = new Map<string, string>([]);
+
+  constructor(wikiData: WikiData) {
+    if (wikiData.length > 0) this.handleWikiData(wikiData);
+  }
+
+  handleWikiData(wikiData: WikiData) {
+    wikiData.forEach((data) => {
+      if (data.type === 'material') this.populateKeysAndMap(data, this.materials, this.materialKeys);
+      if (data.type === 'location') this.populateKeysAndMap(data, this.locationTags, this.locationTagKeys);
+    });
+  }
+
+  populateKeysAndMap(item: WikiItem, genericMap: Map<string, string>, genericKeyList: Array<string>) {
+    item.keyWords.forEach((keyWord) => {
+      genericKeyList.push(keyWord);
+      genericMap.set(keyWord, item.tag);
+    });
+  }
+
+  suggestLocationTags(params: string) {
+    return this.suggestGeneric(params, this.locationTags, this.locationTagKeys);
   }
 
   suggestMaterials(params: string) {
-    return this.suggest(this.materials, params);
+    return this.suggestGeneric(params, this.materials, this.materialKeys);
+  }
+
+  suggestGeneric(params: string, genericMap: Map<string, string>, genericKeyList: Array<string>) {
+    const keys = this.suggest(genericKeyList, params);
+    const suggestions = new Set(keys.map((key) => genericMap.get(key) || ''));
+
+    return Array.from(suggestions);
   }
 
   private suggest(mappedWords: Array<string>, params: string): Array<string> {
@@ -15,7 +45,7 @@ export class AutocompleteHelper {
     const suggestions = [] as Array<string>;
 
     keyWords.forEach((keyWord) => {
-      suggestions.push(...mappedWords.filter((word) => keyWord && word.includes(keyWord)));
+      suggestions.push(...mappedWords.filter((word) => keyWord && word.indexOf(keyWord) === 0));
     });
 
     return suggestions;
@@ -45,7 +75,4 @@ export class AutocompleteHelper {
       .toLowerCase()
       .trim();
   }
-
-  //---------------------------------------
-  async populateData(): Promise<void> {}
 }

@@ -28,6 +28,8 @@ export class LocationService {
       const materials = requestData.materials.join(',');
       const request = this.mountQueryParams(tags, materials);
 
+      console.log({ request });
+
       try {
         return AppAPI.get(`/locations?${request}`, {
           headers: {

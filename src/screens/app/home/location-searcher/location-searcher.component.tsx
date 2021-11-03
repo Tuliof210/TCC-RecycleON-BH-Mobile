@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, TextInput, TouchableWithoutFeedback } from 'react-native';
 
+import { WikiContext } from 'context';
 import { AutocompleteHelper } from 'helpers';
 
 import styles from './location-searcher.style';
@@ -12,19 +13,20 @@ import { SearchSVG } from 'assets/svgs';
 export function LocationSearcherComponent(props: {
   handlerSearch: (ags: Array<string>, materials: Array<string>) => Promise<void>;
 }): JSX.Element {
-  const autoComplete = new AutocompleteHelper();
+  const { wikiData } = useContext(WikiContext);
+  const autoComplete = new AutocompleteHelper(wikiData);
 
-  const [tags, setTags] = useState<Array<string>>([]);
+  const [locationTags, setLocationTags] = useState<Array<string>>([]);
   const [materials, setMaterials] = useState<Array<string>>([]);
 
   const placeholder = 'Busque por locais ou materiais';
 
   const handler = () => {
-    props.handlerSearch(tags, materials);
+    props.handlerSearch(locationTags, materials);
   };
 
   const getSuggestions = (text: string) => {
-    setTags(autoComplete.suggestTags(text));
+    setLocationTags(autoComplete.suggestLocationTags(text));
     setMaterials(autoComplete.suggestMaterials(text));
   };
 
