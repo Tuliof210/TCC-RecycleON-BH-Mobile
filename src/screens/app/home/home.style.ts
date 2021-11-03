@@ -36,7 +36,7 @@ export default StyleSheet.create({
 });
 
 export const mapConfiguration: { mapPadding: EdgePadding; mapType: MapTypes; showsBuildings: boolean } = {
-  mapPadding: { left: 0, top: 0, bottom: 60, right: 0 },
+  mapPadding: { left: 0, top: 0, bottom: 0, right: 0 },
   mapType: 'standard',
   showsBuildings: false,
 };

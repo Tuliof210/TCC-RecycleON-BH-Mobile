@@ -53,7 +53,7 @@ export default function SigninForm(props: { handler: (data: SigninData) => void 
             secureText={hidePassword}
             handler={setField('password')}
           />
-          <View style={styles.forgotPassword}>
+          {/* <View style={styles.forgotPassword}>
             <Text
               style={[styles.inputLabel, styles.forgotPasswordTxt]}
               onPress={() => {
@@ -62,7 +62,7 @@ export default function SigninForm(props: { handler: (data: SigninData) => void 
             >
               esqueci minha senha
             </Text>
-          </View>
+          </View> */}
           <TouchableHighlight
             style={styles.toggleHidenPassword}
             activeOpacity={1}
