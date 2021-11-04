@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import { LocationPoint, LocationProperties } from 'common/constants/types';
+import { FullCoordinates, LocationPoint, LocationProperties } from 'common/constants/types';
 import { LocationContext } from 'context';
 
 import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
@@ -47,6 +47,7 @@ export default function HomeScreen(): JSX.Element {
       const coordinates = location.geometry.coordinates;
       return { latitude: coordinates[1], longitude: coordinates[0] };
     });
+
     return getMapRegion(pointsCoordinates);
   }
 
@@ -104,7 +105,7 @@ export default function HomeScreen(): JSX.Element {
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
-      <LocationCardComponent visible={!!locationProperties}></LocationCardComponent>
+      <LocationCardComponent locationData={locationProperties}></LocationCardComponent>
       <View style={styles.searcher}>
         <LocationSearcherComponent handlerSearch={requestLocations} />
       </View>
