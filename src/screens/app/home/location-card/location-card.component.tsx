@@ -1,40 +1,48 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import { Animated, View } from 'react-native';
+import { Animated, View, Text } from 'react-native';
 
 import { LocationProperties } from 'common/constants/types';
 
 import styles from './location-card.style';
 
+interface IlocationCardProps {}
 export interface ILocationCardRef {
-  fadeIn(): void;
-  fadeOut(): void;
+  setLocationPropertiesRef(locationProperties: LocationProperties): void;
+  clearLocationPropertiesRef(): void;
 }
 
-interface IlocationCardProps {
-  locationProperties: LocationProperties | null;
-}
-
-export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardProps>((props, ref): JSX.Element => {
-  const [fadeAnimation] = useState(new Animated.Value(0));
+export const LocationCardComponent = forwardRef<ILocationCardRef, {}>((props, ref): JSX.Element => {
   const animationDuration = 200;
 
-  useImperativeHandle(ref, () => ({
-    fadeIn() {
-      Animated.timing(fadeAnimation, {
-        toValue: 1,
-        duration: animationDuration,
-        useNativeDriver: true,
-      }).start();
-    },
+  const [fadeAnimation] = useState(new Animated.Value(0));
+  const [locationProperties, setLocationProperties] = useState<LocationProperties | null>(null);
 
-    fadeOut() {
-      Animated.timing(fadeAnimation, {
-        toValue: 0,
-        duration: animationDuration,
-        useNativeDriver: true,
-      }).start();
+  useImperativeHandle(ref, () => ({
+    setLocationPropertiesRef(locationProperties: LocationProperties) {
+      fadeIn();
+      setLocationProperties(locationProperties);
+    },
+    clearLocationPropertiesRef() {
+      fadeOut();
+      setLocationProperties(null);
     },
   }));
+
+  function fadeIn(): void {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: animationDuration,
+      useNativeDriver: true,
+    }).start();
+  }
+
+  function fadeOut(): void {
+    Animated.timing(fadeAnimation, {
+      toValue: 0,
+      duration: animationDuration,
+      useNativeDriver: true,
+    }).start();
+  }
 
   return (
     <Animated.View
@@ -45,6 +53,8 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
           opacity: fadeAnimation,
         },
       ]}
-    ></Animated.View>
+    >
+      <Text>{locationProperties?.name}</Text>
+    </Animated.View>
   );
 });

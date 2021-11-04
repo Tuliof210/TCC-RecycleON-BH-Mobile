@@ -40,7 +40,3 @@ export const mapConfiguration: { mapPadding: EdgePadding; mapType: MapTypes; sho
   mapType: 'standard',
   showsBuildings: false,
 };
-
-export const markerConfiguration: { pinColor: string } = {
-  pinColor: colors('green-dark'),
-};

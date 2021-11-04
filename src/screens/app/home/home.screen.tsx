@@ -9,7 +9,7 @@ import { LocationSearcherComponent } from './location-searcher/location-searcher
 import { LocationPointComponent } from './location-point/location-point.component';
 import { LocationCardComponent, ILocationCardRef } from './location-card/location-card.component';
 
-import styles, { mapConfiguration, markerConfiguration } from './home.style';
+import styles, { mapConfiguration } from './home.style';
 
 export default function HomeScreen(): JSX.Element {
   const {
@@ -76,21 +76,16 @@ export default function HomeScreen(): JSX.Element {
 
   function renderLocationPoints(): Array<JSX.Element> {
     return locationPoints.map((point) => (
-      <LocationPointComponent
-        key={point._id}
-        point={point}
-        pinColor={markerConfiguration.pinColor}
-        getter={focusInMarkerHandler}
-      />
+      <LocationPointComponent key={point._id} point={point} getter={focusInMarkerHandler} />
     ));
   }
 
   function focusInMarkerHandler(locationProperties: LocationProperties): void {
-    childRef.current?.fadeIn();
+    childRef.current?.setLocationPropertiesRef(locationProperties);
   }
 
   function focusOutMarkerHandler(): void {
-    childRef.current?.fadeOut();
+    childRef.current?.clearLocationPropertiesRef();
   }
 
   return (
@@ -106,7 +101,7 @@ export default function HomeScreen(): JSX.Element {
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
-      <LocationCardComponent ref={childRef} locationProperties={null}></LocationCardComponent>
+      <LocationCardComponent ref={childRef}></LocationCardComponent>
       <View style={styles.searcher}>
         <LocationSearcherComponent handlerSearch={requestLocations} />
       </View>
