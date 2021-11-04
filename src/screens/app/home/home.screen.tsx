@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import { FullCoordinates, LocationPoint, LocationProperties } from 'common/constants/types';
+import { LocationPoint, LocationProperties } from 'common/constants/types';
 import { LocationContext } from 'context';
 
 import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
 import { LocationPointComponent } from './location-point/location-point.component';
-import { LocationCardComponent } from './location-card/location-card.component';
+import { LocationCardComponent, ILocationCardRef } from './location-card/location-card.component';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
@@ -23,7 +23,8 @@ export default function HomeScreen(): JSX.Element {
   } = useContext(LocationContext);
 
   const [locationPoints, setLocationPoints] = useState<Array<LocationPoint>>([]);
-  const [locationProperties, setLocationProperties] = useState<LocationProperties | null>(null);
+
+  const childRef = useRef<ILocationCardRef>(null);
 
   //----------------------------------------------------------------------------
 
@@ -85,11 +86,11 @@ export default function HomeScreen(): JSX.Element {
   }
 
   function focusInMarkerHandler(locationProperties: LocationProperties): void {
-    setLocationProperties(locationProperties);
+    childRef.current?.fadeIn();
   }
 
   function focusOutMarkerHandler(): void {
-    setLocationProperties(null);
+    childRef.current?.fadeOut();
   }
 
   return (
@@ -105,7 +106,7 @@ export default function HomeScreen(): JSX.Element {
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
-      <LocationCardComponent locationData={locationProperties}></LocationCardComponent>
+      <LocationCardComponent ref={childRef} locationProperties={null}></LocationCardComponent>
       <View style={styles.searcher}>
         <LocationSearcherComponent handlerSearch={requestLocations} />
       </View>
