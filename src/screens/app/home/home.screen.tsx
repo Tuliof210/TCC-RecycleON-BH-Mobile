@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import { LocationPoint } from 'common/constants/types';
+import { LocationPoint, LocationProperties } from 'common/constants/types';
 import { LocationContext } from 'context';
 
 import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
 import { LocationPointComponent } from './location-point/location-point.component';
+import { LocationCardComponent } from './location-card/location-card.component';
 
 import styles, { mapConfiguration, markerConfiguration } from './home.style';
 
@@ -22,6 +23,7 @@ export default function HomeScreen(): JSX.Element {
   } = useContext(LocationContext);
 
   const [locationPoints, setLocationPoints] = useState<Array<LocationPoint>>([]);
+  const [locationProperties, setLocationProperties] = useState<LocationProperties | null>(null);
 
   //----------------------------------------------------------------------------
 
@@ -72,8 +74,21 @@ export default function HomeScreen(): JSX.Element {
 
   function renderLocationPoints(): Array<JSX.Element> {
     return locationPoints.map((point) => (
-      <LocationPointComponent key={point._id} point={point} pinColor={markerConfiguration.pinColor} />
+      <LocationPointComponent
+        key={point._id}
+        point={point}
+        pinColor={markerConfiguration.pinColor}
+        getter={focusInMarkerHandler}
+      />
     ));
+  }
+
+  function focusInMarkerHandler(locationProperties: LocationProperties): void {
+    setLocationProperties(locationProperties);
+  }
+
+  function focusOutMarkerHandler(): void {
+    setLocationProperties(null);
   }
 
   return (
@@ -84,10 +99,12 @@ export default function HomeScreen(): JSX.Element {
         mapPadding={mapConfiguration.mapPadding}
         mapType={mapConfiguration.mapType}
         showsBuildings={mapConfiguration.showsBuildings}
+        onPress={focusOutMarkerHandler}
       >
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
+      <LocationCardComponent visible={!!locationProperties}></LocationCardComponent>
       <View style={styles.searcher}>
         <LocationSearcherComponent handlerSearch={requestLocations} />
       </View>

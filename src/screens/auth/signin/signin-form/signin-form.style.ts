@@ -41,7 +41,7 @@ export default StyleSheet.create({
     width: 30,
   },
   toggleHidenPassword: {
-    bottom: 40,
+    bottom: 5,
     position: 'absolute',
     right: 10,
   },

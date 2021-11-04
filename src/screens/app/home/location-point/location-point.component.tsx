@@ -2,11 +2,15 @@ import React from 'react';
 import { View, Text, Keyboard } from 'react-native';
 import { Callout, Marker } from 'react-native-maps';
 
-import { LocationPoint } from 'common/constants/types';
+import { LocationPoint, LocationProperties } from 'common/constants/types';
 
 import styles from './location-point.style';
 
-export function LocationPointComponent(props: { point: LocationPoint; pinColor: string }): JSX.Element {
+export function LocationPointComponent(props: {
+  point: LocationPoint;
+  pinColor: string;
+  getter: (locationProperties: LocationProperties) => void;
+}): JSX.Element {
   const { point } = props;
   const { properties } = point;
   const { coordinates } = point.geometry;
@@ -19,14 +23,19 @@ export function LocationPointComponent(props: { point: LocationPoint; pinColor: 
     ));
   };
 
+  const getterHandler = (): void => {
+    Keyboard.dismiss;
+    props.getter(properties);
+  };
+
   return (
     //TODO fix marker screen focus
     <Marker
       pinColor={props.pinColor}
       coordinate={{ latitude: coordinates[1], longitude: coordinates[0] }}
-      onPress={Keyboard.dismiss}
+      onPress={() => getterHandler()}
     >
-      <Callout tooltip onPress={() => console.log('press')}>
+      <Callout tooltip>
         <View>
           <View style={styles.container}>
             <Text style={styles.title}>{properties.name}</Text>

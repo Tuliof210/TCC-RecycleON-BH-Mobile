@@ -1,6 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
-export function LocationCard(): JSX.Element {
-  return <View></View>;
+import styles from './location-card.style';
+
+export function LocationCardComponent(props: { visible: boolean }): JSX.Element {
+  return <View style={[styles.container, styles.containerShadow, { opacity: props.visible ? 1 : 0.5 }]}></View>;
 }

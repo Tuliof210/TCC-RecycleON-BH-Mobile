@@ -15,7 +15,7 @@ export default StyleSheet.create({
   },
   text: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 17,
     fontFamily: 'Ubuntu-Light',
     color: colors('black') + 'B3',
     textAlignVertical: 'center',
