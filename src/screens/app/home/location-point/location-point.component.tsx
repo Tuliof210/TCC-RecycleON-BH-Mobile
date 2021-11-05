@@ -43,8 +43,6 @@ export function LocationPointComponent(props: {
         <View>
           <View style={styles.container}>
             <Text style={styles.title}>{properties.name}</Text>
-            <View style={styles.breakLine}></View>
-            <View>{renderMaterials()}</View>
           </View>
         </View>
       </Callout>
