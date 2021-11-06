@@ -63,9 +63,17 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, {}>((props, re
       return (
         <Fragment>
           <Text style={styles.text}>
-            {tryRender(address.street)}, nº {tryRender(address.number)}
+            <Text style={styles.labelText}>Logradouro:{'   '}</Text>
+            {tryRender(address.street)}
           </Text>
-          <Text style={styles.text}>Bairro {tryRender(address.neighborhood)}</Text>
+          <Text style={styles.text}>
+            <Text style={styles.labelText}>Número:{'   '}</Text>
+            {tryRender(address.number)}
+          </Text>
+          <Text style={styles.text}>
+            <Text style={styles.labelText}>Bairro:{'   '}</Text>
+            {tryRender(address.neighborhood)}
+          </Text>
         </Fragment>
       );
     }

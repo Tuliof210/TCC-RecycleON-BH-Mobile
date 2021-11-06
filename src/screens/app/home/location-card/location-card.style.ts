@@ -31,12 +31,20 @@ export default StyleSheet.create({
 
   containerFooter: {},
 
-  text: {
-    textAlign: 'center',
-    fontFamily: 'Ubuntu-Medium',
+  labelText: {
+    textAlign: 'left',
+    fontFamily: 'Ubuntu-Bold',
     color: colors('gray-font-dark'),
     fontSize: 15,
   },
+
+  text: {
+    textAlign: 'left',
+    fontFamily: 'Ubuntu-Medium',
+    color: colors('green-light'),
+    fontSize: 13,
+  },
+
   subText: {
     marginHorizontal: 15,
     textAlign: 'left',
