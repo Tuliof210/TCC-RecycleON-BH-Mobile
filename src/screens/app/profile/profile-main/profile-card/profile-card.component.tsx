@@ -7,7 +7,7 @@ export function ProfileCardComponent(props: { name: string | undefined; email: s
   return (
     <Fragment>
       <View style={[styles.container, styles.containerShadow]}>
-        <Image source={require('assets/images/profile-icon.jpg')} style={styles.profilePicture} />
+        <Image source={require('assets/AppIcons/playstore.png')} style={styles.profilePicture} />
         <View>
           <Text style={[styles.label, styles.labelName]}>{props.name}</Text>
           <Text style={[styles.label, styles.labelPassword]}>{props.email}</Text>

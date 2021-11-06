@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "splash": {
-      "image": "./src/assets/images/splash.png",
+      "image": "./src/assets/AppIcons/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#87D459"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "foregroundImage": "./src/assets/AppIcons/playstore.png",
         "backgroundColor": "#87D459"
       }
     },

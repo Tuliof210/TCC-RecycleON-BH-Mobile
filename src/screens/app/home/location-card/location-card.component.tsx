@@ -1,9 +1,12 @@
 import React, { forwardRef, Fragment, useImperativeHandle, useState } from 'react';
-import { Animated, View, Text } from 'react-native';
+import { Animated, View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import { LocationProperties } from 'common/constants/types';
 
 import styles from './location-card.style';
+
+import { SvgXml } from 'react-native-svg';
+import { StarSVG } from 'assets/svgs';
 
 interface IlocationCardProps {}
 export interface ILocationCardRef {
@@ -11,12 +14,14 @@ export interface ILocationCardRef {
   clearLocationPropertiesRef(): void;
 }
 
-export const LocationCardComponent = forwardRef<ILocationCardRef, {}>((props, ref): JSX.Element => {
+export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardProps>((props, ref): JSX.Element => {
   const animationDuration = 200;
 
   const [fadeAnimation] = useState(new Animated.Value(0));
   const [display, setDisplay] = useState<'none' | 'flex'>('none');
   const [locationProperties, setLocationProperties] = useState<LocationProperties | null>(null);
+
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   function fadeIn(): void {
     Animated.timing(fadeAnimation, {
@@ -87,6 +92,12 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, {}>((props, re
     ));
   };
 
+  const toggleFavorite = (): void => {
+    setIsFavorite((current) => {
+      return !current;
+    });
+  };
+
   return (
     <Animated.View
       style={[
@@ -109,7 +120,11 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, {}>((props, re
         </View>
       </View>
 
-      <View></View>
+      <View style={styles.containerFooter}>
+        <TouchableWithoutFeedback onPress={toggleFavorite}>
+          <SvgXml xml={isFavorite ? StarSVG.filled : StarSVG.empty} width={35} height={35} />
+        </TouchableWithoutFeedback>
+      </View>
     </Animated.View>
   );
 });
