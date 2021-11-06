@@ -67,8 +67,8 @@ export class AuthService {
         },
       })
         .then((data) => {
-          const { _id, name, email } = data.data as User;
-          this.setUser({ _id, name, email });
+          const { _id, name, email, bookmarks } = data.data as User;
+          this.setUser({ _id, name, email, bookmarks });
         })
         .catch(handleHttpError);
     }

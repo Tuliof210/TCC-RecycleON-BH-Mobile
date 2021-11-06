@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { LocationProvider, WikiProvider } from 'context';
+import { LocationProvider, UserProvider, WikiProvider } from 'context';
 
 import HomeScreen from 'screens/app/home/home.screen';
 
@@ -39,7 +39,9 @@ export default function AppRoutes(props: {
   const ComposeContext = ({ children }: { children: React.ReactNode }): JSX.Element => {
     return (
       <LocationProvider>
-        <WikiProvider>{children}</WikiProvider>
+        <UserProvider>
+          <WikiProvider>{children}</WikiProvider>
+        </UserProvider>
       </LocationProvider>
     );
   };

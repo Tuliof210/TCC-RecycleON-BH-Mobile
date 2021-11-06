@@ -80,12 +80,12 @@ export default function HomeScreen(): JSX.Element {
     ));
   }
 
-  function focusInMarkerHandler(locationProperties: LocationProperties): void {
-    childRef.current?.setLocationPropertiesRef(locationProperties);
+  function focusInMarkerHandler(locationPoint: LocationPoint): void {
+    childRef.current?.setLocationRef(locationPoint);
   }
 
   function focusOutMarkerHandler(): void {
-    childRef.current?.clearLocationPropertiesRef();
+    childRef.current?.clearLocationRef();
   }
 
   return (

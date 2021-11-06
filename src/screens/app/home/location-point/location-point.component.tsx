@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, Keyboard } from 'react-native';
 import { Callout, Marker } from 'react-native-maps';
 
-import { LocationPoint, LocationProperties } from 'common/constants/types';
+import { LocationPoint } from 'common/constants/types';
 
 import styles from './location-point.style';
 import { colors } from 'common/constants/colors';
 
 export function LocationPointComponent(props: {
   point: LocationPoint;
-  getter: (locationProperties: LocationProperties) => void;
+  getter: (locationPoint: LocationPoint) => void;
 }): JSX.Element {
   const { point } = props;
   const { properties } = point;
@@ -29,7 +29,7 @@ export function LocationPointComponent(props: {
   const getterHandler = (): void => {
     Keyboard.dismiss;
     setPinColor(focusPinColor);
-    props.getter(properties);
+    props.getter(point);
   };
 
   return (

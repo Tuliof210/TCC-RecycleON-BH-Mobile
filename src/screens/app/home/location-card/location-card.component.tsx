@@ -1,7 +1,9 @@
-import React, { forwardRef, Fragment, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, Fragment, useImperativeHandle, useState, useContext, useEffect } from 'react';
 import { Animated, View, Text, TouchableWithoutFeedback } from 'react-native';
 
-import { LocationProperties } from 'common/constants/types';
+import { AuthContext, UserContext } from 'context';
+
+import { LocationPoint } from 'common/constants/types';
 
 import styles from './location-card.style';
 
@@ -10,18 +12,20 @@ import { StarSVG } from 'assets/svgs';
 
 interface IlocationCardProps {}
 export interface ILocationCardRef {
-  setLocationPropertiesRef(locationProperties: LocationProperties): void;
-  clearLocationPropertiesRef(): void;
+  setLocationRef(locationPoint: LocationPoint): void;
+  clearLocationRef(): void;
 }
 
 export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardProps>((props, ref): JSX.Element => {
-  const animationDuration = 200;
-
-  const [fadeAnimation] = useState(new Animated.Value(0));
-  const [display, setDisplay] = useState<'none' | 'flex'>('none');
-  const [locationProperties, setLocationProperties] = useState<LocationProperties | null>(null);
+  const { user } = useContext(AuthContext);
+  const { updateUser } = useContext(UserContext);
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [fadeAnimation] = useState(new Animated.Value(0));
+  const [display, setDisplay] = useState<'none' | 'flex'>('none');
+  const [location, setLocation] = useState<LocationPoint | null>(null);
+
+  const animationDuration = 200;
 
   function fadeIn(): void {
     Animated.timing(fadeAnimation, {
@@ -30,9 +34,7 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
       useNativeDriver: true,
     }).start();
 
-    setTimeout(() => {
-      setDisplay('flex');
-    }, animationDuration);
+    updateDisplay('flex');
   }
 
   function fadeOut(): void {
@@ -42,28 +44,62 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
       useNativeDriver: true,
     }).start();
 
+    updateDisplay('none');
+  }
+
+  function updateDisplay(value: 'flex' | 'none') {
     setTimeout(() => {
-      setDisplay('none');
+      setDisplay(value);
     }, animationDuration);
   }
 
   useImperativeHandle(ref, () => ({
-    setLocationPropertiesRef(locationProperties: LocationProperties) {
+    setLocationRef(locationPoint: LocationPoint) {
       fadeIn();
-      setLocationProperties(locationProperties);
+      setLocation(locationPoint);
     },
-    clearLocationPropertiesRef() {
+    clearLocationRef() {
       fadeOut();
-      setLocationProperties(null);
+      setLocation(null);
     },
   }));
 
+  useEffect(() => {
+    console.log(user);
+    if (user?.bookmarks) {
+      const favorite = user.bookmarks.some((bookmark) => bookmark === location?._id);
+      setIsFavorite(favorite);
+    }
+  }, [location]);
+
   //---------------------------------------------------------------------------------------------------------------------
+
+  const updateBookmarks = async (addBookmark: boolean): Promise<void> => {
+    const locationID = location?._id;
+    const currentBookmarks = user?.bookmarks || [];
+
+    if (locationID) {
+      const bookmarksList = addBookmark
+        ? [...currentBookmarks, locationID]
+        : currentBookmarks.filter((bookmark) => bookmark !== locationID);
+
+      const updatedBookmarks = new Set(bookmarksList);
+      await updateUser({ bookmarks: Array.from(updatedBookmarks) });
+    }
+  };
+
+  const toggleFavorite = (): void => {
+    setIsFavorite((current) => {
+      const newCurrent = !current;
+      updateBookmarks(newCurrent);
+      return newCurrent;
+    });
+  };
 
   const tryRender = (value: any) => value || '-';
 
   const renderAddress = (): JSX.Element | undefined => {
-    const address = locationProperties?.address;
+    const address = location?.properties.address;
     if (address) {
       return (
         <Fragment>
@@ -84,19 +120,12 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
     }
   };
 
-  const renderMaterials = (): Array<JSX.Element> | undefined => {
-    return locationProperties?.materials.map((material, index) => (
+  const renderMaterials = (): Array<JSX.Element> | undefined =>
+    location?.properties.materials.map((material, index) => (
       <Text key={`${index}-${material}`} style={styles.itens}>
         {material}
       </Text>
     ));
-  };
-
-  const toggleFavorite = (): void => {
-    setIsFavorite((current) => {
-      return !current;
-    });
-  };
 
   return (
     <Animated.View
@@ -115,7 +144,7 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
         <View style={styles.containerBody}>
           <View style={styles.containerSubBody}>{renderMaterials()}</View>
           <View style={styles.containerSubBody}>
-            <Text style={styles.subText}>{locationProperties?.businessHours}</Text>
+            <Text style={styles.subText}>{location?.properties.businessHours}</Text>
           </View>
         </View>
       </View>

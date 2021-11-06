@@ -6,7 +6,7 @@ import { AuthContext } from 'context/auth.context';
 import { UserService } from 'services';
 
 interface UserContextData {
-  updateUser(data: UpdateUserData): Promise<void>;
+  updateUser(userData: UpdateUserData): Promise<void>;
 }
 
 export const UserContext = createContext<UserContextData>({} as UserContextData);
