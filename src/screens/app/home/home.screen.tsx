@@ -88,6 +88,7 @@ export default function HomeScreen(): JSX.Element {
     childRef.current?.clearLocationRef();
   }
 
+  //TODO try use 'usememo' to avoid rerender when user is updated
   return (
     <View style={styles.container}>
       <MapView
