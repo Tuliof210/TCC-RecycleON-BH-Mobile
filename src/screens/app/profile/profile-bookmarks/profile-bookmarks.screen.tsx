@@ -17,6 +17,16 @@ export default function ProfileBookmarksScreen(props: { navigation: NavigationPr
 
   const { user, updateUser } = useContext(UserContext);
 
+  const removeBookmark = async (locationID: string): Promise<void> => {
+    const currentBookmarks = user?.bookmarks || [];
+
+    if (locationID) {
+      const bookmarksList = currentBookmarks.filter((bookmark) => bookmark !== locationID);
+      const updatedBookmarks = new Set(bookmarksList);
+      await updateUser({ bookmarks: Array.from(updatedBookmarks) });
+    }
+  };
+
   function renderBookmarks(): Array<JSX.Element> | JSX.Element {
     const bookmarks = user?.bookmarks;
     return bookmarks && bookmarks.length > 0 ? renderBookmarksList(bookmarks) : renderEmptyMessage();
@@ -27,7 +37,7 @@ export default function ProfileBookmarksScreen(props: { navigation: NavigationPr
   }
 
   function renderBookmarksList(bookmarks: Array<string>): Array<JSX.Element> {
-    return bookmarks.map((id) => <ProfileBookmarkCard key={id} locationId={id} />);
+    return bookmarks.map((id) => <ProfileBookmarkCard key={id} locationId={id} deleteHandler={removeBookmark} />);
   }
 
   return (

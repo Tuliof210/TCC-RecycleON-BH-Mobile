@@ -103,9 +103,7 @@ export default function HomeScreen(): JSX.Element {
         {renderLocationPoints()}
       </MapView>
 
-      <UserProvider>
-        <LocationCardComponent ref={childRef}></LocationCardComponent>
-      </UserProvider>
+      <LocationCardComponent ref={childRef}></LocationCardComponent>
 
       <View style={styles.searcher}>
         <LocationSearcherComponent handlerSearch={requestLocations} />

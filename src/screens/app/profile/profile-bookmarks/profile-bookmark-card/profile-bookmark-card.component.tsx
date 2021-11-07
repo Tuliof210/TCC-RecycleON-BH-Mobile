@@ -10,9 +10,12 @@ import { PrimaryButtonComponent } from 'common/components';
 import styles from './profile-bookmark-card.style';
 
 import { SvgXml } from 'react-native-svg';
-import { StarSVG } from 'assets/svgs';
+import { TrashSVG } from 'assets/svgs';
 
-export function ProfileBookmarkCard(props: { locationId: string }): JSX.Element {
+export function ProfileBookmarkCard(props: {
+  locationId: string;
+  deleteHandler: (locationID: string) => Promise<void>;
+}): JSX.Element {
   const { locationId } = props;
   const [location, setLocation] = useState<LocationPoint | null>(null);
   const { getLocationById } = useContext(LocationContext);
@@ -92,8 +95,8 @@ export function ProfileBookmarkCard(props: { locationId: string }): JSX.Element 
         <View>
           <PrimaryButtonComponent size={styles.directionButton} label="Ver no Maps" handler={openMapsApp} />
         </View>
-        <TouchableWithoutFeedback onPress={() => console.log('delete')}>
-          <SvgXml xml={StarSVG.filled} width={35} height={35} />
+        <TouchableWithoutFeedback onPress={() => props.deleteHandler(locationId)}>
+          <SvgXml xml={TrashSVG.default} width={35} height={35} />
         </TouchableWithoutFeedback>
       </View>
     </View>

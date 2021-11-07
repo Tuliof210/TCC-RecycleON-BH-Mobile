@@ -65,7 +65,6 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
   }));
 
   useEffect(() => {
-    console.log(user);
     if (user?.bookmarks) {
       const favorite = user.bookmarks.some((bookmark) => bookmark === location?._id);
       setIsFavorite(favorite);
