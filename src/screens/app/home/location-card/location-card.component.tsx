@@ -1,7 +1,7 @@
 import React, { forwardRef, Fragment, useImperativeHandle, useState, useContext, useEffect } from 'react';
 import { Animated, View, Text, TouchableWithoutFeedback } from 'react-native';
 
-import { AuthContext, UserContext } from 'context';
+import { UserContext } from 'context';
 
 import { LocationPoint } from 'common/constants/types';
 
@@ -17,8 +17,7 @@ export interface ILocationCardRef {
 }
 
 export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardProps>((props, ref): JSX.Element => {
-  const { user } = useContext(AuthContext);
-  const { updateUser } = useContext(UserContext);
+  const { user, updateUser } = useContext(UserContext);
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [fadeAnimation] = useState(new Animated.Value(0));

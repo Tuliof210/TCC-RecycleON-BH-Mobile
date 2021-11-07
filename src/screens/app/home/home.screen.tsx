@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import { LocationPoint, LocationProperties } from 'common/constants/types';
-import { LocationContext } from 'context';
+import { LocationPoint } from 'common/constants/types';
+import { LocationContext, UserProvider } from 'context';
 
 import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
 import { LocationPointComponent } from './location-point/location-point.component';
@@ -102,7 +102,11 @@ export default function HomeScreen(): JSX.Element {
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
-      <LocationCardComponent ref={childRef}></LocationCardComponent>
+
+      <UserProvider>
+        <LocationCardComponent ref={childRef}></LocationCardComponent>
+      </UserProvider>
+
       <View style={styles.searcher}>
         <LocationSearcherComponent handlerSearch={requestLocations} />
       </View>

@@ -16,8 +16,7 @@ import styles, { backgroundGradient } from './profile-update.style';
 export default function ProfileUpdateScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const router = props.navigation;
 
-  const { user } = useContext(AuthContext);
-  const { updateUser } = useContext(UserContext);
+  const { user, updateUser } = useContext(UserContext);
 
   async function handleUpdate({ name, email }: UpdateUserData) {
     await updateUser({ name, email }).then(() => {

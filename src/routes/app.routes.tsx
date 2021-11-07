@@ -34,14 +34,16 @@ export default function AppRoutes(props: {
   };
 
   const WikiRoutesConfigured = () => <WikiRoutes screenOptions={props.screenOptions} />;
-  const ProfileRoutesConfigured = () => <ProfileRoutes screenOptions={props.screenOptions} />;
+  const ProfileRoutesConfigured = () => (
+    <UserProvider>
+      <ProfileRoutes screenOptions={props.screenOptions} />
+    </UserProvider>
+  );
 
   const ComposeContext = ({ children }: { children: React.ReactNode }): JSX.Element => {
     return (
       <LocationProvider>
-        <UserProvider>
-          <WikiProvider>{children}</WikiProvider>
-        </UserProvider>
+        <WikiProvider>{children}</WikiProvider>
       </LocationProvider>
     );
   };
