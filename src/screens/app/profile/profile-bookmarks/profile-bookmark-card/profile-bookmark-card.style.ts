@@ -18,7 +18,7 @@ export default StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
-    elevation: 15,
+    elevation: 7,
   },
   containerBody: {
     flexDirection: 'row',

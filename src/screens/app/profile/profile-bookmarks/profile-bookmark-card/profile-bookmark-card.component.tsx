@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { View, Text, Platform, Linking, TouchableWithoutFeedback } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
 
 import { LocationContext } from 'context';
 
@@ -26,6 +25,8 @@ export function ProfileBookmarkCard(props: {
       setLocation(locationData ?? null);
     })();
   }, []);
+
+  //---------------------------------------------------------------------------------------------------------------------
 
   const tryRender = (value: any) => value || '-';
 
@@ -78,6 +79,10 @@ export function ProfileBookmarkCard(props: {
     }
   };
 
+  const deleteBookmark = () => {
+    props.deleteHandler(locationId);
+  };
+
   return (
     <View style={[styles.container, styles.containerShadow]}>
       <View>
@@ -95,7 +100,7 @@ export function ProfileBookmarkCard(props: {
         <View>
           <PrimaryButtonComponent size={styles.directionButton} label="Ver no Maps" handler={openMapsApp} />
         </View>
-        <TouchableWithoutFeedback onPress={() => props.deleteHandler(locationId)}>
+        <TouchableWithoutFeedback onPress={deleteBookmark}>
           <SvgXml xml={TrashSVG.default} width={35} height={35} />
         </TouchableWithoutFeedback>
       </View>

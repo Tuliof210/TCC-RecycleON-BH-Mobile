@@ -20,8 +20,5 @@ export default StyleSheet.create({
     color: colors('green-dark'),
     marginHorizontal: 10,
   },
-  bookmarksContainer: {
-    // paddingVertical: 20,
-    // marginVertical: 20,
-  },
+  bookmarksContainer: {},
 });

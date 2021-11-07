@@ -18,14 +18,14 @@ export interface ILocationCardRef {
 }
 
 export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardProps>((props, ref): JSX.Element => {
+  const animationDuration = 200;
+  const [fadeAnimation] = useState(new Animated.Value(0));
+
   const { user, updateUser } = useContext(UserContext);
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [fadeAnimation] = useState(new Animated.Value(0));
   const [display, setDisplay] = useState<'none' | 'flex'>('none');
   const [location, setLocation] = useState<LocationPoint | null>(null);
-
-  const animationDuration = 200;
 
   function fadeIn(): void {
     Animated.timing(fadeAnimation, {
