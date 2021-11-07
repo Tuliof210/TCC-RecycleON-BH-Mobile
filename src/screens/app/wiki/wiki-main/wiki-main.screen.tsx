@@ -19,8 +19,6 @@ export default function WikiMainScreen(props: { navigation: NavigationProp<any, 
   useEffect(() => {
     setLocationsItems(wikiData.filter(filterItemsByType('location')));
     setMaterialItems(wikiData.filter(filterItemsByType('material')));
-
-    console.log({ locationsItems, materialItems });
   }, []);
 
   function navigateToItem(itemId: string) {

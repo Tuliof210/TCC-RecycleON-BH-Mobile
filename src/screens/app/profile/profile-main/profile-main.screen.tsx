@@ -4,7 +4,7 @@ import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { AuthContext } from 'context';
+import { AuthContext, UserContext } from 'context';
 
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
@@ -13,7 +13,8 @@ import styles, { backgroundGradient } from './profile-main.style';
 
 export default function ProfileMainScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const router = props.navigation;
-  const { user, signOut } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
+  const { signOut } = useContext(AuthContext);
 
   function navigateTo(route: string) {
     router.navigate(route);

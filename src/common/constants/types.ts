@@ -11,6 +11,7 @@ export type User = {
   _id: string;
   name: string;
   email: string;
+  bookmarks: Array<string>;
 };
 
 export type AuthenticatedUser = {
@@ -21,6 +22,7 @@ export type AuthenticatedUser = {
 export type UpdateUserData = {
   name?: string;
   email?: string;
+  bookmarks?: Array<string>;
 };
 
 //------------------------------------------------

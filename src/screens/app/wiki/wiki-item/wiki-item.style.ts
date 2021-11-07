@@ -41,13 +41,13 @@ export default StyleSheet.create({
   relatedItemsLabel: {
     fontSize: 22,
     textAlign: 'left',
-    color: colors('green-light'),
+    color: colors('green-dark'),
     marginBottom: 20,
   },
   relatedItems: {
     fontSize: 15,
     fontFamily: 'Ubuntu-Medium',
-    color: colors('green-dark'),
+    color: colors('green-light'),
     marginTop: 3,
   },
   breakLine: {

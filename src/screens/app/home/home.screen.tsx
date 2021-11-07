@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
-import { LocationContext } from 'context';
+import { LocationContext, UserProvider } from 'context';
 
 import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
 import { LocationPointComponent } from './location-point/location-point.component';
+import { LocationCardComponent, ILocationCardRef } from './location-card/location-card.component';
 
-import styles, { mapConfiguration, markerConfiguration } from './home.style';
+import styles, { mapConfiguration } from './home.style';
 
 export default function HomeScreen(): JSX.Element {
   const {
@@ -22,6 +23,8 @@ export default function HomeScreen(): JSX.Element {
   } = useContext(LocationContext);
 
   const [locationPoints, setLocationPoints] = useState<Array<LocationPoint>>([]);
+
+  const childRef = useRef<ILocationCardRef>(null);
 
   //----------------------------------------------------------------------------
 
@@ -45,6 +48,7 @@ export default function HomeScreen(): JSX.Element {
       const coordinates = location.geometry.coordinates;
       return { latitude: coordinates[1], longitude: coordinates[0] };
     });
+
     return getMapRegion(pointsCoordinates);
   }
 
@@ -72,10 +76,19 @@ export default function HomeScreen(): JSX.Element {
 
   function renderLocationPoints(): Array<JSX.Element> {
     return locationPoints.map((point) => (
-      <LocationPointComponent key={point._id} point={point} pinColor={markerConfiguration.pinColor} />
+      <LocationPointComponent key={point._id} point={point} getter={focusInMarkerHandler} />
     ));
   }
 
+  function focusInMarkerHandler(locationPoint: LocationPoint): void {
+    childRef.current?.setLocationRef(locationPoint);
+  }
+
+  function focusOutMarkerHandler(): void {
+    childRef.current?.clearLocationRef();
+  }
+
+  //TODO try use 'usememo' to avoid rerender when user is updated
   return (
     <View style={styles.container}>
       <MapView
@@ -84,10 +97,14 @@ export default function HomeScreen(): JSX.Element {
         mapPadding={mapConfiguration.mapPadding}
         mapType={mapConfiguration.mapType}
         showsBuildings={mapConfiguration.showsBuildings}
+        onPress={focusOutMarkerHandler}
       >
         {renderUserLocation()}
         {renderLocationPoints()}
       </MapView>
+
+      <LocationCardComponent ref={childRef}></LocationCardComponent>
+
       <View style={styles.searcher}>
         <LocationSearcherComponent handlerSearch={requestLocations} />
       </View>

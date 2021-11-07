@@ -3,21 +3,18 @@ import base64 from 'react-native-base64';
 
 import config from 'config';
 import { AppAPI, handleHttpError } from 'common/libs/axios';
-import { AuthenticatedUser, SigninData, SignupData, User } from 'common/constants/types';
+import { AuthenticatedUser, SigninData, SignupData } from 'common/constants/types';
 
 export class AuthService {
-  private readonly userKey = '@userData';
+  private readonly tokenKey = '@userToken';
 
-  constructor(
-    private readonly setToken: React.Dispatch<React.SetStateAction<string | null>>,
-    private readonly setUser: React.Dispatch<React.SetStateAction<User | null>>,
-  ) {}
+  constructor(private readonly setToken: React.Dispatch<React.SetStateAction<string | null>>) {}
 
-  async loadUserData(): Promise<void> {
+  async loadUserToken(): Promise<void> {
     try {
-      const jsonValue: string | null = await AsyncStorage.getItem(this.userKey);
+      const jsonValue: string | null = await AsyncStorage.getItem(this.tokenKey);
       if (jsonValue !== null) {
-        await this.saveUser(JSON.parse(jsonValue));
+        await this.saveUserToken(JSON.parse(jsonValue));
       }
     } catch (error) {
       console.log(error);
@@ -29,7 +26,7 @@ export class AuthService {
       headers: {
         masterKey: config['MASTER_KEY'],
       },
-    }).then((response) => this.saveUser(response.data));
+    }).then((response) => this.saveUserToken(response.data));
   }
 
   async signIn(data: SigninData): Promise<void> {
@@ -38,39 +35,21 @@ export class AuthService {
       headers: {
         Authorization: `Basic ${auth}`,
       },
-    }).then((response) => this.saveUser(response.data));
+    }).then((response) => this.saveUserToken(response.data));
   }
 
-  private async saveUser(authenticatedUser: AuthenticatedUser): Promise<void> {
+  private async saveUserToken(authenticatedUser: AuthenticatedUser): Promise<void> {
     this.setToken(authenticatedUser.token ?? null);
-    this.setUser(authenticatedUser.user ?? null);
 
-    const jsonValue = JSON.stringify(authenticatedUser);
-
-    await AsyncStorage.setItem(this.userKey, jsonValue).catch(handleHttpError);
+    const token = JSON.stringify({ token: authenticatedUser.token });
+    await AsyncStorage.setItem(this.tokenKey, token).catch(handleHttpError);
   }
 
   async signOut(): Promise<void> {
-    await AsyncStorage.removeItem(this.userKey)
+    await AsyncStorage.removeItem(this.tokenKey)
       .then(() => {
         this.setToken(null);
-        this.setUser(null);
       })
       .catch(handleHttpError);
-  }
-
-  async syncUser(token: string | null): Promise<void> {
-    if (token) {
-      await AppAPI.get('/users/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((data) => {
-          const { _id, name, email } = data.data as User;
-          this.setUser({ _id, name, email });
-        })
-        .catch(handleHttpError);
-    }
   }
 }

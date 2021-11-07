@@ -22,9 +22,4 @@ export default StyleSheet.create({
     fontFamily: 'Ubuntu-Light',
     fontSize: 10,
   },
-  breakLine: {
-    height: 1,
-    marginVertical: 5,
-    backgroundColor: colors('green-light'),
-  },
 });

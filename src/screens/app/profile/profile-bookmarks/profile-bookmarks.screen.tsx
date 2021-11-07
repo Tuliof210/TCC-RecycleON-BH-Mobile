@@ -1,16 +1,59 @@
-import React from 'react';
-import { SafeAreaView, View } from 'react-native';
+import React, { useContext } from 'react';
+import { SafeAreaView, View, TouchableHighlight, Text, ScrollView, Image } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
-import { LinearGradient } from 'expo-linear-gradient';
+import { UserContext } from 'context';
 
-import styles, { backgroundGradient } from './profile-bookmarks.style';
+import { ProfileBookmarkCard } from './profile-bookmark-card/profile-bookmark-card.component';
 
-export default function ProfileBookmarksScreen(): JSX.Element {
+import { SvgXml } from 'react-native-svg';
+import { ArrowBackSVG } from 'assets/svgs';
+
+import styles from './profile-bookmarks.style';
+import { colors } from 'common/constants/colors';
+
+export default function ProfileBookmarksScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
+  const router = props.navigation;
+
+  const { user, updateUser } = useContext(UserContext);
+
+  const removeBookmark = async (locationID: string): Promise<void> => {
+    const currentBookmarks = user?.bookmarks || [];
+
+    if (locationID) {
+      const bookmarksList = currentBookmarks.filter((bookmark) => bookmark !== locationID);
+      const updatedBookmarks = new Set(bookmarksList);
+      await updateUser({ bookmarks: Array.from(updatedBookmarks) });
+    }
+  };
+
+  function renderBookmarks(): Array<JSX.Element> | JSX.Element {
+    const bookmarks = user?.bookmarks;
+    return bookmarks && bookmarks.length > 0 ? renderBookmarksList(bookmarks) : renderEmptyMessage();
+  }
+
+  function renderEmptyMessage(): JSX.Element {
+    return (
+      <View style={styles.bookmarksEmpty}>
+        <Image source={require('assets/images/empty.png')} style={styles.bookmarksEmptyImage} />
+        <Text style={styles.bookmarksEmptyText}>Você não possui nenhum local favorito</Text>
+      </View>
+    );
+  }
+
+  function renderBookmarksList(bookmarks: Array<string>): Array<JSX.Element> {
+    return bookmarks.map((id) => <ProfileBookmarkCard key={id} locationId={id} deleteHandler={removeBookmark} />);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 1, y: 1 }}>
-        <View></View>
-      </LinearGradient>
+      <TouchableHighlight activeOpacity={1} underlayColor={colors('white')} onPress={() => router.goBack()}>
+        <View style={styles.goBackContainer}>
+          <SvgXml xml={ArrowBackSVG.default} width={25} height={25} />
+          <Text style={styles.goBackText}>Voltar</Text>
+        </View>
+      </TouchableHighlight>
+      <ScrollView>{renderBookmarks()}</ScrollView>
     </SafeAreaView>
   );
 }

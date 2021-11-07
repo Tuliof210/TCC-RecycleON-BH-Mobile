@@ -31,7 +31,7 @@ export default function SigninScreen(props: { navigation: NavigationProp<any, an
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.screen} colors={backgroundGradient} end={{ x: 0, y: 0.3 }}>
         <Image style={styles.screenMainIcon} source={require('assets/images/signin-art.png')} />
-        <MainContainerComponent height="80%">
+        <MainContainerComponent height="75%">
           <Text style={styles.mainLabel}>Entrar</Text>
 
           <SignInForm handler={handleSignIn} />

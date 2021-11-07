@@ -3,7 +3,7 @@ import * as Location from 'expo-location';
 
 import { AppAPI, handleHttpError } from 'common/libs/axios';
 
-import { LocationsMap } from 'common/constants/types';
+import { LocationPoint, LocationsMap } from 'common/constants/types';
 
 export class LocationService {
   constructor(
@@ -34,6 +34,20 @@ export class LocationService {
             Authorization: `Bearer ${token}`,
           },
         }).then((response) => response.data as LocationsMap);
+      } catch (error) {
+        handleHttpError(error);
+      }
+    }
+  }
+
+  async getLocationsById(token: string | null, id: string): Promise<LocationPoint | void> {
+    if (token) {
+      try {
+        return AppAPI.get(`/locations/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((response) => response.data as LocationPoint);
       } catch (error) {
         handleHttpError(error);
       }

@@ -36,11 +36,7 @@ export default StyleSheet.create({
 });
 
 export const mapConfiguration: { mapPadding: EdgePadding; mapType: MapTypes; showsBuildings: boolean } = {
-  mapPadding: { left: 0, top: 0, bottom: 60, right: 0 },
+  mapPadding: { left: 10, top: 0, bottom: 30, right: 10 },
   mapType: 'standard',
   showsBuildings: false,
-};
-
-export const markerConfiguration: { pinColor: string } = {
-  pinColor: colors('green-dark'),
 };

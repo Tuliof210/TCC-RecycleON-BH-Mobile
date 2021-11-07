@@ -5,31 +5,23 @@ import { SigninData, SignupData, User, UpdateUserData } from 'common/constants/t
 import { AuthService } from 'services';
 
 interface AuthContextData {
-  signed: boolean;
   token: string | null;
-  user: User | null;
   signUp(data: SignupData): Promise<void>;
   signIn(data: SigninData): Promise<void>;
   signOut(): Promise<void>;
-  syncUser(): Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const [token, setToken] = useState<string | null>(null);
-  const [user, setUser] = useState<User | null>(null);
 
-  const authService: AuthService = new AuthService(setToken, setUser);
+  const authService: AuthService = new AuthService(setToken);
   useEffect(() => {
     (async () => {
-      await authService.loadUserData();
+      await authService.loadUserToken();
     })();
   }, []);
-
-  async function syncUser() {
-    await authService.syncUser(token);
-  }
 
   async function signUp(data: SignupData): Promise<void> {
     await authService.signUp(data);
@@ -43,9 +35,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
     await authService.signOut();
   }
 
-  return (
-    <AuthContext.Provider value={{ signed: !!user, token, user, signUp, signIn, signOut, syncUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ token, signUp, signIn, signOut }}>{children}</AuthContext.Provider>;
 }
