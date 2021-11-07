@@ -3,11 +3,12 @@ import { colors } from 'common/constants/colors';
 
 export default StyleSheet.create({
   container: {
+    alignSelf: 'center',
     justifyContent: 'space-between',
     backgroundColor: colors('white'),
     width: '90%',
     height: 250,
-    marginBottom: 40,
+    marginVertical: 20,
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 15,

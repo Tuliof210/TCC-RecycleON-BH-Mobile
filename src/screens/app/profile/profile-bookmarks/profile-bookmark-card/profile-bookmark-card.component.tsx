@@ -1,6 +1,8 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { View, Text, Platform, Linking, TouchableWithoutFeedback } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
+
+import { LocationContext } from 'context';
 
 import { LocationPoint } from 'common/constants/types';
 import { PrimaryButtonComponent } from 'common/components';
@@ -10,13 +12,22 @@ import styles from './profile-bookmark-card.style';
 import { SvgXml } from 'react-native-svg';
 import { StarSVG } from 'assets/svgs';
 
-export function ProfileBookmarkCard(props: { location: LocationPoint }): JSX.Element {
-  const { location } = props;
+export function ProfileBookmarkCard(props: { locationId: string }): JSX.Element {
+  const { locationId } = props;
+  const [location, setLocation] = useState<LocationPoint | null>(null);
+  const { getLocationById } = useContext(LocationContext);
+
+  useEffect(() => {
+    (async () => {
+      const locationData = await getLocationById(locationId);
+      setLocation(locationData ?? null);
+    })();
+  }, []);
 
   const tryRender = (value: any) => value || '-';
 
   const renderAddress = (): JSX.Element | undefined => {
-    const address = location.properties.address;
+    const address = location?.properties.address;
     if (address) {
       return (
         <Fragment>
@@ -38,14 +49,14 @@ export function ProfileBookmarkCard(props: { location: LocationPoint }): JSX.Ele
   };
 
   const renderMaterials = (): Array<JSX.Element> | undefined =>
-    location.properties.materials.map((material, index) => (
+    location?.properties.materials.map((material, index) => (
       <Text key={`${index}-${material}`} style={styles.itens}>
         {material}
       </Text>
     ));
 
   const openMapsApp = () => {
-    const coordinates = location.geometry.coordinates;
+    const coordinates = location?.geometry.coordinates;
     if (coordinates) {
       const label = 'Custom Label';
 
@@ -72,7 +83,7 @@ export function ProfileBookmarkCard(props: { location: LocationPoint }): JSX.Ele
         <View style={styles.containerBody}>
           <View style={styles.containerSubBody}>{renderMaterials()}</View>
           <View style={styles.containerSubBody}>
-            <Text style={styles.subText}>{location.properties.businessHours}</Text>
+            <Text style={styles.subText}>{location?.properties.businessHours}</Text>
           </View>
         </View>
       </View>

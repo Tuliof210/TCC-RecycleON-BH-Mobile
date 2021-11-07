@@ -10,7 +10,7 @@ export default StyleSheet.create({
   goBackContainer: {
     marginHorizontal: 20,
     marginTop: 50,
-    marginBottom: 30,
+    marginBottom: 20,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -19,5 +19,9 @@ export default StyleSheet.create({
     fontSize: 25,
     color: colors('green-dark'),
     marginHorizontal: 10,
+  },
+  bookmarksContainer: {
+    // paddingVertical: 20,
+    // marginVertical: 20,
   },
 });

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, View, TouchableHighlight, Text } from 'react-native';
+import { SafeAreaView, View, TouchableHighlight, Text, ScrollView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
-import { LocationContext, UserContext } from 'context';
+import { UserContext } from 'context';
 
 import { ProfileBookmarkCard } from './profile-bookmark-card/profile-bookmark-card.component';
 
@@ -15,27 +15,19 @@ import { colors } from 'common/constants/colors';
 export default function ProfileBookmarksScreen(props: { navigation: NavigationProp<any, any> }): JSX.Element {
   const router = props.navigation;
 
-  const { getLocationById } = useContext(LocationContext);
   const { user, updateUser } = useContext(UserContext);
 
-  function renderBookmarks(): Promise<Array<JSX.Element>> | JSX.Element {
+  function renderBookmarks(): Array<JSX.Element> | JSX.Element {
     const bookmarks = user?.bookmarks;
     return bookmarks && bookmarks.length > 0 ? renderBookmarksList(bookmarks) : renderEmptyMessage();
   }
 
   function renderEmptyMessage(): JSX.Element {
-    return <View></View>;
+    return <Text>teste</Text>;
   }
 
-  async function renderBookmarksList(bookmarks: Array<string>): Promise<Array<JSX.Element>> {
-    const elements: Array<JSX.Element> = [];
-
-    for (const id of bookmarks) {
-      const locationData = await getLocationById(id);
-      if (locationData) elements.push(<ProfileBookmarkCard location={locationData} />);
-    }
-
-    return elements;
+  function renderBookmarksList(bookmarks: Array<string>): Array<JSX.Element> {
+    return bookmarks.map((id) => <ProfileBookmarkCard key={id} locationId={id} />);
   }
 
   return (
@@ -46,7 +38,7 @@ export default function ProfileBookmarksScreen(props: { navigation: NavigationPr
           <Text style={styles.goBackText}>Voltar</Text>
         </View>
       </TouchableHighlight>
-      {renderBookmarks()}
+      <ScrollView style={styles.bookmarksContainer}>{renderBookmarks()}</ScrollView>
     </SafeAreaView>
   );
 }
