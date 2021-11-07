@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, gradient } from 'common/constants/colors';
+import { colors } from 'common/constants/colors';
 
 export default StyleSheet.create({
   screen: {
@@ -7,6 +7,17 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
+  goBackContainer: {
+    marginHorizontal: 20,
+    marginTop: 50,
+    marginBottom: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  goBackText: {
+    fontFamily: 'Ubuntu-Medium',
+    fontSize: 25,
+    color: colors('green-dark'),
+    marginHorizontal: 10,
+  },
 });
-
-export const backgroundGradient = [gradient('fade-green-bg').start, gradient('fade-green-bg').end];

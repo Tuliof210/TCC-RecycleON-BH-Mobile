@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, View, TouchableHighlight, Text, SafeAreaView } from 'react-native';
 import { NavigationProp, Route } from '@react-navigation/native';
 
@@ -61,16 +61,14 @@ export default function WikiMainScreen(props: {
   }
 
   return (
-    <Fragment>
-      <SafeAreaView style={{ flex: 1 }}>
-        <TouchableHighlight activeOpacity={1} underlayColor={colors('white')} onPress={() => router.goBack()}>
-          <View style={styles.goBackContainer}>
-            <SvgXml xml={ArrowBackSVG.default} width={25} height={25} />
-            <Text style={styles.goBackText}>Voltar</Text>
-          </View>
-        </TouchableHighlight>
-        {renderWikiData()}
-      </SafeAreaView>
-    </Fragment>
+    <SafeAreaView style={{ flex: 1 }}>
+      <TouchableHighlight activeOpacity={1} underlayColor={colors('white')} onPress={() => router.goBack()}>
+        <View style={styles.goBackContainer}>
+          <SvgXml xml={ArrowBackSVG.default} width={25} height={25} />
+          <Text style={styles.goBackText}>Voltar</Text>
+        </View>
+      </TouchableHighlight>
+      {renderWikiData()}
+    </SafeAreaView>
   );
 }

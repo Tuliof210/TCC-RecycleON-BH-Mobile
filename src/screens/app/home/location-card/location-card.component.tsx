@@ -9,7 +9,7 @@ import { PrimaryButtonComponent } from 'common/components';
 import styles from './location-card.style';
 
 import { SvgXml } from 'react-native-svg';
-import { SearchSVG, StarSVG } from 'assets/svgs';
+import { StarSVG } from 'assets/svgs';
 
 interface IlocationCardProps {}
 export interface ILocationCardRef {
@@ -127,7 +127,7 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
       </Text>
     ));
 
-  const teste = () => {
+  const openMapsApp = () => {
     const coordinates = location?.geometry.coordinates;
     if (coordinates) {
       const label = 'Custom Label';
@@ -171,7 +171,7 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
 
       <View style={styles.containerFooter}>
         <View>
-          <PrimaryButtonComponent size={styles.submitButton} label="Ver no Maps" handler={teste} />
+          <PrimaryButtonComponent size={styles.directionButton} label="Ver no Maps" handler={openMapsApp} />
         </View>
         <TouchableWithoutFeedback onPress={toggleFavorite}>
           <SvgXml xml={isFavorite ? StarSVG.filled : StarSVG.empty} width={35} height={35} />

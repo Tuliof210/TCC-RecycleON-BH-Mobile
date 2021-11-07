@@ -16,6 +16,7 @@ interface LocationContextData {
   startWatchCurrentPosition(): Promise<void>;
   getMapRegion(coordinatesList: Array<Coordinates>): FullCoordinates;
   getLocationsMap(data: { tags: Array<string>; materials: Array<string> }): Promise<Array<LocationPoint>>;
+  getLocationById(id: string): Promise<LocationPoint | void>;
 }
 
 export const LocationContext = createContext<LocationContextData>({} as LocationContextData);
@@ -55,6 +56,10 @@ export function LocationProvider({ children }: { children: React.ReactNode }): J
     [token],
   );
 
+  const getLocationById = useCallback(async (id: string) => {
+    return locationService.getLocationsById(token, id);
+  }, []);
+
   return (
     <LocationContext.Provider
       value={{
@@ -65,6 +70,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }): J
         startWatchCurrentPosition,
         getMapRegion,
         getLocationsMap,
+        getLocationById,
       }}
     >
       {children}

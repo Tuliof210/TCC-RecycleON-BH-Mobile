@@ -31,7 +31,7 @@ export function LocationSearcherComponent(props: {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.containerShadow]}>
       <TextInput
         placeholder={placeholder}
         placeholderTextColor={colors('black') + '4D'}
