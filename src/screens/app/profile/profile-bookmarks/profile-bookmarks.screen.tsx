@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, View, TouchableHighlight, Text, ScrollView } from 'react-native';
+import { SafeAreaView, View, TouchableHighlight, Text, ScrollView, Image } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { UserContext } from 'context';
@@ -33,7 +33,12 @@ export default function ProfileBookmarksScreen(props: { navigation: NavigationPr
   }
 
   function renderEmptyMessage(): JSX.Element {
-    return <Text>teste</Text>;
+    return (
+      <View style={styles.bookmarksEmpty}>
+        <Image source={require('assets/images/empty.png')} style={styles.bookmarksEmptyImage} />
+        <Text style={styles.bookmarksEmptyText}>Você não possui nenhum local favorito</Text>
+      </View>
+    );
   }
 
   function renderBookmarksList(bookmarks: Array<string>): Array<JSX.Element> {
@@ -48,7 +53,7 @@ export default function ProfileBookmarksScreen(props: { navigation: NavigationPr
           <Text style={styles.goBackText}>Voltar</Text>
         </View>
       </TouchableHighlight>
-      <ScrollView style={styles.bookmarksContainer}>{renderBookmarks()}</ScrollView>
+      <ScrollView>{renderBookmarks()}</ScrollView>
     </SafeAreaView>
   );
 }

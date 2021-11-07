@@ -20,5 +20,21 @@ export default StyleSheet.create({
     color: colors('green-dark'),
     marginHorizontal: 10,
   },
-  bookmarksContainer: {},
+  bookmarksEmpty: {
+    marginVertical: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bookmarksEmptyImage: {
+    width: 200,
+    height: 200,
+    opacity: 0.2,
+  },
+  bookmarksEmptyText: {
+    marginVertical: 20,
+    textAlign: 'center',
+    fontFamily: 'Ubuntu-Bold',
+    fontSize: 20,
+    color: colors('black-medium'),
+  },
 });

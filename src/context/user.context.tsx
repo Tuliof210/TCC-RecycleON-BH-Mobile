@@ -25,7 +25,6 @@ export function UserProvider({ children }: { children: React.ReactNode }): JSX.E
   }, []);
 
   const updateUser = useCallback(async (userData: UpdateUserData) => {
-    console.log({ userData });
     await userService.updateUser(token, userData);
   }, []);
 
