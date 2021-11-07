@@ -1,14 +1,15 @@
 import React, { forwardRef, Fragment, useImperativeHandle, useState, useContext, useEffect } from 'react';
-import { Animated, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { Animated, View, Text, TouchableWithoutFeedback, Platform, Linking } from 'react-native';
 
 import { UserContext } from 'context';
 
 import { LocationPoint } from 'common/constants/types';
+import { PrimaryButtonComponent } from 'common/components';
 
 import styles from './location-card.style';
 
 import { SvgXml } from 'react-native-svg';
-import { StarSVG } from 'assets/svgs';
+import { SearchSVG, StarSVG } from 'assets/svgs';
 
 interface IlocationCardProps {}
 export interface ILocationCardRef {
@@ -126,6 +127,26 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
       </Text>
     ));
 
+  const teste = () => {
+    const coordinates = location?.geometry.coordinates;
+    if (coordinates) {
+      const label = 'Custom Label';
+
+      const [lng, lat] = coordinates;
+      const latLng = `${lat},${lng}`;
+
+      const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+      const url = Platform.select({
+        ios: `${scheme}${label}@${latLng}`,
+        android: `${scheme}${latLng}(${label})`,
+      });
+
+      if (url) {
+        Linking.openURL(url);
+      }
+    }
+  };
+
   return (
     <Animated.View
       style={[
@@ -149,6 +170,9 @@ export const LocationCardComponent = forwardRef<ILocationCardRef, IlocationCardP
       </View>
 
       <View style={styles.containerFooter}>
+        <View>
+          <PrimaryButtonComponent size={styles.submitButton} label="Ver no Maps" handler={teste} />
+        </View>
         <TouchableWithoutFeedback onPress={toggleFavorite}>
           <SvgXml xml={isFavorite ? StarSVG.filled : StarSVG.empty} width={35} height={35} />
         </TouchableWithoutFeedback>

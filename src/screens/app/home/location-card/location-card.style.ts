@@ -29,7 +29,15 @@ export default StyleSheet.create({
     width: '50%',
   },
 
-  containerFooter: {},
+  containerFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  submitButton: {
+    height: 30,
+    width: '60%',
+  },
 
   labelText: {
     textAlign: 'left',
