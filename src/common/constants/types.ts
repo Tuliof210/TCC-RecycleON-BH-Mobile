@@ -27,6 +27,23 @@ export type UpdateUserData = {
 
 //------------------------------------------------
 
+export type FacebookProfileData = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export type SocialAuthData = {
+  name: string;
+  password: string;
+  socialId: {
+    facebook?: string;
+    google?: string;
+  };
+};
+
+//------------------------------------------------
+
 export type Coordinates = {
   latitude: number;
   longitude: number;

@@ -1,11 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-import { SigninData, SignupData, User, UpdateUserData } from 'common/constants/types';
+import { SigninData, SignupData, FacebookProfileData } from 'common/constants/types';
 
 import { AuthService } from 'services';
 
 interface AuthContextData {
   token: string | null;
+  facebookAuth(data: FacebookProfileData): Promise<void>;
   signUp(data: SignupData): Promise<void>;
   signIn(data: SigninData): Promise<void>;
   signOut(): Promise<void>;
@@ -23,6 +24,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
     })();
   }, []);
 
+  async function facebookAuth(data: FacebookProfileData): Promise<void> {
+    await authService.facebookAuth(data);
+  }
+
+  //=====================================================
+
   async function signUp(data: SignupData): Promise<void> {
     await authService.signUp(data);
   }
@@ -35,5 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
     await authService.signOut();
   }
 
-  return <AuthContext.Provider value={{ token, signUp, signIn, signOut }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ token, signUp, signIn, signOut, facebookAuth }}>{children}</AuthContext.Provider>
+  );
 }

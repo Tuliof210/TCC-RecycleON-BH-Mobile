@@ -3,7 +3,7 @@ import base64 from 'react-native-base64';
 
 import config from 'config';
 import { AppAPI, handleHttpError } from 'common/libs/axios';
-import { AuthenticatedUser, SigninData, SignupData } from 'common/constants/types';
+import { AuthenticatedUser, SigninData, SignupData, FacebookProfileData } from 'common/constants/types';
 
 export class AuthService {
   private readonly tokenKey = '@userToken';
@@ -38,18 +38,27 @@ export class AuthService {
     }).then((response) => this.saveUserToken(response.data));
   }
 
-  private async saveUserToken(authenticatedUser: AuthenticatedUser): Promise<void> {
-    this.setToken(authenticatedUser.token ?? null);
-
-    const token = JSON.stringify({ token: authenticatedUser.token });
-    await AsyncStorage.setItem(this.tokenKey, token).catch(handleHttpError);
-  }
-
   async signOut(): Promise<void> {
     await AsyncStorage.removeItem(this.tokenKey)
       .then(() => {
         this.setToken(null);
       })
       .catch(handleHttpError);
+  }
+
+  //===============================================================================
+  async facebookAuth(data: FacebookProfileData): Promise<void> {
+    await AppAPI.post(`/users/facebook`, data, {
+      headers: {
+        masterKey: config['MASTER_KEY'],
+      },
+    }).then((response) => this.saveUserToken(response.data));
+  }
+
+  private async saveUserToken(authenticatedUser: AuthenticatedUser): Promise<void> {
+    this.setToken(authenticatedUser.token ?? null);
+
+    const token = JSON.stringify({ token: authenticatedUser.token });
+    await AsyncStorage.setItem(this.tokenKey, token).catch(handleHttpError);
   }
 }

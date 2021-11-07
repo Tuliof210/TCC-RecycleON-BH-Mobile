@@ -8,7 +8,7 @@ import styles, { backgroundGradient } from './social-button.style';
 export function SocialButtonComponent(props: {
   size: { width: number | string; height: number | string };
   icon: ImageProps;
-  handler: () => void;
+  handler: () => Promise<void>;
 }): JSX.Element {
   return (
     <TouchableWithoutFeedback onPress={props.handler}>
