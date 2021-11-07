@@ -20,7 +20,6 @@ export function UserProvider({ children }: { children: React.ReactNode }): JSX.E
 
   useEffect(() => {
     (async () => {
-      console.log({ token });
       await userService.syncUser(token);
     })();
   }, []);

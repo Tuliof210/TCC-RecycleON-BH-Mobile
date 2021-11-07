@@ -34,22 +34,20 @@ export default function AppRoutes(props: {
   };
 
   const WikiRoutesConfigured = () => <WikiRoutes screenOptions={props.screenOptions} />;
-  const ProfileRoutesConfigured = () => (
-    <UserProvider>
-      <ProfileRoutes screenOptions={props.screenOptions} />
-    </UserProvider>
-  );
+  const ProfileRoutesConfigured = () => <ProfileRoutes screenOptions={props.screenOptions} />;
 
-  const ComposeContext = ({ children }: { children: React.ReactNode }): JSX.Element => {
+  const GlobalContextProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
     return (
       <LocationProvider>
-        <WikiProvider>{children}</WikiProvider>
+        <UserProvider>
+          <WikiProvider>{children}</WikiProvider>
+        </UserProvider>
       </LocationProvider>
     );
   };
 
   return (
-    <ComposeContext>
+    <GlobalContextProvider>
       <AppTab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
@@ -64,6 +62,6 @@ export default function AppRoutes(props: {
         <AppTab.Screen name="Wiki" component={WikiRoutesConfigured} />
         <AppTab.Screen name="Profile" component={ProfileRoutesConfigured} />
       </AppTab.Navigator>
-    </ComposeContext>
+    </GlobalContextProvider>
   );
 }
