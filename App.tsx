@@ -1,21 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Fragment } from 'react';
+import { LogBox } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
+import { useFonts } from '@use-expo/font';
+
+import { UbuntuFonts } from 'assets/fonts';
+import { AuthProvider, LocationProvider } from 'context';
+import { Routes } from 'routes';
+
+export default function RecycleON_BH(): JSX.Element {
+  // habilita a possibilidade de executar com "react-devtools" em ambiente de Dev
+  if (__DEV__) require('react-devtools');
+
+  // react sempre avisa como "erro" o fato de estarmos executando com remote debugger
+  LogBox.ignoreLogs(['Remote debugger']); // log box permite ignorarmos esse erro
+
+  // carrega fonts custom para serem usadas no "StyleSheet.create({})"
+  const [isLoaded] = useFonts(UbuntuFonts);
+
+  // so carregará o app caso carregue as fonts
+  return isLoaded ? (
+    <Fragment>
       <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </NavigationContainer>
+    </Fragment>
+  ) : (
+    <AppLoading></AppLoading>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -4,29 +4,27 @@
     "slug": "recycleon-bh-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/images/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/AppIcons/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#87D459"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./src/assets/AppIcons/playstore.png",
+        "backgroundColor": "#87D459"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./src/assets/images/favicon.png"
     }
   }
 }
