@@ -59,7 +59,7 @@ export default function SocialAuthComponent(): JSX.Element {
 
   const handleSocialAuthError = (error: any, brand: string) => {
     console.log(`${error.name}: ${error.message}`);
-    alert(`Erro ao tentar entrar com ${brand}`);
+    alert(`Erro ao entrar com ${brand}`);
   };
 
   return (
