@@ -27,7 +27,7 @@ export type UpdateUserData = {
 
 //------------------------------------------------
 
-export type FacebookProfileData = {
+export type SocialProfileData = {
   id: string;
   name: string;
   email: string;

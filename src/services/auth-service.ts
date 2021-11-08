@@ -3,7 +3,7 @@ import base64 from 'react-native-base64';
 
 import config from 'config';
 import { AppAPI, handleHttpError } from 'common/libs/axios';
-import { AuthenticatedUser, SigninData, SignupData, FacebookProfileData } from 'common/constants/types';
+import { AuthenticatedUser, SigninData, SignupData, SocialProfileData } from 'common/constants/types';
 
 export class AuthService {
   private readonly tokenKey = '@userToken';
@@ -47,8 +47,10 @@ export class AuthService {
   }
 
   //===============================================================================
-  async facebookAuth(data: FacebookProfileData): Promise<void> {
-    await AppAPI.post(`/users/facebook`, data, {
+  async socialAuth(data: SocialProfileData, brand: string): Promise<void> {
+    console.log({ brand, data });
+
+    await AppAPI.post(`/users/${brand}`, data, {
       headers: {
         masterKey: config['MASTER_KEY'],
       },

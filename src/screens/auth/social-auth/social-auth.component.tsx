@@ -1,11 +1,13 @@
 import React, { Fragment, useContext } from 'react';
 import { Alert, View } from 'react-native';
+
 import * as Facebook from 'expo-facebook';
+import * as Google from 'expo-google-app-auth';
 
 import axios from 'axios';
 import config from 'config';
 
-import { FacebookProfileData } from 'common/constants/types';
+import { SocialProfileData } from 'common/constants/types';
 
 import { AuthContext } from 'context';
 import { SocialButtonComponent } from './social-button/social-button.component';
@@ -13,35 +15,52 @@ import { SocialButtonComponent } from './social-button/social-button.component';
 import styles from './social-auth.style';
 
 export default function SocialAuthComponent(): JSX.Element {
-  const { facebookAuth } = useContext(AuthContext);
+  const { socialAuth } = useContext(AuthContext);
 
   async function handleFacebookAuth() {
     try {
       await Facebook.initializeAsync({ appId: config.FACEBOOK_ID });
-      const connection = await Facebook.logInWithReadPermissionsAsync({ permissions: ['public_profile', 'email'] });
+      const facebookConnection = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ['public_profile', 'email'],
+      });
 
-      if (connection.type === 'success') {
-        const { token } = connection;
+      if (facebookConnection.type === 'success') {
+        const { token } = facebookConnection;
         const facebookURL = 'https://graph.facebook.com/me';
         const fields = 'name,email';
 
         const fbProfileData = await axios
           .get(`${facebookURL}?fields=${fields}&access_token=${token}`)
-          .then((response) => response.data as FacebookProfileData);
+          .then((response) => response.data as SocialProfileData);
 
-        await facebookAuth(fbProfileData);
-
-        console.log(fbProfileData);
+        await socialAuth(fbProfileData, 'facebook');
       }
     } catch (error: any) {
-      console.log(`${error.name}: ${error.message}`);
-      alert(`Erro ao tentar entrar com Facebook`);
+      handleSocialAuthError(error, 'Facebook');
     }
   }
 
   async function handleGoogleAuth() {
-    Alert.alert('Auth With Google', 'working...', [{ text: 'Cancel' }, { text: 'OK' }]);
+    try {
+      const googleConnection = await Google.logInAsync({
+        iosClientId: config.GOOGLE_CLIENT_ID.IOS,
+        androidClientId: config.GOOGLE_CLIENT_ID.ANDROID,
+        scopes: ['profile', 'email'],
+      });
+
+      if (googleConnection.type === 'success') {
+        const { id, name, email } = googleConnection.user;
+        if (id && name && email) await socialAuth({ id, name, email }, 'google');
+      }
+    } catch (error: any) {
+      handleSocialAuthError(error, 'Google');
+    }
   }
+
+  const handleSocialAuthError = (error: any, brand: string) => {
+    console.log(`${error.name}: ${error.message}`);
+    alert(`Erro ao tentar entrar com ${brand}`);
+  };
 
   return (
     <Fragment>
