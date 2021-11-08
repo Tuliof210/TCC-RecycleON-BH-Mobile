@@ -48,8 +48,6 @@ export class AuthService {
 
   //===============================================================================
   async socialAuth(data: SocialProfileData, brand: string): Promise<void> {
-    console.log({ brand, data });
-
     await AppAPI.post(`/users/${brand}`, data, {
       headers: {
         masterKey: config['MASTER_KEY'],
