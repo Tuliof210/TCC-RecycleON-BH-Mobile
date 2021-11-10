@@ -22,6 +22,7 @@ export default StyleSheet.create({
   },
   bookmarksEmpty: {
     marginVertical: 50,
+    marginHorizontal: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -31,7 +32,7 @@ export default StyleSheet.create({
     opacity: 0.2,
   },
   bookmarksEmptyText: {
-    marginVertical: 20,
+    marginVertical: 30,
     textAlign: 'center',
     fontFamily: 'Ubuntu-Bold',
     fontSize: 20,

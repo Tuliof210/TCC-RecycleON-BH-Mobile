@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "recycleon-bh-mobile",
-    "slug": "recycleon-bh-mobile",
+    "name": "RecycleON BH",
+    "slug": "recycleon-bh",
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
@@ -15,13 +16,15 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.puc.recycleonbh"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/AppIcons/playstore.png",
         "backgroundColor": "#87D459"
-      }
+      },
+      "package": "com.puc.recycleonbh"
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Image, View, Text, SafeAreaView } from 'react-native';
+import { Alert, Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -24,7 +24,18 @@ export default function SigninScreen(props: { navigation: NavigationProp<any, an
     signIn({
       email: email.trim(),
       password: password.trim(),
+    }).catch((error: any) => {
+      const message: string = error.message;
+      handleError(message);
     });
+  }
+
+  function handleError(message: string) {
+    const errorMessage = message.includes('code 401')
+      ? 'E-mail ou senha inválidos'
+      : 'Não foi possível entrar na conta';
+
+    Alert.alert(`Erro ao autenticar`, errorMessage);
   }
 
   return (

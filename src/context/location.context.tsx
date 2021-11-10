@@ -12,7 +12,7 @@ interface LocationContextData {
   latitude: number;
   longitude: number;
   hasLocationPermission: boolean;
-  requestLocationPermission(): Promise<void>;
+  requestLocationPermission(): Promise<boolean>;
   startWatchCurrentPosition(): Promise<void>;
   getMapRegion(coordinatesList: Array<Coordinates>): FullCoordinates;
   getLocationsMap(data: { tags: Array<string>; materials: Array<string> }): Promise<Array<LocationPoint>>;
@@ -33,7 +33,10 @@ export function LocationProvider({ children }: { children: React.ReactNode }): J
 
   const requestLocationPermission = useCallback(async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
-    setHasLocationPermission(status === 'granted');
+    const granted = status === 'granted';
+
+    setHasLocationPermission(granted);
+    return granted;
   }, []);
 
   const startWatchCurrentPosition = useCallback(async () => {
