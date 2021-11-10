@@ -3,7 +3,9 @@ import { View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import { LocationPoint } from 'common/constants/types';
-import { LocationContext, UserProvider } from 'context';
+import { DefaultLocation } from 'common/constants/locations';
+
+import { LocationContext } from 'context';
 
 import { LocationSearcherComponent } from './location-searcher/location-searcher.component';
 import { LocationPointComponent } from './location-point/location-point.component';
@@ -54,8 +56,8 @@ export default function HomeScreen(): JSX.Element {
 
   function requestUserLocation() {
     requestLocationPermission()
-      .then(async () => {
-        if (hasLocationPermission) {
+      .then(async (granted) => {
+        if (granted) {
           setTimeout(async () => {
             await startWatchCurrentPosition();
           }, 5000);
@@ -66,10 +68,19 @@ export default function HomeScreen(): JSX.Element {
       });
   }
 
+  function canRenderUserLocation(): boolean {
+    return hasLocationPermission && latitude !== DefaultLocation.latitude && longitude !== DefaultLocation.longitude;
+  }
+
   function renderUserLocation(): JSX.Element | false {
     return (
-      hasLocationPermission && (
-        <Marker key={'user'} coordinate={{ latitude, longitude }} title={'Casa'} description={'Minha Casa'} />
+      canRenderUserLocation() && (
+        <Marker
+          key={'user'}
+          coordinate={{ latitude, longitude }}
+          title={'Você'}
+          description={'Sua localização atual'}
+        />
       )
     );
   }
