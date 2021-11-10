@@ -58,8 +58,12 @@ export default function SocialAuthComponent(): JSX.Element {
   }
 
   const handleSocialAuthError = (error: any, brand: string) => {
-    console.log(`${error.name}: ${error.message}`);
-    alert(`Erro ao entrar com ${brand}`);
+    const message: string = error.message;
+    const errorMessage = message.includes('code 409')
+      ? 'Já existe uma conta cadastrada com esse e-mail'
+      : `Não foi possível autenticar com ${brand}`;
+
+    Alert.alert(`Erro ao autenticar`, errorMessage);
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Image, View, Text, SafeAreaView } from 'react-native';
+import { Alert, Image, View, Text, SafeAreaView } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -25,7 +25,18 @@ export default function SignupScreen(props: { navigation: NavigationProp<any, an
       name: name.trim(),
       email: email.trim(),
       password: password.trim(),
+    }).catch((error: any) => {
+      const message: string = error.message;
+      handleError(message);
     });
+  }
+
+  function handleError(message: string) {
+    const errorMessage = message.includes('code 409')
+      ? 'Já existe uma conta cadastrada com esse e-mail'
+      : 'Não foi possível criar uma conta';
+
+    Alert.alert(`Erro ao cadastrar`, errorMessage);
   }
 
   return (
