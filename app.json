@@ -17,14 +17,19 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.puc.recycleonbh"
+      "bundleIdentifier": "com.recycleonbh.recycleonbh"
     },
     "android": {
+      "package": "com.recycleonbh.recycleonbh",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/AppIcons/playstore.png",
         "backgroundColor": "#87D459"
       },
-      "package": "com.puc.recycleonbh"
+      "config": {
+        "googleMaps": {
+          "apiKey": "GOOGLE_MAPS_ANDROID_API_KEY"
+        }
+      }
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
